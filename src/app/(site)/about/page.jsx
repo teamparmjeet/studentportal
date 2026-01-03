@@ -138,7 +138,7 @@ export default function page() {
                 </h3>
                 <p className="text-slate-600">
                   To provide flexible, career-oriented programs that help students
-                  balance education with professional and personal commitments.
+                  balance education with professional and personal commitments
                 </p>
               </div>
             </div>
