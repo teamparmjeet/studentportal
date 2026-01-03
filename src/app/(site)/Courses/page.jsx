@@ -1,32 +1,33 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-const courses = [
-  {
-    title: 'Bachelor of Engineering',
-    image: '/images/slide1.webp',
-  },
-  {
-    title: 'Bachelor of Business Administration (BBA)',
-    image: '/images/slide2.webp',
-  },
-  {
-    title: 'Master of Business Administration (MBA)',
-    image: '/images/slide3.webp',
-  },
-  {
-    title: 'Computer Courses',
-    image: '/images/slide3.webp',
-  },
-];
 
 export default function CoursesPage() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch('/api/courses', { cache: 'no-store' });
+        const data = await res.json();
+        setCourses(data || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   return (
     <main className="bg-gray-50">
 
       {/* HERO */}
-      <section className=" footerbg whychoose text-white">
+      <section className="footerbg whychoose text-white">
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Our Courses
@@ -38,62 +39,67 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* COURSES GRID */}
+      {/* COURSES */}
       <section className="py-20">
-  <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-      {courses.map((course, index) => (
-        <div
-          key={index}
-          className="group relative h-[320px] rounded-xl overflow-hidden shadow-lg bg-black"
-        >
+          {loading && (
+            <p className="text-center text-gray-500">Loading courses...</p>
+          )}
 
-          {/* Image */}
-          <Image
-            src={course.image}
-            alt={course.title}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-            priority={index === 0}
-          />
+          {!loading && courses.length === 0 && (
+            <p className="text-center text-gray-500">
+              No courses available right now.
+            </p>
+          )}
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+          {/* GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courses.map((course) => (
+              <div
+                key={course._id}
+                className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
+              >
 
-          {/* Bottom Content */}
-          <div
-            className="
-              absolute bottom-0 left-0 right-0
-              bg-black/90
-              px-6 py-3
-              transition-all duration-300
-              max-h-[56px]
-              group-hover:max-h-[160px]
-            "
-          >
-            <h3
-              className="
-                text-lg font-semibold text-white
-                overflow-hidden
-                transition-all duration-300
-                group-hover:whitespace-normal
-                line-clamp-1
-                group-hover:line-clamp-3
-              "
-            >
-              {course.title}
-            </h3>
+                {/* IMAGE — FIXED HEIGHT */}
+                <div className="relative w-full  h-64 bg-gray-200">
+                  <Image
+                    src={course.image}
+                    alt={course.title}
+                    fill
+                    className="object-cover"
+                  />
+
+                  {/* TITLE BAR */}
+                  <div className=" absolute bottom-0 left-0 right-0 bg-black/80 backdrop-blur-md bg-opacity-50 px-4 py-4 text-center">
+                    <h3 className="text-xl font-bold text-white">
+                      {course.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* CONTENT — AUTO HEIGHT */}
+                <div className="p-5">
+                  <h4 className="text-center font-semibold text-gray-800 mb-4">
+                    COURSE DETAILS
+                  </h4>
+
+                  <ul className="space-y-3 text-sm text-gray-800">
+                    {course.descriptionPoints?.map((point, i) => (
+                      <li key={i} className="flex gap-2">
+                        <span className="text-red-600">👉</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+              </div>
+            ))}
           </div>
 
         </div>
-      ))}
-    </div>
-
-  </div>
-</section>
-
-
+      </section>
 
     </main>
   );

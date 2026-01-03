@@ -11,33 +11,33 @@ export const authOptions = {
       credentials: {},
 
       async authorize(credentials) {
-        const { email, password } = credentials;
-        try {
-          await dbConnect();
-          const admin = await UserModel.findOne({ email });
+  const { email, password } = credentials;
 
-          if (!admin) {
-            return null;
-          }
+  await dbConnect();
+  const admin = await UserModel.findOne({ email });
 
-          const passwordMatch = await bcrypt.compare(password, admin.password);
+  if (!admin) {
+    throw new Error("INVALID_CREDENTIALS");
+  }
 
-          if (!passwordMatch) {
-            return null;
-          }
+  const passwordMatch = await bcrypt.compare(password, admin.password);
 
-          return {
-            id: admin._id,
-            email: admin.email,
-            name: admin.name,
-            usertype: admin.usertype,
-          };
+  if (!passwordMatch) {
+    throw new Error("INVALID_CREDENTIALS");
+  }
 
-        } catch (error) {
-          console.log("Error:", error);
-          return null;
-        }
-      },
+  if (admin.usertype !== "2") {
+    throw new Error("NOT_ADMIN");
+  }
+
+  return {
+    id: admin._id,
+    email: admin.email,
+    name: admin.name,
+    usertype: admin.usertype,
+  };
+}
+
     }),
   ],
   session: {

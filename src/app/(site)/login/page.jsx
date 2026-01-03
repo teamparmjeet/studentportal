@@ -33,10 +33,15 @@ export default function LoginPage() {
         setLoading(false);
 
         if (res?.error) {
-            setError('Invalid email or password');
+            if (res.error === "NOT_ADMIN") {
+                setError("You are not authorized to access the admin panel");
+            } else {
+                setError("Invalid email or password");
+            }
         } else {
-            router.push('/admin'); // redirect after login
+            router.push('/admin');
         }
+
     };
 
     return (

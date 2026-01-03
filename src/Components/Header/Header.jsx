@@ -12,11 +12,7 @@ export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [serviceOpen, setServiceOpen] = useState(false);
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 10);
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+
 
     const isActive = (path) =>
         pathname === path ? "text-orange-600" : "text-gray-800";
@@ -25,8 +21,7 @@ export default function Header() {
         <>
 
             <header
-                className={`fixed top-0 w-full z-50 transition-all duration-300
-        ${scrolled ? "backdrop-blur-lg bg-white/80 shadow-md" : "bg-transparent"}`}
+                className="fixed top-0 w-full z-50 transition-all duration-300  bg-white/80 backdrop-blur-md shadow-md"
             >
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="h-16 flex items-center justify-between">
@@ -72,9 +67,7 @@ export default function Header() {
                                     <Link href="/services/result" className="block px-4 py-3 hover:bg-gray-100">
                                         Result
                                     </Link>
-                                    <Link href="/services/enquiry" className="block px-4 py-3 hover:bg-gray-100">
-                                        Enquiry
-                                    </Link>
+
                                 </div>
                             </div>
 
@@ -148,9 +141,7 @@ export default function Header() {
                                 <Link href="/services/result" onClick={() => setOpen(false)} className="  p-1">
                                     Result
                                 </Link>
-                                <Link href="/services/enquiry" onClick={() => setOpen(false)} className="  p-1">
-                                    Enquiry
-                                </Link>
+
                             </div>
                         )}
                     </div>
