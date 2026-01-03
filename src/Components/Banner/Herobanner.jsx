@@ -47,7 +47,7 @@ export default function Herobanner() {
                             style={{ backgroundImage: `url(${slide.img})` }}
                         >
                             {/* Soft gradient overlay (NO color flash) */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+                            <div className="absolute inset-0 bg-black/70 "></div>
 
                             {/* Content */}
                             <div className="relative z-10 container mx-auto px-6">
@@ -60,7 +60,7 @@ export default function Herobanner() {
                                         {slide.desc}
                                     </p>
 
-                                    <button className="px-9 py-3 bg-orange-500 hover:bg-orange-600 transition-all duration-300 rounded-xl font-semibold shadow-xl hover:scale-105">
+                                    <button className="px-9 py-3 bg-orange-500 hover:bg-orange-600 transition-all duration-300 rounded-xl font-semibold shadow-xl ">
                                         Apply Now
                                     </button>
                                 </div>
@@ -78,14 +78,7 @@ export default function Herobanner() {
                     animation: slowZoom 12s ease-in-out forwards;
                 }
 
-                @keyframes slowZoom {
-                    from {
-                        transform: scale(1);
-                    }
-                    to {
-                        transform: scale(1.08);
-                    }
-                }
+               
 
                 .hero-title {
                     animation: fadeUp 1.1s ease-out forwards;
