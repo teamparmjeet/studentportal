@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
-
+import Link from 'next/link';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
@@ -60,9 +60,9 @@ export default function Herobanner() {
                                         {slide.desc}
                                     </p>
 
-                                    <button className="px-9 py-3 bg-orange-500 hover:bg-orange-600 transition-all duration-300 rounded-xl font-semibold shadow-xl ">
+                                    <Link href="/services/applynow" className="px-9 py-3 bg-orange-500 hover:bg-orange-600 transition-all duration-300 rounded-xl font-semibold shadow-xl ">
                                         Apply Now
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -10,15 +10,37 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
 
-                    <div>
+                     <div>
                         <h4 className=" text-lg font-semibold mb-4">
-                            Address
+                            Quick Menu
                         </h4>
-                        <p className="flex gap-2 text-sm leading-relaxed">
-                            <MapPin size={18} className="text-orange-500 mt-1" />
-                            khasrn No.2/17 Vipin Garden Extn,
-                            Uttam Nagar, New Delhi – 110059
-                        </p>
+
+                        <ul className="space-y-2 text-sm">
+                            <li>
+                                <Link href="/" className="hover:text-orange-500">
+                                    Home
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/about" className="hover:text-orange-500">
+                                    About
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link href="/Courses" className="hover:text-orange-500">
+                                    Courses
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/contact" className="hover:text-orange-500">
+                                    Contact Us
+                                </Link>
+                            </li>
+                        </ul>
+
+
+
                     </div>
 
                     {/* CONTACT */}
@@ -56,57 +78,25 @@ export default function Footer() {
                     </div>
 
                     {/* QUICK LINKS */}
-                    <div>
+                  
+                     <div>
                         <h4 className=" text-lg font-semibold mb-4">
-                            Quick Menu
+                            Location
                         </h4>
-
-                        <ul className="space-y-2 text-sm">
-                            <li>
-                                <Link href="/" className="hover:text-orange-500">
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/about" className="hover:text-orange-500">
-                                    About
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link href="/Courses" className="hover:text-orange-500">
-                                    Courses
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/contact" className="hover:text-orange-500">
-                                    Contact Us
-                                </Link>
-                            </li>
-                        </ul>
-
-
-
+                        <div className="rounded-xl overflow-hidden border border-gray-700">
+                            <iframe
+                                src="https://www.google.com/maps?q=Vipin%20Garden%20Uttam%20Nagar%20New%20Delhi&output=embed"
+                                width="100%"
+                                height="130"
+                                loading="lazy"
+                                className="border-0"
+                            ></iframe>
+                        </div>
                     </div>
 
                 </div>
 
-                {/* LOCATION */}
-                <div className="mt-12">
-                    <h4 className=" text-lg font-semibold mb-4">
-                        Location
-                    </h4>
 
-                    <div className="rounded-xl overflow-hidden border border-gray-700">
-                        <iframe
-                            src="https://www.google.com/maps?q=Vipin%20Garden%20Uttam%20Nagar%20New%20Delhi&output=embed"
-                            width="100%"
-                            height="220"
-                            loading="lazy"
-                            className="border-0"
-                        ></iframe>
-                    </div>
-                </div>
 
                 {/* BOTTOM BAR */}
                 <div className="border-t border-gray-700 mt-12 py-6 text-center text-sm text-gray-400">

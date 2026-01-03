@@ -63,7 +63,7 @@ export default function Header() {
                   transition-all duration-200"
                                 >
 
-                                    <Link href="/services/admission" className="block px-4 py-3 hover:bg-gray-100">
+                                    <Link href="/services/applynow" className="block px-4 py-3 hover:bg-gray-100">
                                         Online Admission
                                     </Link>
                                     <Link href="/services/registration" className="block px-4 py-3 hover:bg-gray-100">
@@ -86,7 +86,7 @@ export default function Header() {
                                 href="/login"
                                 className="bg-orange-600 text-white px-5 py-2 rounded-full hover:bg-orange-700"
                             >
-                                Login
+                                Admin
                             </Link>
                         </nav>
 
@@ -138,17 +138,17 @@ export default function Header() {
                         </button>
 
                         {serviceOpen && (
-                            <div className="mt-3 ml-3 flex flex-col gap-3 text-sm text-gray-700">
-                                <Link href="/services/admission" onClick={() => setOpen(false)}>
+                            <div className="mt-3  flex flex-col gap-3 text-sm pl-3 border-l border-orange-600">
+                                <Link href="/services/applynow" onClick={() => setOpen(false)} className="  p-1">
                                     Online Admission
                                 </Link>
-                                <Link href="/services/registration" onClick={() => setOpen(false)}>
+                                <Link href="/services/registration" onClick={() => setOpen(false)} className="  p-1">
                                     Registration Details
                                 </Link>
-                                <Link href="/services/result" onClick={() => setOpen(false)}>
+                                <Link href="/services/result" onClick={() => setOpen(false)} className="  p-1">
                                     Result
                                 </Link>
-                                <Link href="/services/enquiry" onClick={() => setOpen(false)}>
+                                <Link href="/services/enquiry" onClick={() => setOpen(false)} className="  p-1">
                                     Enquiry
                                 </Link>
                             </div>
@@ -162,7 +162,7 @@ export default function Header() {
                         className="bg-orange-600 text-white text-center py-2 rounded-lg"
                         onClick={() => setOpen(false)}
                     >
-                        Login
+                        Admin
                     </Link>
                 </nav>
             </aside>

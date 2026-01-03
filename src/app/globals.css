@@ -21,6 +21,9 @@ pre,
     color: #c0c0c0;
 }
 
+.whychoose.footerbg{
+      background-attachment: fixed;
+}
 
 .footerbg::before {
     content: "";
