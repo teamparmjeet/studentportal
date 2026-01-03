@@ -83,7 +83,7 @@ export default function Header() {
                             </Link>
 
                             <Link
-                                href="/login"
+                                href="/admin"
                                 className="bg-orange-600 text-white px-5 py-2 rounded-full hover:bg-orange-700"
                             >
                                 Admin
@@ -158,7 +158,7 @@ export default function Header() {
                     <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
 
                     <Link
-                        href="/login"
+                        href="/admin"
                         className="bg-orange-600 text-white text-center py-2 rounded-lg"
                         onClick={() => setOpen(false)}
                     >
