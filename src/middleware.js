@@ -2,39 +2,46 @@ import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
 export async function middleware(req) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
 
+  const { pathname } = req.nextUrl;
   const url = req.nextUrl.clone();
 
-  
-  if (!token) {
-    console.warn("Access denied: No token found");
-    url.pathname = "/login";
+  /* ======================
+     CASE 1: USER IS LOGGED IN
+     → DO NOT ALLOW LOGIN PAGE
+  ====================== */
+  if (pathname === "/login" && token) {
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 
-  if (token.usertype !== "2") {
-    console.warn("Access denied: Invalid usertype", token.usertype);
-
-    const referer = req.headers.get("referer");
-    if (referer) {
-      try {
-        const refererUrl = new URL(referer);
-        if (!refererUrl.pathname.startsWith("/admin")) {
-          return NextResponse.redirect(refererUrl);
-        }
-      } catch (e) {
-        console.warn("Failed to parse referer", e);
-      }
+  /* ======================
+     CASE 2: ADMIN ROUTES
+  ====================== */
+  if (pathname.startsWith("/admin")) {
+    // ❌ Not logged in
+    if (!token) {
+      url.pathname = "/login";
+      return NextResponse.redirect(url);
     }
 
-    url.pathname = "/";
-    return NextResponse.redirect(url);
+    // ❌ Logged in but not admin
+    if (token.usertype !== "2") {
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
   }
 
   return NextResponse.next();
 }
 
+/* ======================
+   MATCHER
+====================== */
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/login"],
 };
