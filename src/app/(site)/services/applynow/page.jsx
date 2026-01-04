@@ -96,133 +96,136 @@ export default function ApplyNowPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} >
+          <fieldset
+            disabled={loading}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            {/* Programme */}
+            <div>
+              <label className="label">Select Programme *</label>
+              <select name="programme" required className="input">
+                <option value="">-- Select --</option>
+                <option>Diploma</option>
+                <option>Bachelor</option>
+                <option>Master</option>
+              </select>
+            </div>
 
-          {/* Programme */}
-          <div>
-            <label className="label">Select Programme *</label>
-            <select name="programme" required className="input">
-              <option value="">-- Select --</option>
-              <option>Diploma</option>
-              <option>Bachelor</option>
-              <option>Master</option>
-            </select>
-          </div>
+            <div>
+              <label className="label">Date of Admission *</label>
+              <input type="date" name="admissionDate" required className="input" />
+            </div>
 
-          <div>
-            <label className="label">Date of Admission *</label>
-            <input type="date" name="admissionDate" required className="input" />
-          </div>
+            <div>
+              <label className="label">Name *</label>
+              <input name="name" required className="input" />
+            </div>
 
-          <div>
-            <label className="label">Name *</label>
-            <input name="name" required className="input" />
-          </div>
+            <div>
+              <label className="label">Marital Status</label>
+              <select name="maritalStatus" required className="input">
+                <option value="">-- Select one --</option>
+                <option>Single</option>
+                <option>Married</option>
+              </select>
+            </div>
 
-          <div>
-            <label className="label">Marital Status</label>
-            <select name="maritalStatus" required className="input">
-              <option value="">-- Select one --</option>
-              <option>Single</option>
-              <option>Married</option>
-            </select>
-          </div>
+            <div>
+              <label className="label">Father's Name *</label>
+              <input name="fatherName" required className="input" />
+            </div>
 
-          <div>
-            <label className="label">Father's Name *</label>
-            <input name="fatherName" required className="input" />
-          </div>
+            <div>
+              <label className="label">Mobile *</label>
+              <input name="mobile" required className="input" />
+            </div>
 
-          <div>
-            <label className="label">Mobile *</label>
-            <input name="mobile" required className="input" />
-          </div>
+            <div>
+              <label className="label">Mother's Name *</label>
+              <input name="motherName" required className="input" />
+            </div>
 
-          <div>
-            <label className="label">Mother's Name *</label>
-            <input name="motherName" required className="input" />
-          </div>
+            <div>
+              <label className="label">Email *</label>
+              <input type="email" name="email" required className="input" />
+            </div>
 
-          <div>
-            <label className="label">Email *</label>
-            <input type="email" name="email" required className="input" />
-          </div>
+            <div>
+              <label className="label">Date of Birth *</label>
+              <input type="date" name="dob" required className="input" />
+            </div>
+            <div>
+              <label className="label">Gender *</label>
+              <select name="gender" required className="input">
+                <option value="">-- Select --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
 
-          <div>
-            <label className="label">Date of Birth *</label>
-            <input type="date" name="dob" required className="input" />
-          </div>
-          <div>
-            <label className="label">Gender *</label>
-            <select name="gender" required className="input">
-              <option value="">-- Select --</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+            <div>
+              <label className="label">Profile Image</label>
+              <input type="file" required name="profileImage" className="input" />
+            </div>
 
-          <div>
-            <label className="label">Profile Image</label>
-            <input type="file" required name="profileImage" className="input" />
-          </div>
+            <div className="md:col-span-2">
+              <label className="label">Present Address *</label>
+              <textarea name="presentAddress" required className="input h-24" />
+            </div>
 
-          <div className="md:col-span-2">
-            <label className="label">Present Address *</label>
-            <textarea name="presentAddress" required className="input h-24" />
-          </div>
-
-          <div className="md:col-span-2">
-            <label className="label">Academic Details *</label>
-            <textarea name="academicDetails" placeholder="Enter Academic Details" required className="input h-24" />
-          </div>
+            <div className="md:col-span-2">
+              <label className="label">Academic Details *</label>
+              <textarea name="academicDetails" placeholder="Enter Academic Details" required className="input h-24" />
+            </div>
 
 
-          <div>
-            <label className="label">Highest Qualification</label>
-            <select name="highestQualification" required className="input">
-              <option value="">-- Select one --</option>
-              <option value="Graduation">Graduation</option>
-              <option value="12th">12th</option>
-              <option value="10th">10th</option>
-              <option value="None">None</option>
-            </select>
-          </div>
+            <div>
+              <label className="label">Highest Qualification</label>
+              <select name="highestQualification" required className="input">
+                <option value="">-- Select one --</option>
+                <option value="Graduation">Graduation</option>
+                <option value="12th">12th</option>
+                <option value="10th">10th</option>
+                <option value="None">None</option>
+              </select>
+            </div>
 
-          <div className="md:col-span-2">
-            <label className="label">Work Experience</label>
-            <input name="workExperience" required className="input" placeholder="Enter Your Work Experience" />
-          </div>
+            <div className="md:col-span-2">
+              <label className="label">Work Experience</label>
+              <input name="workExperience" required className="input" placeholder="Enter Your Work Experience" />
+            </div>
 
-          <div>
-            <label className="label">Exam Option</label>
-            <select name="examOption" required className="input">
-              <option value="">-- Select one --</option>
-              <option value="Assignment Base">Assignment Base</option>
-              <option value="Online Exam">Online Exam</option>
-              <option value="Centre Based">Centre Based</option>
-            </select>
-          </div>
+            <div>
+              <label className="label">Exam Option</label>
+              <select name="examOption" required className="input">
+                <option value="">-- Select one --</option>
+                <option value="Assignment Base">Assignment Base</option>
+                <option value="Online Exam">Online Exam</option>
+                <option value="Centre Based">Centre Based</option>
+              </select>
+            </div>
 
-          <div>
-            <label className="label">Payment Option</label>
-            <select name="paymentOption" required className="input">
-              <option value="">-- Select one --</option>
-              <option value="Online">Online</option>
-              <option value="Cash">Cash</option>
-              <option value="Cheque">Cheque</option>
-            </select>
-          </div>
+            <div>
+              <label className="label">Payment Option</label>
+              <select name="paymentOption" required className="input">
+                <option value="">-- Select one --</option>
+                <option value="Online">Online</option>
+                <option value="Cash">Cash</option>
+                <option value="Cheque">Cheque</option>
+              </select>
+            </div>
 
-          <div className="md:col-span-2 text-center mt-4">
-            <button
-              disabled={loading}
-              className="px-8 py-3 bg-orange-600 text-white rounded-lg font-semibold  cursor-pointer disabled:opacity-50"
-            >
-              {loading ? "Submitting..." : "Submit"}
-            </button>
-          </div>
-
+            <div className="md:col-span-2 text-center mt-4">
+              <button
+                disabled={loading}
+                className="px-8 py-3 bg-orange-600 text-white rounded-lg font-semibold  cursor-pointer disabled:opacity-50"
+              >
+                {loading ? "Submitting..." : "Submit"}
+              </button>
+            </div>
+          </fieldset>
         </form>
       </div>
 
