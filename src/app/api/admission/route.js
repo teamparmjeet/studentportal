@@ -64,19 +64,28 @@ export async function GET(req) {
 
     const { searchParams } = new URL(req.url);
 
-    const page = parseInt(searchParams.get("page")) || 1;
-    const limit = parseInt(searchParams.get("limit")) || 10;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
     const skip = (page - 1) * limit;
 
-    const filterField = searchParams.get("filterField");
-    const filterValue = searchParams.get("filterValue");
+    // 🔹 Supported fields
+    const booleanFields = ["paymentStatus", "enrollStatus", "isActive"];
+    const stringFields = ["name", "mobile", "email", "programme"];
 
     let query = {};
 
-    // 🔍 Server-side filter
-    if (filterField && filterValue) {
-      query[filterField] = { $regex: filterValue, $options: "i" };
-    }
+    // 🔍 Build dynamic query
+    [...stringFields, ...booleanFields].forEach((field) => {
+      const value = searchParams.get(field);
+
+      if (value !== null && value !== "") {
+        if (booleanFields.includes(field)) {
+          query[field] = value === "true";
+        } else {
+          query[field] = { $regex: value, $options: "i" };
+        }
+      }
+    });
 
     const [data, total] = await Promise.all([
       AdmissionModel.find(query)
@@ -96,7 +105,11 @@ export async function GET(req) {
         totalPages: Math.ceil(total / limit),
       },
     });
-  } catch (err) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  } catch (error) {
+    console.error("Admission GET Error:", error);
+    return NextResponse.json(
+      { error: "Server error" },
+      { status: 500 }
+    );
   }
 }

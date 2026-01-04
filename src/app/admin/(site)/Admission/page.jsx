@@ -1,32 +1,44 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+
+/* ======================
+   FILTER CONFIG
+====================== */
+const FILTER_FIELDS = [
+  { key: "name", label: "Name", type: "text" },
+  { key: "mobile", label: "Mobile", type: "text" },
+  { key: "email", label: "Email", type: "text" },
+  { key: "programme", label: "Programme", type: "text" },
+  { key: "paymentStatus", label: "Payment Status", type: "boolean" },
+  { key: "enrollStatus", label: "Enroll Status", type: "boolean" },
+];
 
 export default function Page() {
   const [admissions, setAdmissions] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const [filterField, setFilterField] = useState("");
-  const [filterValue, setFilterValue] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const [openAction, setOpenAction] = useState(null);
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+  // 🔹 Applied Filters
+  const [filters, setFilters] = useState({});
 
-  const menuRef = useRef(null);
+  // 🔹 Filter Builder
+  const [selectedField, setSelectedField] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
 
   /* ======================
      FETCH DATA
   ====================== */
-  const fetchAdmissions = async (pageNo = 1, reset = false) => {
+  const fetchAdmissions = async () => {
     setLoading(true);
 
-    let url = `/api/admission?page=${pageNo}&limit=10`;
+    let url = `/api/admission?page=${page}&limit=10`;
 
-    if (!reset && filterField && filterValue) {
-      url += `&filterField=${filterField}&filterValue=${filterValue}`;
-    }
+    Object.entries(filters).forEach(([key, value]) => {
+      url += `&${key}=${encodeURIComponent(value)}`;
+    });
 
     const res = await fetch(url, { cache: "no-store" });
     const json = await res.json();
@@ -36,138 +48,152 @@ export default function Page() {
     setLoading(false);
   };
 
-  useEffect(() => {
-    fetchAdmissions(page);
-  }, [page]);
-
   /* ======================
-     CLOSE ACTION MENU
+     AUTO FETCH (FIXED BUG)
   ====================== */
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setOpenAction(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    fetchAdmissions();
+  }, [page, filters]);
 
   /* ======================
-     FILTER HANDLERS
+     ADD FILTER
   ====================== */
-  const handleSearch = () => {
+  const addFilter = () => {
+    if (!selectedField || selectedValue === "") return;
+
+    setFilters((prev) => ({
+      ...prev,
+      [selectedField]: selectedValue,
+    }));
+
+    setSelectedField("");
+    setSelectedValue("");
     setPage(1);
-    fetchAdmissions(1);
   };
 
-  const clearFilter = () => {
-    setFilterField("");
-    setFilterValue("");
+  /* ======================
+     REMOVE FILTER
+  ====================== */
+  const removeFilter = (key) => {
+    setFilters((prev) => {
+      const updated = { ...prev };
+      delete updated[key];
+      return updated;
+    });
     setPage(1);
-    fetchAdmissions(1, true);
   };
+
+  const activeField = FILTER_FIELDS.find(
+    (f) => f.key === selectedField
+  );
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-6">
+    <div className="min-h-screen bg-slate-50 p-6">
 
       {/* HEADER */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-slate-800">
-          Admissions
-        </h1>
+        <h1 className="text-2xl font-semibold">Admissions</h1>
         <p className="text-sm text-slate-500">
-          View & manage admission records
+          Advanced filter & manage admissions
         </p>
       </div>
 
       {/* FILTER BAR */}
-      <div className="bg-white border rounded-lg p-4 mb-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+      <div className="bg-white border rounded-lg p-4 mb-6 flex flex-col lg:flex-row gap-4">
 
-          {/* FILTER FIELD */}
-          <div>
-            <label className="text-sm font-medium text-slate-600">
-              Filter Field
-            </label>
-            <select
-              value={filterField}
-              onChange={(e) => {
-                setFilterField(e.target.value);
-                setFilterValue("");
-              }}
-              className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-orange-500"
-            >
-              <option value="">Select</option>
-              <option value="name">Name</option>
-              <option value="mobile">Mobile</option>
-              <option value="email">Email</option>
-              <option value="programme">Programme</option>
-              <option value="paymentStatus">Payment Status</option>
-            </select>
-          </div>
+        {/* LEFT – FILTER BUILDER */}
+        <div className="flex flex-wrap items-end gap-3">
 
-          {/* SEARCH INPUT / SELECT */}
-          {filterField && (
-            <div>
-              <label className="text-sm font-medium text-slate-600">
-                Search
-              </label>
+          {/* FIELD */}
+          <select
+            value={selectedField}
+            onChange={(e) => {
+              setSelectedField(e.target.value);
+              setSelectedValue("");
+            }}
+            className="border rounded-md px-3 py-2 text-sm"
+          >
+            <option value="">Select Filter</option>
+            {FILTER_FIELDS.map((f) => (
+              <option key={f.key} value={f.key}>
+                {f.label}
+              </option>
+            ))}
+          </select>
 
-              {filterField === "paymentStatus" ? (
-                <select
-                  value={filterValue}
-                  onChange={(e) => setFilterValue(e.target.value)}
-                  className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-orange-500"
-                >
-                  <option value="">Select Status</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Completed">Completed</option>
-                </select>
-              ) : (
-                <input
-                  value={filterValue}
-                  onChange={(e) => setFilterValue(e.target.value)}
-                  placeholder={`Enter ${filterField}`}
-                  className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-orange-500"
-                />
-              )}
-            </div>
+          {/* VALUE */}
+          {selectedField && activeField?.type === "text" && (
+            <input
+              value={selectedValue}
+              onChange={(e) => setSelectedValue(e.target.value)}
+              placeholder={`Enter ${activeField.label}`}
+              className="border rounded-md px-3 py-2 text-sm"
+            />
           )}
 
-          {/* BUTTONS */}
-          <div className="flex gap-2">
-            <button
-              onClick={handleSearch}
-              disabled={!filterValue}
-              className="px-4 py-2 text-sm rounded-md bg-orange-600 text-white hover:bg-orange-700 disabled:opacity-40"
+          {selectedField && activeField?.type === "boolean" && (
+            <select
+              value={selectedValue}
+              onChange={(e) => setSelectedValue(e.target.value)}
+              className="border rounded-md px-3 py-2 text-sm"
             >
-              Search
-            </button>
+              <option value="">Select</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          )}
 
-            <button
-              onClick={clearFilter}
-              className="px-4 py-2 text-sm rounded-md border text-slate-600 hover:bg-slate-100"
-            >
-              Clear
-            </button>
-          </div>
+          <button
+            onClick={addFilter}
+            className="px-4 py-2 bg-orange-600 text-white text-sm rounded hover:bg-orange-700"
+          >
+            Add Filter
+          </button>
+        </div>
+
+        {/* RIGHT – ACTIVE FILTERS */}
+        <div className="flex flex-wrap gap-2 lg:ml-auto">
+          {Object.entries(filters).map(([key, value]) => {
+            const label =
+              FILTER_FIELDS.find((f) => f.key === key)?.label || key;
+
+            return (
+              <span
+                key={key}
+                className="flex items-center gap-2 bg-orange-50 text-orange-700 border border-orange-200 px-3 py-1 rounded-full text-sm"
+              >
+                {label}:{" "}
+                <strong>
+                  {value === "true"
+                    ? "Yes"
+                    : value === "false"
+                    ? "No"
+                    : value}
+                </strong>
+
+                <button
+                  onClick={() => removeFilter(key)}
+                  className="ml-1 text-orange-600 hover:text-red-600"
+                >
+                  ✕
+                </button>
+              </span>
+            );
+          })}
         </div>
       </div>
 
       {/* TABLE */}
       <div className="bg-white border rounded-lg overflow-x-auto">
         <table className="min-w-[900px] w-full text-sm">
-          <thead className="bg-slate-100 text-slate-600">
+          <thead className="bg-slate-100">
             <tr>
-              <th className="px-4 py-3 text-left">Name</th>
+              <th className="px-4 py-3 text-left">Enrollment</th>
+              <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Programme</th>
               <th className="px-4 py-3">Mobile</th>
-              <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">Payment</th>
-              <th className="px-4 py-3 text-center">Actions</th>
+              <th className="px-4 py-3">Enroll</th>
             </tr>
           </thead>
 
@@ -175,7 +201,7 @@ export default function Page() {
             {loading && (
               <tr>
                 <td colSpan="6" className="py-8 text-center text-slate-400">
-                  Loading records...
+                  Loading...
                 </td>
               </tr>
             )}
@@ -189,39 +215,36 @@ export default function Page() {
             )}
 
             {admissions.map((item) => (
-              <tr key={item._id} className="border-t hover:bg-slate-50">
-                <td className="px-4 py-3 font-medium">{item.name}</td>
+              <tr key={item._id} className="border-t">
+                <td className="px-4 py-3 font-medium">
+                  {item.enrollmentNumber}
+                </td>
+                <td className="px-4 py-3">{item.name}</td>
                 <td className="px-4 py-3">{item.programme}</td>
                 <td className="px-4 py-3">{item.mobile}</td>
-                <td className="px-4 py-3">{item.email}</td>
+
                 <td className="px-4 py-3">
                   <span
                     className={`px-2 py-1 text-xs rounded ${
-                      item.paymentStatus === "Pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-green-100 text-green-700"
+                      item.paymentStatus
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
                     }`}
                   >
-                    {item.paymentStatus}
+                    {item.paymentStatus ? "Paid" : "Pending"}
                   </span>
                 </td>
 
-                <td className="px-4 py-3 text-center">
-                  <button
-                    onClick={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      setMenuPosition({
-                        x: rect.right - 160,
-                        y: rect.bottom + 6,
-                      });
-                      setOpenAction(
-                        openAction === item._id ? null : item._id
-                      );
-                    }}
-                    className="px-3 py-1 text-xs rounded border hover:bg-slate-100"
+                <td className="px-4 py-3">
+                  <span
+                    className={`px-2 py-1 text-xs rounded ${
+                      item.enrollStatus
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
                   >
-                    •••
-                  </button>
+                    {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
+                  </span>
                 </td>
               </tr>
             ))}
@@ -229,31 +252,9 @@ export default function Page() {
         </table>
       </div>
 
-      {/* ACTION MENU */}
-      {openAction && (
-        <div
-          ref={menuRef}
-          className="fixed bg-white border rounded-md shadow-lg z-[9999] w-40"
-          style={{
-            top: menuPosition.y,
-            left: menuPosition.x,
-          }}
-        >
-          <button className="block w-full text-left px-4 py-2 hover:bg-slate-100">
-            View Details
-          </button>
-          <button className="block w-full text-left px-4 py-2 hover:bg-slate-100">
-            Update Payment
-          </button>
-          <button className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">
-            Delete
-          </button>
-        </div>
-      )}
-
       {/* PAGINATION */}
-      <div className="flex flex-wrap justify-between items-center mt-6 gap-3">
-        <span className="text-sm text-slate-600">
+      <div className="flex justify-between items-center mt-6">
+        <span className="text-sm">
           Page {page} of {totalPages}
         </span>
 
@@ -261,7 +262,7 @@ export default function Page() {
           <button
             disabled={page === 1}
             onClick={() => setPage(page - 1)}
-            className="px-4 py-2 text-sm rounded border disabled:opacity-40"
+            className="px-4 py-2 border rounded disabled:opacity-40"
           >
             Previous
           </button>
@@ -269,7 +270,7 @@ export default function Page() {
           <button
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
-            className="px-4 py-2 text-sm rounded bg-orange-600 text-white hover:bg-orange-700 disabled:opacity-40"
+            className="px-4 py-2 bg-orange-600 text-white rounded disabled:opacity-40"
           >
             Next
           </button>

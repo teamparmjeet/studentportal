@@ -23,11 +23,11 @@ export default function ApplyNowPage() {
     const data = await res.json();
 
     if (res.ok) {
-  setEnrollment(data.enrollmentNumber);
-  setShowModal(true);
-  setSuccess("Admission successful!");
-  e.target.reset();
-}
+      setEnrollment(data.enrollmentNumber);
+      setShowModal(true);
+      setSuccess("Query Added Successfully!");
+      e.target.reset();
+    }
 
 
 
@@ -37,54 +37,54 @@ export default function ApplyNowPage() {
   return (
     <section className="min-h-screen bg-[#f4f4f4] py-16 px-4">
       <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-8">
-       {showModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-    <div className="bg-white w-full max-w-md rounded-xl shadow-xl p-6 text-center relative animate-scaleIn">
+        {showModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="bg-white w-full max-w-md rounded-xl shadow-xl p-6 text-center relative animate-scaleIn">
 
-      {/* Close Button */}
-      <button
-        onClick={() => setShowModal(false)}
-        className="absolute top-3 right-3 text-slate-400 hover:text-slate-600"
-      >
-        ✕
-      </button>
+              {/* Close Button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-3 right-3 text-slate-400 hover:text-slate-600"
+              >
+                ✕
+              </button>
 
-      <h2 className="text-xl font-semibold text-slate-800 mb-2">
-        Admission Successful 🎉
-      </h2>
+              <h2 className="text-xl font-semibold text-slate-800 mb-2">
+                Admission Successful 🎉
+              </h2>
 
-      <p className="text-sm text-slate-500 mb-4">
-        Please save your enrollment number for future reference
-      </p>
+              <p className="text-sm text-slate-500 mb-4">
+                Please save your enrollment number for future reference
+              </p>
 
-      <div className="border rounded-lg bg-slate-50 p-4 mb-4">
-        <p className="text-xs text-slate-500 mb-1">
-          Enrollment Number
-        </p>
+              <div className="border rounded-lg bg-slate-50 p-4 mb-4">
+                <p className="text-xs text-slate-500 mb-1">
+                  Enrollment Number
+                </p>
 
-        <div className="flex justify-center items-center gap-2">
-          <span className="font-mono text-lg font-semibold tracking-wider">
-            {enrollment}
-          </span>
+                <div className="flex justify-center items-center gap-2">
+                  <span className="font-mono text-lg font-semibold tracking-wider">
+                    {enrollment}
+                  </span>
 
-          <button
-            onClick={() => navigator.clipboard.writeText(enrollment)}
-            className="px-3 py-1.5 text-xs bg-green-600 text-white rounded hover:bg-green-700"
-          >
-            Copy
-          </button>
-        </div>
-      </div>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(enrollment)}
+                    className="px-3 py-1.5 text-xs bg-green-600 text-white rounded hover:bg-green-700"
+                  >
+                    Copy
+                  </button>
+                </div>
+              </div>
 
-      <button
-        onClick={() => setShowModal(false)}
-        className="w-full mt-2 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
-      >
-        Close
-      </button>
-    </div>
-  </div>
-)}
+              <button
+                onClick={() => setShowModal(false)}
+                className="w-full mt-2 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
 
         <h1 className="text-3xl font-bold mb-6">
           Online Admission

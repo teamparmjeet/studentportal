@@ -54,17 +54,17 @@ export default function Header() {
                                 <div
                                     className="absolute right-0 top-full  w-52
                   bg-white rounded-xl shadow-lg opacity-0 invisible
-                  group-hover:opacity-100 group-hover:visible
+                  group-hover:opacity-100 group-hover:visible overflow-hidden
                   transition-all duration-200"
                                 >
 
-                                    <Link href="/services/applynow" className="block px-4 py-3 hover:bg-gray-100">
+                                    <Link href="/services/applynow" className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100">
                                         Online Admission
                                     </Link>
-                                    <Link href="/services/registration" className="block px-4 py-3 hover:bg-gray-100">
+                                    <Link href="/services/registration" className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100">
                                         Registration Details
                                     </Link>
-                                    <Link href="/services/result" className="block px-4 py-3 hover:bg-gray-100">
+                                    <Link href="/services/result" className="block  px-4 py-3 hover:bg-gray-100">
                                         Result
                                     </Link>
 

@@ -67,7 +67,7 @@ export default function LoginPage() {
                         placeholder="Email address"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-slate-300 px-4 py-2.5
-                  focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
 
                     <input
@@ -77,7 +77,7 @@ export default function LoginPage() {
                         placeholder="Password"
                         onChange={handleChange}
                         className="w-full rounded-lg border border-slate-300 px-4 py-2.5
-                  focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  focus:outline-none focus:ring-1 focus:ring-orange-500"
                     />
 
                     {error && (

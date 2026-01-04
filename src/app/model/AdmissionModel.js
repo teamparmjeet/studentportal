@@ -35,7 +35,8 @@ const AdmissionSchema = new mongoose.Schema(
     examOption: { type: String },
     paymentOption: { type: String },
 
-    paymentStatus: { type: String, default: "Pending" },
+    paymentStatus: {type: Boolean, default: false },
+    enrollStatus: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
@@ -58,7 +59,7 @@ AdmissionSchema.pre("save", async function () {
       : "MAS";
 
   const lastRecord = await mongoose
-    .model("Admission1")
+    .model("Admission2")
     .findOne({})
     .sort({ createdAt: -1 });
 
@@ -71,5 +72,5 @@ AdmissionSchema.pre("save", async function () {
   this.enrollmentNumber = `ENR-${year}-${programmeCode}-${nextNumber}`;
 });
 
-export default mongoose.models.Admission1 ||
-  mongoose.model("Admission1", AdmissionSchema);
+export default mongoose.models.Admission2 ||
+  mongoose.model("Admission2", AdmissionSchema);
