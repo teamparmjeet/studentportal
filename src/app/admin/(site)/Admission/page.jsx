@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 /* ======================
@@ -167,8 +167,8 @@ export default function Page() {
                   {value === "true"
                     ? "Yes"
                     : value === "false"
-                    ? "No"
-                    : value}
+                      ? "No"
+                      : value}
                 </strong>
 
                 <button
@@ -194,6 +194,7 @@ export default function Page() {
               <th className="px-4 py-3">Mobile</th>
               <th className="px-4 py-3">Payment</th>
               <th className="px-4 py-3">Enroll</th>
+              <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
 
@@ -225,11 +226,10 @@ export default function Page() {
 
                 <td className="px-4 py-3">
                   <span
-                    className={`px-2 py-1 text-xs rounded ${
-                      item.paymentStatus
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
+                    className={`px-2 py-1 text-xs rounded ${item.paymentStatus
+                      ? "bg-green-100 text-green-700"
+                      : "bg-yellow-100 text-yellow-700"
+                      }`}
                   >
                     {item.paymentStatus ? "Paid" : "Pending"}
                   </span>
@@ -237,14 +237,18 @@ export default function Page() {
 
                 <td className="px-4 py-3">
                   <span
-                    className={`px-2 py-1 text-xs rounded ${
-                      item.enrollStatus
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
+                    className={`px-2 py-1 text-xs rounded ${item.enrollStatus
+                      ? "bg-blue-100 text-blue-700"
+                      : "bg-gray-100 text-gray-600"
+                      }`}
                   >
                     {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
                   </span>
+                </td>
+                <td className="px-4 py-3">
+                  <Link href={`./Admission/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">
+                    Action
+                  </Link>
                 </td>
               </tr>
             ))}
