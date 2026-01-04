@@ -22,11 +22,9 @@ const AdmissionSchema = new mongoose.Schema(
     mobile: { type: String, required: true },
     email: { type: String, required: true },
 
-    nationality: { type: String },
     profileImage: { type: String },
 
     presentAddress: { type: String, required: true },
-    correspondenceAddress: { type: String },
 
     academicDetails: { type: String, required: true },
     highestQualification: { type: String },

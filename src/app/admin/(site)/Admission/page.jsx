@@ -190,6 +190,7 @@ export default function Page() {
             <tr>
               <th className="px-4 py-3 text-left">Enrollment</th>
               <th className="px-4 py-3">Name</th>
+              <th className="px-4 py-3">DOB</th>
               <th className="px-4 py-3">Programme</th>
               <th className="px-4 py-3">Mobile</th>
               <th className="px-4 py-3">Payment</th>
@@ -221,6 +222,12 @@ export default function Page() {
                   {item.enrollmentNumber}
                 </td>
                 <td className="px-4 py-3">{item.name}</td>
+                <td className="px-4 py-3">
+                  {item.dob
+                    ? new Date(item.dob).toLocaleDateString("en-GB")
+                    : "-"}
+                </td>
+
                 <td className="px-4 py-3">{item.programme}</td>
                 <td className="px-4 py-3">{item.mobile}</td>
 

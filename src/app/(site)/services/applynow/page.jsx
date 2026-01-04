@@ -136,16 +136,16 @@ export default function ApplyNowPage() {
               <input name="fatherName" required className="input" />
             </div>
 
-            <div>
-              <label className="label">Mobile *</label>
-              <input name="mobile" required className="input" />
-            </div>
+
 
             <div>
               <label className="label">Mother's Name *</label>
               <input name="motherName" required className="input" />
             </div>
-
+            <div>
+              <label className="label">Mobile *</label>
+              <input name="mobile" required className="input" />
+            </div>
             <div>
               <label className="label">Email *</label>
               <input type="email" name="email" required className="input" />
