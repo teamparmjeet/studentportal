@@ -195,6 +195,7 @@ export default function Page() {
               <th className="px-4 py-3">Mobile</th>
               <th className="px-4 py-3">Payment</th>
               <th className="px-4 py-3">Enroll</th>
+              <th className="px-4 py-3">Marksheet</th>
               <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
@@ -251,6 +252,22 @@ export default function Page() {
                   >
                     {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
                   </span>
+                </td>
+
+                <td className="px-4 py-3">
+                  {item.paymentStatus && item.enrollStatus ? (
+                    <Link
+                      href={`/admin/msheet/${item.enrollmentNumber}`}
+                      className="text-green-600 font-medium hover:underline"
+                    >
+                      {item.marksheetStatus ? "Marksheet" : "Generate Marksheet"}
+                    </Link>
+                  ) : (
+                    <span className="text-gray-400 cursor-not-allowed">
+                      {item.marksheetStatus ? "Marksheet" : "Generate Marksheet"}
+                    </span>
+                  )}
+
                 </td>
                 <td className="px-4 py-3">
                   <Link href={`./Admission/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">

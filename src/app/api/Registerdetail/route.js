@@ -45,6 +45,7 @@ export async function GET(req) {
       enrollmentNumber: 1,
       programme: 1,
       admissionDate: 1,
+      rollNumber:1,
       name: 1,
       fatherName: 1,
       motherName: 1,

@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -7,8 +7,9 @@ export default function Page() {
   const { id } = useParams();
 
   const [data, setData] = useState(null);
-  const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(true);
+  
+  const [edit, setEdit] = useState(false);
   const [newImage, setNewImage] = useState(null);
 
   /* ======================
@@ -95,6 +96,8 @@ export default function Page() {
         )}
       </div>
 
+
+
       {/* FORM */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -116,7 +119,7 @@ export default function Page() {
           )}
         </Field>
 
-         <Field label="Enrollment Status">
+        <Field label="Enrollment Status">
           {edit ? (
             <select
               value={data.enrollStatus}

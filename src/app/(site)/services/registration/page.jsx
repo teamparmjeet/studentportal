@@ -114,6 +114,7 @@ export default function Page() {
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
 
               <Detail label="Name" value={data.name} />
+              <Detail label="Roll Number" value={data.rollNumber} />
               <Detail label="Programme" value={data.programme} />
               <Detail label="Father Name" value={data.fatherName} />
               <Detail label="Mother Name" value={data.motherName} />

@@ -5,31 +5,36 @@ import React, { useState } from 'react';
 export default function Page() {
   const [enrollment, setEnrollment] = useState('');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
+  const [marksheet, setMarksheet] = useState(null);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     if (!enrollment) {
-      alert('Please enter Enrollment Number');
+      setError('Please enter Enrollment Number');
       return;
     }
 
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/result?enrollment=${enrollment}`);
-      const data = await res.json();
+      const res = await fetch(
+        `/api/studentresult?enrollmentNumber=${enrollment}`
+      );
+
+      const result = await res.json();
 
       if (!res.ok) {
-        alert(data.message || 'Result not found');
+        setError(result.error || 'Result not found');
         setLoading(false);
         return;
       }
 
-      setResult(data);
+      setMarksheet(result.data);
     } catch (err) {
-      alert('Something went wrong');
+      setError('Something went wrong');
     }
 
     setLoading(false);
@@ -37,14 +42,18 @@ export default function Page() {
 
   return (
     <section className="min-h-screen bg-gray-100 px-4 py-32">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
 
-        {/* 🔹 Search Form */}
-        {!result && (
+        {/* 🔹 SEARCH FORM */}
+        {!marksheet && (
           <div className="bg-white rounded shadow-lg p-8">
             <h1 className="text-2xl font-semibold text-gray-800 mb-6">
               Find Result
             </h1>
+
+            {error && (
+              <p className="mb-4 text-red-600 font-medium">{error}</p>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <input
@@ -68,63 +77,83 @@ export default function Page() {
           </div>
         )}
 
-        {/* 🔹 RESULT CARD */}
-        {result && (
+        {/* 🔹 RESULT / MARKSHEET */}
+        {marksheet && (
           <div className="bg-[#fffaf3] border border-gray-300 rounded shadow-xl p-8">
-            {/* Header */}
+
+            {/* HEADER */}
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-gray-800">
-                DELHI INSTITUTE OF MANAGEMENT<br />
-                TECHNOLOGY AND SCIENCE
+                My Brand
               </h2>
-              <p className="text-sm text-blue-700 mt-1">
-                ( ISO 9001-2015 CERTIFIED INTERNATIONAL B-SCHOOL )
-              </p>
+             
               <p className="mt-2 font-semibold">Examination Result</p>
             </div>
 
-            <div className="grid md:grid-cols-[1fr_180px] gap-6">
-              {/* Details */}
-              <div className="space-y-2 text-sm text-gray-800">
-                <p><b>Name of Student:</b> {result.name}</p>
-                <p><b>Father of Student:</b> {result.fatherName}</p>
-                <p><b>Enrollment No:</b> {result.enrollment}</p>
-                <p><b>Course:</b> {result.course}</p>
-                <p><b>Year of Passing:</b> {result.year}</p>
-                <p><b>Grade:</b> <span className="font-bold">{result.grade}</span></p>
+            {/* STUDENT INFO */}
+            <div className="grid md:grid-cols-[1fr_180px] gap-6 mb-6">
+              <div className="space-y-2 text-sm">
+                <p><b>Name:</b> {marksheet.name}</p>
+                <p><b>Father Name:</b> {marksheet.fatherName}</p>
+                <p><b>Enrollment No:</b> {marksheet.enrollment}</p>
+                <p><b>Roll No:</b> {marksheet.rollNumber}</p>
+                <p><b>Session:</b> {marksheet.session}</p>
+                <p><b>Semester:</b> {marksheet.semester}</p>
+                <p><b>Grade:</b> <span className="font-bold">{marksheet.grade}</span></p>
+                <p><b>Percentage:</b> {marksheet.percentage}%</p>
               </div>
 
-              {/* Photo */}
+              {/* PHOTO */}
               <div className="flex justify-center">
-                <img
-                  src={result.photo}
-                  alt="Student"
-                  className="w-40 h-44 object-cover border"
-                />
+                {marksheet.profileImage && (
+                  <img
+                    src={marksheet.profileImage}
+                    alt="Student"
+                    className="w-40 h-44 object-cover border"
+                  />
+                )}
               </div>
             </div>
 
-            {/* Footer */}
-            <p className="text-center font-semibold mt-6">
-              We Wish you All The Best For Your Career
-            </p>
-
-            {/* Grading */}
-            <div className="mt-6">
-              <h4 className="font-bold mb-2">Grading System</h4>
-              <ul className="list-disc ml-6 text-sm space-y-1">
-                <li>A = Excellent (+70%)</li>
-                <li>B = Very Good (+60%)</li>
-                <li>D = Good (+50%)</li>
-                <li>E = Satisfactory (+40%)</li>
-              </ul>
+            {/* SUBJECT TABLE */}
+            <div className="overflow-x-auto">
+              <table className="w-full border text-sm">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="border px-2 py-2">Subject</th>
+                    <th className="border px-2 py-2">Min</th>
+                    <th className="border px-2 py-2">Max</th>
+                    <th className="border px-2 py-2">Marks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {marksheet.subjects.map((sub, i) => (
+                    <tr key={i} className="text-center">
+                      <td className="border px-2 py-2 text-left">{sub.subject}</td>
+                      <td className="border px-2 py-2">{sub.min}</td>
+                      <td className="border px-2 py-2">{sub.max}</td>
+                      <td className="border px-2 py-2 font-semibold">
+                        {sub.marks}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
-            {/* Back Button */}
+            {/* TOTAL */}
+            <div className="mt-4 text-sm font-semibold">
+              <p>Total: {marksheet.total} / {marksheet.maxTotal}</p>
+              <p>Marks in Words: {marksheet.marksInWords}</p>
+            </div>
+
+           
+
+            {/* BACK */}
             <div className="mt-8 text-center">
               <button
                 onClick={() => {
-                  setResult(null);
+                  setMarksheet(null);
                   setEnrollment('');
                 }}
                 className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-black"
@@ -134,7 +163,6 @@ export default function Page() {
             </div>
           </div>
         )}
-
       </div>
     </section>
   );

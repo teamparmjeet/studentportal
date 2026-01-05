@@ -8,6 +8,12 @@ const AdmissionSchema = new mongoose.Schema(
       index: true,
     },
 
+    rollNumber: {
+      type: String,
+      unique: true,
+      index: true,
+    },
+
     programme: { type: String, required: true },
     admissionDate: { type: Date, required: true },
 
@@ -33,42 +39,66 @@ const AdmissionSchema = new mongoose.Schema(
     examOption: { type: String },
     paymentOption: { type: String },
 
-    paymentStatus: {type: Boolean, default: false },
+    paymentStatus: { type: Boolean, default: false },
     enrollStatus: { type: Boolean, default: false },
+    marksheetStatus: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
 
 /* ======================
-   AUTO GENERATE ENROLLMENT (FIXED)
+   AUTO GENERATE ENROLLMENT + ROLL NUMBER
 ====================== */
 AdmissionSchema.pre("save", async function () {
-  // Prevent regeneration on update
-  if (this.enrollmentNumber) return;
+  // 🔹 Prevent regeneration on update
+  if (this.enrollmentNumber && this.rollNumber) return;
 
-  const year = new Date().getFullYear();
+  const Admission = mongoose.model("Admission");
 
-  const programmeCode =
-    this.programme === "Diploma"
-      ? "DIP"
-      : this.programme === "Bachelor"
-      ? "BAC"
-      : "MAS";
+  /* -------- ENROLLMENT NUMBER -------- */
+  if (!this.enrollmentNumber) {
+    const year = new Date().getFullYear();
 
-  const lastRecord = await mongoose
-    .model("Admission2")
-    .findOne({})
-    .sort({ createdAt: -1 });
+    const programmeCode =
+      this.programme === "Diploma"
+        ? "DIP"
+        : this.programme === "Bachelor"
+        ? "BAC"
+        : "MAS";
 
-  const lastNumber = lastRecord?.enrollmentNumber
-    ? parseInt(lastRecord.enrollmentNumber.split("-").pop())
-    : 0;
+    const lastRecord = await Admission.findOne({})
+      .sort({ createdAt: -1 })
+      .select("enrollmentNumber");
 
-  const nextNumber = String(lastNumber + 1).padStart(6, "0");
+    const lastNumber = lastRecord?.enrollmentNumber
+      ? parseInt(lastRecord.enrollmentNumber.split("-").pop())
+      : 0;
 
-  this.enrollmentNumber = `ENR-${year}-${programmeCode}-${nextNumber}`;
+    const nextNumber = String(lastNumber + 1).padStart(6, "0");
+
+    this.enrollmentNumber = `ENR-${year}-${programmeCode}-${nextNumber}`;
+  }
+
+  /* -------- ROLL NUMBER (6 DIGIT UNIQUE) -------- */
+  if (!this.rollNumber) {
+    let unique = false;
+    let roll;
+
+    while (!unique) {
+      roll = Math.floor(100000 + Math.random() * 900000).toString();
+
+      const exists = await Admission.findOne({ rollNumber: roll });
+
+      if (!exists) unique = true;
+    }
+
+    this.rollNumber = roll;
+  }
 });
 
-export default mongoose.models.Admission2 ||
-  mongoose.model("Admission2", AdmissionSchema);
+/* ======================
+   EXPORT MODEL
+====================== */
+export default mongoose.models.Admission ||
+  mongoose.model("Admission", AdmissionSchema);
