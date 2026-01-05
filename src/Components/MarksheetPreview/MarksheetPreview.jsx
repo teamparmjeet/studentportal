@@ -1,52 +1,218 @@
 "use client";
 
+import React from 'react';
+import Image from 'next/image';
+
+
+
+
+
 export default function MarksheetPreview({ marksheet }) {
   if (!marksheet) return null;
 
+  // Default values to ensure the preview looks good even without full data
+  const data = {
+    rollNumber: marksheet.rollNumber || "123610",
+    enrollment: marksheet.enrollment || "",
+    examiner: marksheet.examiner || "",
+    semester: marksheet.semester || "VI",
+    session: marksheet.session || "2019 - 2020",
+    name: marksheet.name || "YUVRAJ GOSWAMI",
+    fatherName: marksheet.fatherName || "RAMDEV PURI GOSWAMI",
+    issueDate: marksheet.issueDate || "15th July, 2020",
+    grandTotal: marksheet.grandTotal || "3259",
+    result: marksheet.result || "PASS",
+    grade: marksheet.grade || "A",
+    marksInWords: marksheet.marksInWords || "Three Thousand Two Hundred Fifty Nine",
+    subjects: marksheet.subjects || [
+      { code: "ES501", subject: "Industrial Devices & Control", max: 100, min: 40, marks: 66 },
+      { code: "ES502", subject: "Utilisation of Electrical Energy & Management", max: 100, min: 40, marks: 82 },
+      { code: "ES503", subject: "Basic Management Skills", max: 100, min: 40, marks: 78 },
+      { code: "ES504", subject: "Electric Motor Control Lab", max: 100, min: 40, marks: 80 },
+    ]
+  };
+
   return (
-    <div className="bg-[#fffaf0] border-[6px] border-[#c28a3d] rounded-md shadow-xl p-8 font-serif">
-      <h1 className="text-center text-2xl font-bold mb-4">MARKSHEET</h1>
+    // Main Container - Fixed A4 width proportions
+    <div className="w-full max-w-[210mm] mx-auto my-8 relative z-0">
 
-      <div className="text-sm space-y-1">
-        <p><b>Name:</b> {marksheet.name}</p>
-        <p><b>Father Name:</b> {marksheet.fatherName}</p>
-        <p><b>Roll Number:</b> {marksheet.rollNumber}</p>
-        <p><b>Enrollment:</b> {marksheet.enrollment}</p>
-        <p><b>Session:</b> {marksheet.session}</p>
-        <p><b>Semester:</b> {marksheet.semester}</p>
-      </div>
+      {/* --- LAYER 1: The Attractive Complex Border Frame Simulation --- */}
+      {/* Outer darkest brown border with shadow */}
+      <div className="bg-[#5c3a21] p-[2px] rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
+        {/* Gold inner border layer */}
+        <div className="bg-[#cba258] p-[3px] border border-[#8c6239]">
+          {/* Lighter cream inner border layer */}
+          <div className="bg-[#fcf8e3] p-[2px] border border-[#5c3a21]">
+            {/* The innermost thin decorative line before content */}
+            <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
 
-      <table className="w-full mt-4 border text-sm">
-        <thead className="bg-orange-100">
-          <tr>
-            <th className="border p-2">Subject</th>
-            <th className="border p-2">Min</th>
-            <th className="border p-2">Max</th>
-            <th className="border p-2">Marks</th>
-          </tr>
-        </thead>
-        <tbody>
-          {marksheet.subjects?.map((s, i) => (
-            <tr key={i}>
-              <td className="border p-2">{s.subject}</td>
-              <td className="border p-2 text-center">{s.min}</td>
-              <td className="border p-2 text-center">{s.max}</td>
-              <td className="border p-2 text-center">{s.marks}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              {/* --- LAYER 2: Background Image Texture --- */}
+              <div
+                className="absolute bgbg h-full w-full top-0 left-0  z-0"
 
-      <div className="mt-4 text-sm space-y-1">
-        <p><b>Total:</b> {marksheet.total} / {marksheet.maxTotal}</p>
-        <p><b>Percentage:</b> {marksheet.percentage}%</p>
-        <p><b>Grade:</b> {marksheet.grade}</p>
-        <p><b>Marks in Words:</b> {marksheet.marksInWords} Only</p>
-      </div>
+              ></div>
 
-      <div className="mt-8 flex justify-between text-sm">
-        <p><b>Examiner:</b> {marksheet.examiner}</p>
-        <p><b>Date of Issue:</b> {marksheet.issueDate}</p>
+
+
+              {/* --- LAYER 4: Actual Content Area --- */}
+              <div className="p-6 relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+
+                {/* HEADER SECTION */}
+                <div className="text-center mb-5 relative">
+                  <div className="relative flex items-center mb-4">
+
+                    {/* LOGO – LEFT FIXED */}
+                    <div className="absolute left-0 flex items-center">
+                      <Image
+                        src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
+                        alt="Watermark Seal"
+                        height={100}
+                        width={100}
+                      />
+                    </div>
+
+                    {/* CENTER TEXT – TRUE CENTER */}
+                    <div className="mx-auto text-center">
+                      <h1
+                        className="text-xl sm:text-3xl font-bold text-[#3d2616] tracking-wide uppercase leading-tight"
+
+                      >
+                        My Brand
+                      </h1>
+                      <p className="text-[9px] sm:text-[10px] font-bold text-[#1a365d] mt-1 tracking-wider">
+                        ISO 9001 : 2015 CERTIFIED INTERNATIONAL B-SCHOOL
+                      </p>
+                    </div>
+
+                  </div>
+
+
+                  {/* Orange Marksheet Ribbon */}
+                  <div className="flex justify-center mt-4 relative z-20">
+                    <div className="bg-gradient-to-b from-[#e67e22] to-[#d35400] text-white font-bold px-14 py-1.5 rounded-[4px] shadow-[0_2px_4px_rgba(0,0,0,0.2)] border-b-[2px] border-[#a04000] uppercase tracking-[0.2em] text-sm">
+                      Marksheet
+                    </div>
+                  </div>
+                </div>
+
+                {/* STUDENT DETAILS GRID (Top) */}
+                <div className="border-[1.5px] border-[#5c3a21] text-[11px] font-bold mb-5 shadow-sm bg-[#fffdfa]/80">
+                  <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] border-b-[1.5px] border-[#5c3a21] bg-[#f3e5d0] text-[#5c3a21] tracking-wider">
+                    <div className="py-1.5">ROLL NO.</div>
+                    <div className="py-1.5">ENROLLMENT NO</div>
+                    <div className="py-1.5">SEM./YEAR/SEC</div>
+                    <div className="py-1.5">SESSION EXAMINATION</div>
+                  </div>
+                  <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] font-semibold">
+                    <div className="py-2">{data.rollNumber}</div>
+                    <div className="py-2">{data.enrollment}</div>
+                    <div className="py-2">{data.semester}</div>
+                    <div className="py-2">{data.session}</div>
+                  </div>
+                </div>
+
+                {/* COURSE TITLE */}
+                <div className="text-center mb-5">
+                  <h2 className="text-lg font-bold text-[#3d2616] underline decoration-[1.5px] underline-offset-4">
+                    Diploma Program in Electrical Engineering <br /> (DEE - Electrical)
+                  </h2>
+                </div>
+
+                {/* NAME SECTION */}
+                <div className="flex justify-between text-[11px] font-bold mb-4 uppercase px-1 tracking-wide">
+                  <div className="flex items-end">
+                    <span className="text-[#5c3a21] mr-2 whitespace-nowrap">NAME :</span>
+                    <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-[220px] inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
+                  </div>
+                  <div className="flex items-end">
+                    <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER'S/HUSBAND'S NAME :</span>
+                    <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-[220px] inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
+                  </div>
+                </div>
+
+                {/* MAIN SUBJECT TABLE */}
+                <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-1 bg-[#fffdfa]/90">
+                  <thead>
+                    <tr className="bg-[#f3e5d0] text-center font-bold text-[#5c3a21] tracking-wider">
+                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-10">S.No</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-16">CODE</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 text-left pl-4">SUBJECT (S)/ PAPER (S)</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-12 leading-tight">Max<br />Marks</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-12 leading-tight">Min<br />Passing</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-16 leading-tight">Current Exam<br />Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.subjects.map((s, i) => (
+                      <tr key={i} className="text-center h-7">
+                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 font-bold">0{i + 1}.</td>
+                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5">{s.code}</td>
+                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 text-left font-semibold pl-4 uppercase">{s.subject}</td>
+                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 bg-orange-50/50 font-semibold">{s.max}</td>
+                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5">{s.min}</td>
+                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 font-bold text-[11px]">{s.marks}</td>
+                      </tr>
+                    ))}
+
+                    {/* Filler Rows for visual balance */}
+                    {[...Array(4)].map((_, i) => (
+                      <tr key={`empty-${i}`} className="h-6">
+                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
+                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
+                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
+                        <td className="border-r-[1.5px] border-[#5c3a21] bg-orange-50/50"></td>
+                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
+                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
+                      </tr>
+                    ))}
+
+                    {/* TOTALS SECTION (Simulated structure from image) */}
+                    <tr className="border-t-[1.5px] border-b-[1.5px] border-[#5c3a21] font-bold bg-[#f9f3e7]">
+                      <td colSpan={3} className="text-right py-1 pr-4 border-r-[1.5px] border-[#5c3a21] uppercase text-[9px] tracking-wide">Grand Total (I + II + III + IV + V + VI Sem.)</td>
+                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">4100</td>
+                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">1640</td>
+                      <td className="text-center text-[11px]">{data.grandTotal}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                {/* RESULTS FOOTER GRID */}
+                <div className="border-[1.5px] border-t-0 border-[#5c3a21] text-[10px] font-bold p-1.5 flex justify-between items-center bg-[#f3e5d0] mb-10 shadow-sm">
+                  <div className="flex gap-6 uppercase tracking-wider">
+                    <span>RESULT : <span className="text-black">{data.result}</span></span>
+                    <span className="ml-6">GRADE : <span className="text-black">"{data.grade}"</span></span>
+                  </div>
+                  <div className="tracking-wide">
+                    <span>Marks in Words : <span className="uppercase italic text-black text-[11px]">{data.marksInWords} Only</span></span>
+                  </div>
+                </div>
+
+                {/* SIGNATURES FOOTER */}
+                <div className="flex justify-between items-end text-[11px] mt-20 px-2 relative">
+                  <div>
+                    <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
+                    <p className="font-semibold pl-2">{data.issueDate}</p>
+                  </div>
+
+
+                  <div className="border-[1.5px] border-[#5c3a21] p-0.5 absolute left-1/2 -translate-x-1/2 bottom-2 bg-white">
+                    {/* Replace with actual QR Image */}
+                    <div className="w-14 h-14 bg-slate-100 flex items-center justify-center text-[7px] text-center font-bold text-slate-400">
+                      QR Check
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-center justify-end relative min-w-[150px]">
+
+                    <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">Controller of Examination</p>
+                    <p className="font-semibold text-[10px]">{data.examiner}</p>
+                  </div>
+                </div>
+
+              </div> {/* End Content Area */}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

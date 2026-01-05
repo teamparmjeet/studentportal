@@ -20,6 +20,13 @@ pre,
     height: 100%;
     color: #c0c0c0;
 }
+.bgbg {
+  background-image: url("../../public/images/bgbgbg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+opacity: 60%;
+}
 
 .whychoose.footerbg{
       background-attachment: fixed;
