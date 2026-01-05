@@ -6,11 +6,40 @@ import Image from 'next/image';
 
 
 
+const numberToWords = (num) => {
+  const a = [
+    "", "One", "Two", "Three", "Four", "Five", "Six", "Seven",
+    "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen",
+    "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"
+  ];
+  const b = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+
+  if (num === 0) return "Zero";
+
+  if (num < 20) return a[num];
+  if (num < 100)
+    return b[Math.floor(num / 10)] + (num % 10 ? " " + a[num % 10] : "");
+  if (num < 1000)
+    return a[Math.floor(num / 100)] + " Hundred " + (num % 100 ? numberToWords(num % 100) : "");
+  if (num < 100000)
+    return numberToWords(Math.floor(num / 1000)) + " Thousand " + (num % 1000 ? numberToWords(num % 1000) : "");
+
+  return num.toString();
+};
 
 export default function MarksheetPreview({ marksheet }) {
   if (!marksheet) return null;
 
   // Default values to ensure the preview looks good even without full data
+  const subjects = marksheet.subjects || [
+    { code: "ES501", subject: "Industrial Devices & Control", max: 100, min: 40, marks: 66 },
+  ];
+
+  // 🔹 Dynamic Calculations
+  const maxTotal = subjects.reduce((sum, s) => sum + Number(s.max || 0), 0);
+  const minTotal = subjects.reduce((sum, s) => sum + Number(s.min || 0), 0);
+  const grandTotal = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
+
   const data = {
     rollNumber: marksheet.rollNumber || "123610",
     enrollment: marksheet.enrollment || "",
@@ -20,17 +49,20 @@ export default function MarksheetPreview({ marksheet }) {
     name: marksheet.name || "YUVRAJ GOSWAMI",
     fatherName: marksheet.fatherName || "RAMDEV PURI GOSWAMI",
     issueDate: marksheet.issueDate || "15th July, 2020",
-    grandTotal: marksheet.grandTotal || "3259",
-    result: marksheet.result || "PASS",
+
+    subjects,
+
+    maxTotal,
+    minTotal,
+    grandTotal,
+
+    result: marksheet.result || (grandTotal >= minTotal ? "PASS" : "FAIL"),
     grade: marksheet.grade || "A",
-    marksInWords: marksheet.marksInWords || "Three Thousand Two Hundred Fifty Nine",
-    subjects: marksheet.subjects || [
-      { code: "ES501", subject: "Industrial Devices & Control", max: 100, min: 40, marks: 66 },
-      { code: "ES502", subject: "Utilisation of Electrical Energy & Management", max: 100, min: 40, marks: 82 },
-      { code: "ES503", subject: "Basic Management Skills", max: 100, min: 40, marks: 78 },
-      { code: "ES504", subject: "Electric Motor Control Lab", max: 100, min: 40, marks: 80 },
-    ]
+    marksInWords:
+      marksheet.marksInWords ||
+      `${numberToWords(grandTotal)}`
   };
+
 
   return (
     // Main Container - Fixed A4 width proportions
@@ -52,7 +84,16 @@ export default function MarksheetPreview({ marksheet }) {
 
               ></div>
 
-
+              {/* --- LAYER 3: The Watermark Seal --- */}
+              <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none overflow-hidden">
+                <Image
+                  src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
+                  alt="Watermark Seal"
+                  className=" w-48 h-48 sm:w-64 sm:h-64 object-contain"
+                  height={50}
+                  width={50}
+                />
+              </div>
 
               {/* --- LAYER 4: Actual Content Area --- */}
               <div className="p-6 relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
@@ -66,8 +107,8 @@ export default function MarksheetPreview({ marksheet }) {
                       <Image
                         src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
                         alt="Watermark Seal"
-                        height={100}
-                        width={100}
+                        height={50}
+                        width={50}
                       />
                     </div>
 
@@ -169,9 +210,16 @@ export default function MarksheetPreview({ marksheet }) {
                     {/* TOTALS SECTION (Simulated structure from image) */}
                     <tr className="border-t-[1.5px] border-b-[1.5px] border-[#5c3a21] font-bold bg-[#f9f3e7]">
                       <td colSpan={3} className="text-right py-1 pr-4 border-r-[1.5px] border-[#5c3a21] uppercase text-[9px] tracking-wide">Grand Total (I + II + III + IV + V + VI Sem.)</td>
-                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">4100</td>
-                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">1640</td>
-                      <td className="text-center text-[11px]">{data.grandTotal}</td>
+                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">
+                        {data.maxTotal}
+                      </td>
+                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">
+                        {data.minTotal}
+                      </td>
+                      <td className="text-center text-[11px]">
+                        {data.grandTotal}
+                      </td>
+
                     </tr>
                   </tbody>
                 </table>
@@ -182,9 +230,10 @@ export default function MarksheetPreview({ marksheet }) {
                     <span>RESULT : <span className="text-black">{data.result}</span></span>
                     <span className="ml-6">GRADE : <span className="text-black">"{data.grade}"</span></span>
                   </div>
-                  <div className="tracking-wide">
-                    <span>Marks in Words : <span className="uppercase italic text-black text-[11px]">{data.marksInWords} Only</span></span>
-                  </div>
+                  <span className="uppercase italic text-black text-[11px]">
+                    {data.marksInWords} Only
+                  </span>
+
                 </div>
 
                 {/* SIGNATURES FOOTER */}
