@@ -113,10 +113,13 @@ export default function CoursesPage() {
                       {course.descriptionPoints?.map((point, i) => (
                         <li key={i} className="flex gap-2">
                           <span className="text-red-600">👉</span>
-                          <span>{point}</span>
+                          <span>
+                            <span className="font-medium">{point.title}:</span>{" "}
+                          </span>
                         </li>
                       ))}
                     </ul>
+
                   </div>
                 </div>
               ))}

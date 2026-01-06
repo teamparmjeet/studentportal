@@ -12,9 +12,10 @@ export default function CoursesPage() {
   const [form, setForm] = useState({
     title: "",
     image: null,
-    descriptionPoints: [""],
+    descriptionPoints: [{ title: "", code: "" }],
   });
 
+  // ================= FETCH =================
   const fetchCourses = async () => {
     const res = await fetch("/api/courses");
     const data = await res.json();
@@ -25,7 +26,7 @@ export default function CoursesPage() {
     fetchCourses();
   }, []);
 
-  // CREATE / UPDATE
+  // ================= CREATE / UPDATE =================
   const handleSubmit = async () => {
     if (loading) return;
     setLoading(true);
@@ -33,11 +34,20 @@ export default function CoursesPage() {
     try {
       const data = new FormData();
       data.append("title", form.title);
-      if (form.image) data.append("image", form.image);
+
+      if (form.image) {
+        data.append("image", form.image);
+      }
+
       data.append(
         "descriptionPoints",
-        JSON.stringify(form.descriptionPoints.filter(Boolean))
+        JSON.stringify(
+          form.descriptionPoints.filter(
+            (d) => d.title.trim() && d.code.trim()
+          )
+        )
       );
+
       if (editing) data.append("_id", editing);
 
       await fetch("/api/courses", {
@@ -47,13 +57,14 @@ export default function CoursesPage() {
 
       closeModal();
       fetchCourses();
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
+  // ================= EDIT =================
   const editCourse = (c) => {
     setEditing(c._id);
     setForm({
@@ -61,17 +72,16 @@ export default function CoursesPage() {
       image: null,
       descriptionPoints: c.descriptionPoints?.length
         ? c.descriptionPoints
-        : [""],
+        : [{ title: "", code: "" }],
     });
     setImagePreview(c.image);
     setShowModal(true);
   };
 
+  // ================= DELETE =================
   const deleteCourse = async () => {
     if (loading) return;
-
-    const ok = confirm("Are you sure you want to delete this course?");
-    if (!ok) return;
+    if (!confirm("Are you sure you want to delete this course?")) return;
 
     setLoading(true);
     try {
@@ -88,11 +98,16 @@ export default function CoursesPage() {
     }
   };
 
+  // ================= CLOSE MODAL =================
   const closeModal = () => {
     setShowModal(false);
     setEditing(null);
     setImagePreview(null);
-    setForm({ title: "", image: null, descriptionPoints: [""] });
+    setForm({
+      title: "",
+      image: null,
+      descriptionPoints: [{ title: "", code: "" }],
+    });
   };
 
   return (
@@ -110,7 +125,7 @@ export default function CoursesPage() {
         </button>
       </div>
 
-      {/* LIST (SCROLLABLE) */}
+      {/* COURSE LIST */}
       <div className="flex-1 overflow-y-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
           {courses.map((c) => (
@@ -120,7 +135,7 @@ export default function CoursesPage() {
             >
               <img
                 src={c.image}
-                alt=""
+                alt={c.title}
                 className="h-40 w-full object-cover"
               />
 
@@ -129,7 +144,10 @@ export default function CoursesPage() {
 
                 <ul className="list-disc ml-4 text-sm text-slate-600 mt-2 flex-1">
                   {c.descriptionPoints?.map((d, i) => (
-                    <li key={i}>{d}</li>
+                    <li key={i}>
+                      <span className="font-medium">{d.title}:</span>{" "}
+                      <span className="text-slate-500">{d.code}</span>
+                    </li>
                   ))}
                 </ul>
 
@@ -157,7 +175,7 @@ export default function CoursesPage() {
               </h2>
             </div>
 
-            {/* MODAL BODY (SCROLLABLE) */}
+            {/* MODAL BODY */}
             <div className="p-4 overflow-y-auto space-y-3">
               <input
                 className="w-full border rounded-lg p-2"
@@ -168,7 +186,7 @@ export default function CoursesPage() {
                 }
               />
 
-              {/* IMAGE UPLOAD */}
+              {/* IMAGE */}
               <label className="block border-2 border-dashed rounded-xl p-3 cursor-pointer text-center">
                 {imagePreview ? (
                   <img
@@ -191,25 +209,41 @@ export default function CoursesPage() {
                 />
               </label>
 
+              {/* DESCRIPTION POINTS */}
               {form.descriptionPoints.map((d, i) => (
-                <input
-                  key={i}
-                  className="w-full border rounded-lg p-2"
-                  placeholder={`Point ${i + 1}`}
-                  value={d}
-                  onChange={(e) => {
-                    const arr = [...form.descriptionPoints];
-                    arr[i] = e.target.value;
-                    setForm({ ...form, descriptionPoints: arr });
-                  }}
-                />
+                <div key={i} className="grid grid-cols-2 gap-2">
+                  <input
+                    className="border rounded-lg p-2"
+                    placeholder="Course Name"
+                    value={d.title}
+                    onChange={(e) => {
+                      const arr = [...form.descriptionPoints];
+                      arr[i].title = e.target.value;
+                      setForm({ ...form, descriptionPoints: arr });
+                    }}
+                  />
+                  <input
+                    className="border rounded-lg p-2"
+                    placeholder="Course Code"
+                    value={d.code}
+                    onChange={(e) => {
+                      const arr = [...form.descriptionPoints];
+                      arr[i].code = e.target.value;
+                      setForm({ ...form, descriptionPoints: arr });
+                    }}
+                     readOnly={!!editing}
+                  />
+                </div>
               ))}
 
               <button
                 onClick={() =>
                   setForm({
                     ...form,
-                    descriptionPoints: [...form.descriptionPoints, ""],
+                    descriptionPoints: [
+                      ...form.descriptionPoints,
+                      { title: "", code: "" },
+                    ],
                   })
                 }
                 className="text-orange-600 text-sm"
@@ -247,11 +281,12 @@ export default function CoursesPage() {
                       ? "Updating..."
                       : "Creating..."
                     : editing
-                      ? "Update"
-                      : "Create"}
+                    ? "Update"
+                    : "Create"}
                 </button>
               </div>
             </div>
+
           </div>
         </div>
       )}

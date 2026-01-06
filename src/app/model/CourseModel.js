@@ -13,10 +13,20 @@ const CourseSchema = new mongoose.Schema(
       required: true,
     },
 
-    descriptionPoints: {
-      type: [String], // LIST DATA
-      default: [],
-    },
+      descriptionPoints: [
+      {
+        title: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        code: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+      },
+    ],
 
     isActive: {
       type: Boolean,
@@ -26,5 +36,5 @@ const CourseSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Course ||
-  mongoose.model("Course", CourseSchema);
+export default mongoose.models.Course1 ||
+  mongoose.model("Course1", CourseSchema);

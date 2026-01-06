@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/dbConnect";
 import CourseModel from "@/app/model/CourseModel";
-import { uploadToS3 } from "@/app/lib/awsUpload";
+import {uploadToS3} from "@/app/lib/awsUpload";
 
-// GET
+/* =========================
+   GET (List Courses)
+========================= */
 export async function GET() {
   await dbConnect();
   const courses = await CourseModel.find().sort({ createdAt: -1 });
   return NextResponse.json(courses);
 }
 
-// POST (Add)
+/* =========================
+   POST (Create Course)
+========================= */
 export async function POST(req) {
   await dbConnect();
 
@@ -18,44 +22,36 @@ export async function POST(req) {
 
   const title = formData.get("title");
   const image = formData.get("image");
+
   const descriptionPoints = JSON.parse(
     formData.get("descriptionPoints") || "[]"
   );
 
   if (!title || !image) {
     return NextResponse.json(
-      { error: "Missing required fields" },
+      { error: "Title and Image are required" },
       { status: 400 }
     );
   }
 
+  // ✅ Upload image
   const imageUrl = await uploadToS3(image, "courses");
 
   const course = await CourseModel.create({
     title,
     image: imageUrl,
-    descriptionPoints,
+    descriptionPoints: descriptionPoints.map((d) => ({
+      title: d.title,
+      code: d.code,
+    })),
   });
 
   return NextResponse.json(course);
 }
-export async function DELETE(req) {
-  await dbConnect();
 
-  const { _id } = await req.json();
-
-  if (!_id) {
-    return NextResponse.json(
-      { error: "Invalid ID" },
-      { status: 400 }
-    );
-  }
-
-  await CourseModel.findByIdAndDelete(_id);
-
-  return NextResponse.json({ success: true });
-}
-// PUT (Update + Toggle)
+/* =========================
+   PUT (Update Course)
+========================= */
 export async function PUT(req) {
   await dbConnect();
 
@@ -63,19 +59,29 @@ export async function PUT(req) {
   const _id = formData.get("_id");
 
   if (!_id) {
-    return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid course ID" },
+      { status: 400 }
+    );
   }
 
   const updateData = {};
 
-  if (formData.get("title")) updateData.title = formData.get("title");
-  if (formData.get("isActive"))
+  if (formData.get("title")) {
+    updateData.title = formData.get("title");
+  }
+
+  if (formData.get("isActive") !== null) {
     updateData.isActive = formData.get("isActive") === "true";
+  }
 
   if (formData.get("descriptionPoints")) {
     updateData.descriptionPoints = JSON.parse(
       formData.get("descriptionPoints")
-    );
+    ).map((d) => ({
+      title: d.title,
+      code: d.code,
+    }));
   }
 
   if (formData.get("image")) {
@@ -85,9 +91,31 @@ export async function PUT(req) {
     );
   }
 
-  const updated = await CourseModel.findByIdAndUpdate(_id, updateData, {
-    new: true,
-  });
+  const updatedCourse = await CourseModel.findByIdAndUpdate(
+    _id,
+    updateData,
+    { new: true }
+  );
 
-  return NextResponse.json(updated);
+  return NextResponse.json(updatedCourse);
+}
+
+/* =========================
+   DELETE (Remove Course)
+========================= */
+export async function DELETE(req) {
+  await dbConnect();
+
+  const { _id } = await req.json();
+
+  if (!_id) {
+    return NextResponse.json(
+      { error: "Invalid course ID" },
+      { status: 400 }
+    );
+  }
+
+  await CourseModel.findByIdAndDelete(_id);
+
+  return NextResponse.json({ success: true });
 }
