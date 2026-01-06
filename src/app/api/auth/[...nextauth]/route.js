@@ -1,4 +1,4 @@
-import NextAuth from "next-auth/next";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import dbConnect from "@/app/lib/dbConnect";
 import UserModel from "@/app/model/UserModel";
@@ -8,60 +8,68 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
-      credentials: {},
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
 
       async authorize(credentials) {
-  const { email, password } = credentials;
+        const { email, password } = credentials;
 
-  await dbConnect();
-  const admin = await UserModel.findOne({ email });
+        await dbConnect();
+        const admin = await UserModel.findOne({ email });
 
-  if (!admin) {
-    throw new Error("INVALID_CREDENTIALS");
-  }
+        // ❌ User not found
+        if (!admin) {
+          return null;
+        }
 
-  const passwordMatch = await bcrypt.compare(password, admin.password);
+        // ❌ Password mismatch
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) {
+          return null;
+        }
 
-  if (!passwordMatch) {
-    throw new Error("INVALID_CREDENTIALS");
-  }
+        // ❌ Not admin
+        if (String(admin.usertype) !== "2") {
+          throw new Error("NOT_ADMIN");
+        }
 
-  if (admin.usertype !== "2") {
-    throw new Error("NOT_ADMIN");
-  }
-
-  return {
-    id: admin._id,
-    email: admin.email,
-    name: admin.name,
-    usertype: admin.usertype,
-  };
-}
-
+        // ✅ Success
+        return {
+          id: admin._id.toString(),
+          name: admin.name,
+          email: admin.email,
+          usertype: String(admin.usertype),
+        };
+      },
     }),
   ],
+
   session: {
     strategy: "jwt",
   },
+
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.usertype = user.usertype;
+        token.usertype = String(user.usertype);
       }
       return token;
     },
+
     async session({ session, token }) {
-      session.user.usertype = token.usertype;
-      if (token?.sub) {
-        session.user.id = token.sub;
-      }
+      session.user.id = token.sub;
+      session.user.usertype = String(token.usertype);
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
     signIn: "/login",
   },
+
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);

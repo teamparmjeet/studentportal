@@ -22,26 +22,21 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError('');
+        setError("");
 
-        const res = await signIn('credentials', {
-            redirect: false,
+        const res = await signIn("credentials", {
             email: formData.email,
             password: formData.password,
+            redirect: true,
+            callbackUrl: "/admin",
         });
 
-        setLoading(false);
-
-        if (res?.error) {
-            if (res.error === "NOT_ADMIN") {
-                setError("You are not authorized to access the admin panel");
-            } else {
-                setError("Invalid email or password");
-            }
-        } else {
-            router.push('/admin');
+        // Error handling (only for NOT_ADMIN)
+        if (res?.error === "NOT_ADMIN") {
+            setError("You are not authorized to access admin panel");
         }
 
+        setLoading(false);
     };
 
     return (
