@@ -256,19 +256,39 @@ export default function Page() {
 
                 <td className="px-4 py-3">
                   {item.paymentStatus && item.enrollStatus ? (
-                    <Link
-                      href={`/admin/msheet/${item.enrollmentNumber}`}
-                      className="text-green-600 font-medium hover:underline"
-                    >
-                      {item.marksheetStatus ? "Marksheet" : "Generate Marksheet"}
-                    </Link>
+                    item.marksheetStatus ? (
+                      <div className="flex gap-3">
+                        {/* UPDATE LINK */}
+                        <Link
+                          href={`/admin/msheet/${item.enrollmentNumber}`}
+                          className="text-green-600 font-medium hover:underline"
+                        >
+                          Update
+                        </Link>
+
+                        {/* CHECK LINK */}
+                        <Link
+                          href={`/admin/msheet`}
+                          className="text-blue-600 font-medium hover:underline"
+                        >
+                          Check
+                        </Link>
+                      </div>
+                    ) : (
+                      <Link
+                        href={`/admin/msheet/${item.enrollmentNumber}`}
+                        className="text-green-600 font-medium hover:underline"
+                      >
+                        Generate Marksheet
+                      </Link>
+                    )
                   ) : (
                     <span className="text-gray-400 cursor-not-allowed">
                       {item.marksheetStatus ? "Marksheet" : "Generate Marksheet"}
                     </span>
                   )}
-
                 </td>
+
                 <td className="px-4 py-3">
                   <Link href={`./Admission/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">
                     Action

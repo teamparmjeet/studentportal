@@ -65,7 +65,11 @@ export default function MarksheetPage() {
         const formatted = data.map(course => ({
           _id: course._id,
           title: course.title,
-          subjects: course.descriptionPoints,
+          subjects: course.descriptionPoints.map(sub => ({
+            title: sub.title,
+            code: sub.code,
+          }))
+
         }));
         setCourses(formatted);
       });
@@ -110,32 +114,35 @@ export default function MarksheetPage() {
   /* ======================
      UPDATE SUBJECT MARKS
   ====================== */
-  const updateSubject = (subject, field, value) => {
-    setMarksheet(prev => {
-      const updatedSubjects = prev.subjects.map(s =>
-        s.subject === subject ? { ...s, [field]: Number(value) } : s
-      );
+ const updateSubject = (code, field, value) => {
+  setMarksheet(prev => {
+    const updatedSubjects = prev.subjects.map(s =>
+      s.code === code ? { ...s, [field]: Number(value) } : s
+    );
 
-      const total = updatedSubjects.reduce((t, s) => t + s.marks, 0);
-      const maxTotal = updatedSubjects.reduce((t, s) => t + s.max, 0);
-      const percentage = maxTotal ? ((total / maxTotal) * 100).toFixed(2) : 0;
+    const total = updatedSubjects.reduce((t, s) => t + s.marks, 0);
+    const maxTotal = updatedSubjects.reduce((t, s) => t + s.max, 0);
+    const percentage = maxTotal
+      ? ((total / maxTotal) * 100).toFixed(2)
+      : 0;
 
-      const grade =
-        percentage >= 75 ? "A" :
-          percentage >= 60 ? "B" :
-            percentage >= 45 ? "C" : "D";
+    const grade =
+      percentage >= 75 ? "A" :
+      percentage >= 60 ? "B" :
+      percentage >= 45 ? "C" : "D";
 
-      return {
-        ...prev,
-        subjects: updatedSubjects,
-        total,
-        maxTotal,
-        percentage,
-        grade,
-        marksInWords: numberToWords(total),
-      };
-    });
-  };
+    return {
+      ...prev,
+      subjects: updatedSubjects,
+      total,
+      maxTotal,
+      percentage,
+      grade,
+      marksInWords: numberToWords(total),
+    };
+  });
+};
+
 
   /* ======================
      PREPARE SUBJECTS
@@ -149,7 +156,14 @@ export default function MarksheetPage() {
 
       subs.forEach(sub => {
         if (!subjects.find(s => s.subject === sub)) {
-          subjects.push({ subject: sub, min: 40, max: 100, marks: 0 });
+          subjects.push({
+            subject: sub.title,
+            code: sub.code,
+            min: 40,
+            max: 100,
+            marks: 0,
+          });
+
         }
       });
     });
@@ -283,21 +297,28 @@ export default function MarksheetPage() {
               {selectedCourseIds.includes(course._id) && (
                 <div className="ml-5 mt-2">
                   {course.subjects.map(sub => (
-                    <label key={sub} className="flex gap-2 text-sm">
+                    <label key={sub.code} className="flex gap-2 text-sm">
                       <input
                         type="checkbox"
-                        checked={selectedSubjects[course._id]?.includes(sub) || false}
+                        checked={
+                          selectedSubjects[course._id]?.some(s => s.code === sub.code) || false
+                        }
                         onChange={e => {
                           const prev = selectedSubjects[course._id] || [];
                           const updated = e.target.checked
                             ? [...prev, sub]
-                            : prev.filter(s => s !== sub);
-                          setSelectedSubjects({ ...selectedSubjects, [course._id]: updated });
+                            : prev.filter(s => s.code !== sub.code);
+
+                          setSelectedSubjects({
+                            ...selectedSubjects,
+                            [course._id]: updated,
+                          });
                         }}
                       />
-                      {sub}
+                      {sub.code} - {sub.title}
                     </label>
                   ))}
+
                 </div>
               )}
             </div>
@@ -308,20 +329,37 @@ export default function MarksheetPage() {
         <div className="bg-white p-6 rounded-xl shadow">
           <h2 className="font-semibold mb-2">Enter Marks</h2>
 
-          {marksheet.subjects.map((s, i) => (
-            <div key={i} className="grid grid-cols-4 gap-2 mb-2">
-              <input value={s.subject} disabled className="border p-2 bg-gray-100" />
-              <input type="number" value={s.min}
-                onChange={e => updateSubject(s.subject, "min", e.target.value)}
-                className="border p-2 text-center" />
-              <input type="number" value={s.max}
-                onChange={e => updateSubject(s.subject, "max", e.target.value)}
-                className="border p-2 text-center" />
-              <input type="number" value={s.marks}
-                onChange={e => updateSubject(s.subject, "marks", e.target.value)}
-                className="border p-2 text-center" />
-            </div>
-          ))}
+         {marksheet.subjects.map((s, i) => (
+  <div key={i} className="grid grid-cols-4 gap-2 mb-2">
+    <input
+      value={`${s.code} - ${s.subject}`}
+      disabled
+      className="border p-2 bg-gray-100"
+    />
+
+    <input
+      type="number"
+      value={s.min}
+      onChange={e => updateSubject(s.code, "min", e.target.value)}
+      className="border p-2 text-center"
+    />
+
+    <input
+      type="number"
+      value={s.max}
+      onChange={e => updateSubject(s.code, "max", e.target.value)}
+      className="border p-2 text-center"
+    />
+
+    <input
+      type="number"
+      value={s.marks}
+      onChange={e => updateSubject(s.code, "marks", e.target.value)}
+      className="border p-2 text-center"
+    />
+  </div>
+))}
+
         </div>
       </div>
 
