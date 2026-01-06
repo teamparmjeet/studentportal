@@ -1,35 +1,36 @@
 import React from 'react'
 import Welcome from '@/Components/Welcome/Welcome'
 import Link from 'next/link'
+
 export default function page() {
   return (
     <div>
-      <main className="">
+      <main>
 
-
-        <section className="relative  footerbg whychoose">
+        {/* HERO SECTION */}
+        <section className="relative footerbg whychoose">
           <div className="max-w-7xl mx-auto px-4 py-20 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               About Our Institute
             </h1>
             <p className="max-w-3xl mx-auto text-lg text-orange-100">
-              Delhi Institute Of Management Technology & Science is committed to
-              shaping future professionals through quality education and
-              flexible learning.
+              The National Institute of Engineering & Technology is committed to
+              shaping future engineers and professionals through quality education
+              and innovative learning methods.
             </p>
           </div>
         </section>
 
         {/* ABOUT INTRO */}
-        <section className=" py-20">
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
               {/* LEFT CONTENT */}
               <div>
                 <span className="inline-block mb-3 px-4 py-1 text-xs font-semibold 
-          text-orange-600 bg-orange-100 rounded-full">
-                  About Mybrand
+                text-orange-600 bg-orange-100 rounded-full">
+                  About NIET
                 </span>
 
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-5">
@@ -37,16 +38,16 @@ export default function page() {
                 </h2>
 
                 <p className="text-slate-600 leading-relaxed mb-4">
-                  Delhi Institute Of Management Technology & Science is an autonomous
-                  institute for higher education. We focus on providing accessible,
-                  affordable, and industry-oriented education to students across India
-                  through distance learning programs.
+                  The National Institute of Engineering & Technology is an autonomous
+                  institution focused on delivering excellence in engineering,
+                  technical, and professional education. We emphasize skill-based,
+                  industry-aligned learning to meet modern career demands.
                 </p>
 
                 <p className="text-slate-600 leading-relaxed">
-                  Our mission is to empower learners with practical knowledge,
-                  professional skills, and globally relevant qualifications that lead
-                  to early success in life.
+                  Our goal is to empower students with strong technical knowledge,
+                  practical exposure, and career-ready skills that enable long-term
+                  professional growth and success.
                 </p>
               </div>
 
@@ -58,15 +59,15 @@ export default function page() {
 
                 <ul className="space-y-4">
                   {[
-                    'Autonomous Institute',
-                    'Distance Learning Programs',
-                    'Industry-Focused Curriculum',
-                    'Affordable Fee Structure',
-                    'Student-Centric Approach',
+                    'Autonomous Engineering Institute',
+                    'Modern Technical Programs',
+                    'Industry-Oriented Curriculum',
+                    'Experienced Faculty',
+                    'Career-Focused Learning Environment',
                   ].map((item, index) => (
                     <li key={index} className="flex items-center gap-3 text-slate-600">
                       <span className="w-6 h-6 flex items-center justify-center 
-                rounded-full bg-orange-100 text-orange-600 text-sm font-bold">
+                      rounded-full bg-orange-100 text-orange-600 text-sm font-bold">
                         ✓
                       </span>
                       {item}
@@ -79,13 +80,14 @@ export default function page() {
           </div>
         </section>
 
+        {/* STATS */}
         <section className="bg-orange-50 py-16">
           <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              ['10+', 'Years of Excellence'],
-              ['50K+', 'Students Enrolled'],
-              ['100+', 'Career Programs'],
-              ['PAN India', 'Student Reach'],
+              ['15+', 'Years of Academic Excellence'],
+              ['40K+', 'Students Trained'],
+              ['80+', 'Technical Programs'],
+              ['Nationwide', 'Student Presence'],
             ].map(([value, label], i) => (
               <div key={i}>
                 <p className="text-2xl md:text-4xl font-bold text-orange-600">{value}</p>
@@ -95,20 +97,23 @@ export default function page() {
           </div>
         </section>
 
+        {/* CTA */}
         <section className="footerbg text-white py-20 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Start Your Learning Journey Today
+            Build Your Future with NIET
           </h2>
           <p className="text-slate-300 mb-8">
-            Join DIOMTS and take the next step toward a successful career.
+            Join The National Institute of Engineering & Technology and take the
+            next step toward a successful technical career.
           </p>
           <Link
             href="/contact"
-            className="inline-block bg-orange-600  px-8 py-3 rounded-full font-semibold text-white"
+            className="inline-block bg-orange-600 px-8 py-3 rounded-full font-semibold text-white"
           >
             Contact Admissions
           </Link>
         </section>
+
         {/* VISION & MISSION */}
         <section className="bg-white py-20">
           <div className="max-w-7xl mx-auto px-4">
@@ -127,8 +132,9 @@ export default function page() {
                   <span className="text-orange-600">Our</span> Vision
                 </h3>
                 <p className="text-slate-600">
-                  To become a leading institute in distance education by delivering
-                  quality learning experiences that nurture innovation and excellence.
+                  To be a nationally recognized institute in engineering and
+                  technology education by fostering innovation, research, and
+                  academic excellence.
                 </p>
               </div>
 
@@ -137,19 +143,14 @@ export default function page() {
                   <span className="text-orange-600">Our</span> Mission
                 </h3>
                 <p className="text-slate-600">
-                  To provide flexible, career-oriented programs that help students
-                  balance education with professional and personal commitments
+                  To provide industry-relevant education, hands-on technical
+                  training, and a supportive learning environment that prepares
+                  students for global career opportunities.
                 </p>
               </div>
             </div>
           </div>
         </section>
-
-
-
-
-
-
 
       </main>
     </div>

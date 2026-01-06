@@ -71,20 +71,18 @@ export default function Contactus() {
               <div>
                 <p className="font-semibold">Address</p>
                 <p className="text-sm mt-1 leading-relaxed">
-                  Khasra No. 2/17, Vipin Garden Extn, Uttam Nagar,
-                  New Delhi – 110059
+                  Mathura Rd, near Purana Qila, Pragati Maidan, New Delhi, Delhi 110003
                 </p>
               </div>
 
               <div>
                 <p className="font-semibold">Email</p>
-                <p className="text-sm mt-1">info@diomts.co.in</p>
+                <p className="text-sm mt-1">info@mybrand.in</p>
               </div>
 
               <div>
                 <p className="font-semibold">Phone</p>
-                <p className="text-sm mt-1">+91 9354559564</p>
-                <p className="text-sm">011-71523642</p>
+                <p className="text-sm mt-1">+91 7426818903</p>
               </div>
             </div>
           </div>

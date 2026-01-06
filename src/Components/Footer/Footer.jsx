@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
 
-                     <div>
+                    <div>
                         <h4 className=" text-lg font-semibold mb-4">
                             Quick Menu
                         </h4>
@@ -51,18 +51,14 @@ export default function Footer() {
 
                         <p className="flex items-center gap-2 text-sm mb-3">
                             <Mail size={18} className="text-orange-500" />
-                            info@diomts.co.in
+                            info@mybrand.co.in
                         </p>
 
                         <p className="flex items-center gap-2 text-sm mb-2">
                             <Phone size={18} className="text-orange-500" />
-                            +91 9354559564
+                            +91 74268 18903
                         </p>
 
-                        <p className="flex items-center gap-2 text-sm">
-                            <Phone size={18} className="text-orange-500" />
-                            011-71523642
-                        </p>
                     </div>
 
                     {/* ABOUT */}
@@ -71,21 +67,23 @@ export default function Footer() {
                             About Us
                         </h4>
                         <p className="text-sm leading-relaxed">
-                            Delhi Institute Of Management Technology & Science is an autonomous
-                            institute for higher education. It gives a path to early success in
-                            life through distance learning courses.
+                            The National Institute of Engineering & Technology is an autonomous institute
+                            dedicated to excellence in technical and professional education. It provides
+                            a strong foundation for career success through innovative and flexible
+                            learning programs.
                         </p>
+
                     </div>
 
                     {/* QUICK LINKS */}
-                  
-                     <div>
+
+                    <div>
                         <h4 className=" text-lg font-semibold mb-4">
                             Location
                         </h4>
                         <div className="rounded-xl overflow-hidden border border-gray-700">
                             <iframe
-                                src="https://www.google.com/maps?q=Vipin%20Garden%20Uttam%20Nagar%20New%20Delhi&output=embed"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1664.688924660219!2d77.24270266614498!3d28.60913743480658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3214b3b6771%3A0x139279610ab2ccb3!2sPurana%20Quila!5e1!3m2!1sen!2sin!4v1767682211157!5m2!1sen!2sin"
                                 width="100%"
                                 height="130"
                                 loading="lazy"
@@ -100,7 +98,7 @@ export default function Footer() {
 
                 {/* BOTTOM BAR */}
                 <div className="border-t border-gray-700 mt-12 py-6 text-center text-sm text-gray-400">
-                    © {new Date().getFullYear()} Delhi Institute Of Management Technology & Science.
+                    © {new Date().getFullYear()} The National Institute of engineering & technology
                     All Rights Reserved.
                 </div>
 

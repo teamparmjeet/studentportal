@@ -3,15 +3,16 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export default function AdminDashboard() {
   const router = useRouter();
 
-  const handleLogout = async () => {
-    // 🔹 Clear auth (example)
-    localStorage.removeItem("adminToken");
-    router.push("/admin/login");
-  };
+   const handleLogout = async () => {
+         await signOut({
+             callbackUrl: "/", // logout ke baad redirect
+         });
+     };
 
   return (
     <section className="min-h-screen bg-gray-100 p-6">

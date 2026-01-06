@@ -25,7 +25,7 @@ export default function page() {
       <section className="max-w-7xl mx-auto px-4 pb-16">
         <div className="rounded-xl overflow-hidden shadow">
           <iframe
-            src="https://www.google.com/maps?q=Vipin%20Garden%20Uttam%20Nagar%20New%20Delhi&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1664.688924660219!2d77.24270266614498!3d28.60913743480658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3214b3b6771%3A0x139279610ab2ccb3!2sPurana%20Quila!5e1!3m2!1sen!2sin!4v1767682211157!5m2!1sen!2sin"
             width="100%"
             height="350"
             loading="lazy"
