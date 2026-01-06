@@ -67,12 +67,12 @@ export default function MarksheetPreview({ marksheet }) {
   return (
     // Main Container - Fixed A4 width proportions
     <div className="w-full max-w-[210mm] mx-auto my-8 relative z-0">
-
+      
       {/* --- LAYER 1: The Attractive Complex Border Frame Simulation --- */}
       {/* Outer darkest brown border with shadow */}
       <div className="bg-[#5c3a21] p-[2px] rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
         {/* Gold inner border layer */}
-        <div className="bg-[#cba258] p-[3px] border border-[#8c6239]">
+        <div className="bg-[#cba35800] p-[3px] border border-[#8c6239]">
           {/* Lighter cream inner border layer */}
           <div className="bg-[#fcf8e3] p-[2px] border border-[#5c3a21]">
             {/* The innermost thin decorative line before content */}
@@ -137,7 +137,7 @@ export default function MarksheetPreview({ marksheet }) {
                 </div>
 
                 {/* STUDENT DETAILS GRID (Top) */}
-                <div className="border-[1.5px] border-[#5c3a21] text-[11px] font-bold mb-5 shadow-sm bg-[#fffdfa]/80">
+                <div className="border-[1.5px] border-[#5c3a21] text-[11px] font-bold mb-5 shadow-sm bg-[#fffdfa]/40">
                   <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] border-b-[1.5px] border-[#5c3a21] bg-[#f3e5d0] text-[#5c3a21] tracking-wider">
                     <div className="py-1.5">ROLL NO.</div>
                     <div className="py-1.5">ENROLLMENT NO</div>
@@ -172,7 +172,7 @@ export default function MarksheetPreview({ marksheet }) {
                 </div>
 
                 {/* MAIN SUBJECT TABLE */}
-                <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-1 bg-[#fffdfa]/90">
+                <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-1 bg-[#fffdfa]/40">
                   <thead>
                     <tr className="bg-[#f3e5d0] text-center font-bold text-[#5c3a21] tracking-wider">
                       <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-10">S.No</th>
@@ -240,16 +240,17 @@ export default function MarksheetPreview({ marksheet }) {
                 <div className="flex justify-between items-end text-[11px] mt-20 px-2 relative">
                   <div>
                     <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
-                    <p className="font-semibold pl-2">{data.issueDate}</p>
+                    <p className="font-semibold pl-2">
+                      {new Date(data.issueDate).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+
                   </div>
 
 
-                  <div className="border-[1.5px] border-[#5c3a21] p-0.5 absolute left-1/2 -translate-x-1/2 bottom-2 bg-white">
-                    {/* Replace with actual QR Image */}
-                    <div className="w-14 h-14 bg-slate-100 flex items-center justify-center text-[7px] text-center font-bold text-slate-400">
-                      QR Check
-                    </div>
-                  </div>
 
                   <div className="flex flex-col items-center justify-end relative min-w-[150px]">
 

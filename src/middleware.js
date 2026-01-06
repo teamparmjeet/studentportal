@@ -10,26 +10,20 @@ export async function middleware(req) {
   const { pathname } = req.nextUrl;
   const url = req.nextUrl.clone();
 
-  /* ======================
-     CASE 1: USER IS LOGGED IN
-     → DO NOT ALLOW LOGIN PAGE
-  ====================== */
+  // DEBUG (TEMPORARY)
+  console.log("MIDDLEWARE TOKEN:", token);
+
   if (pathname === "/login" && token) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
 
-  /* ======================
-     CASE 2: ADMIN ROUTES
-  ====================== */
   if (pathname.startsWith("/admin")) {
-    // ❌ Not logged in
     if (!token) {
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
 
-    // ❌ Logged in but not admin
     if (token.usertype !== "2") {
       url.pathname = "/";
       return NextResponse.redirect(url);
@@ -39,9 +33,6 @@ export async function middleware(req) {
   return NextResponse.next();
 }
 
-/* ======================
-   MATCHER
-====================== */
 export const config = {
   matcher: ["/admin/:path*", "/login"],
 };
