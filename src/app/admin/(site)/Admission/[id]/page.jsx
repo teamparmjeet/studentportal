@@ -5,12 +5,18 @@ import { useEffect, useState } from "react";
 
 export default function Page() {
   const { id } = useParams();
+  const [courses, setCourses] = useState([]);
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   const [edit, setEdit] = useState(false);
   const [newImage, setNewImage] = useState(null);
+  const fetchCourses = async () => {
+    const res = await fetch("/api/courses/findlist"); // ✅ your modified API
+    const result = await res.json();
+    setCourses(result);
+  };
 
   /* ======================
      FETCH
@@ -25,7 +31,9 @@ export default function Page() {
 
   useEffect(() => {
     fetchData();
+    fetchCourses();
   }, [id]);
+
 
   /* ======================
      UPDATE
@@ -143,17 +151,31 @@ export default function Page() {
           {edit ? (
             <select
               value={data.programme}
-              onChange={(e) => setData({ ...data, programme: e.target.value })}
-              className=" border border-orange-600 focus:ring-orange-600 rounded px-3 py-2 w-full"
+              onChange={(e) =>
+                setData({ ...data, programme: e.target.value })
+              }
+              className="border border-orange-600 focus:ring-orange-600 rounded px-3 py-2 w-full"
             >
-              <option>Diploma</option>
-              <option>Bachelor</option>
-              <option>Master</option>
+              <option value="">Select Programme</option>
+
+              {courses.map((course, i) => (
+                <optgroup key={i} label={course.title}>
+                  {course.descriptionPoints.map((dp, j) => (
+                    <option
+                      key={j}
+                      value={`${course.title} - ${dp.title}`}
+                    >
+                      {dp.title}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
             </select>
           ) : (
             <View>{data.programme}</View>
           )}
         </Field>
+
 
         <Field label="Date of Admission">
           {edit ? (

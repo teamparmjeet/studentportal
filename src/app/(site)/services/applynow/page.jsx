@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ApplyNowPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [enrollment, setEnrollment] = useState("");
   const [showModal, setShowModal] = useState(false);
-
+  const [courses, setCourses] = useState([]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -33,6 +33,15 @@ export default function ApplyNowPage() {
 
     setLoading(false);
   };
+  const fetchCourses = async () => {
+    const res = await fetch("/api/courses");
+    const data = await res.json();
+    setCourses(data);
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
   return (
     <section className="min-h-screen bg-[#f4f4f4] py-16 px-4">
@@ -104,13 +113,25 @@ export default function ApplyNowPage() {
             {/* Programme */}
             <div>
               <label className="label">Select Programme *</label>
+
               <select name="programme" required className="input">
-                <option value="">-- Select --</option>
-                <option>Diploma</option>
-                <option>Bachelor</option>
-                <option>Master</option>
+                <option value="">-- Select Programme --</option>
+
+                {courses.map((course, i) => (
+                  <optgroup key={i} label={course.title}>
+                    {course.descriptionPoints.map((dp, j) => (
+                      <option
+                        key={j}
+                        value={`${course.title} - ${dp.title}`}
+                      >
+                        {dp.title}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
               </select>
             </div>
+
 
             <div>
               <label className="label">Date of Admission *</label>
