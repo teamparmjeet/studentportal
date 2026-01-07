@@ -57,6 +57,9 @@ export default function AdminHeader() {
                             <Link href="/admin/Address" className={`${isActive("/admin/Address")} hover:text-orange-600`}>
                                 Address
                             </Link>
+                             <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600`}>
+                                Pending
+                            </Link>
 
 
                             <button
@@ -101,6 +104,8 @@ export default function AdminHeader() {
                     <Link href="/admin/Courses" onClick={() => setOpen(false)}>Courses</Link>
                     <Link href="/admin/Enquiry" onClick={() => setOpen(false)}>Enquiry</Link>
                     <Link href="/admin/msheet" onClick={() => setOpen(false)}>Marksheet</Link>
+                    <Link href="/admin/Address" onClick={() => setOpen(false)}>Address</Link>
+                    <Link href="/admin/Allquery" onClick={() => setOpen(false)}>Pending</Link>
 
                     <button
                         onClick={async () => {

@@ -9,9 +9,6 @@ const FILTER_FIELDS = [
   { key: "name", label: "Name", type: "text" },
   { key: "mobile", label: "Mobile", type: "text" },
   { key: "email", label: "Email", type: "text" },
-  { key: "programme", label: "Programme", type: "text" },
-  { key: "paymentStatus", label: "Payment Status", type: "boolean" },
-  { key: "enrollStatus", label: "Enroll Status", type: "boolean" },
 ];
 
 export default function Page() {
@@ -34,7 +31,7 @@ export default function Page() {
   const fetchAdmissions = async () => {
     setLoading(true);
 
-    let url = `/api/admission?page=${page}&limit=10&isActive=false`;
+    let url = `/api/admission?page=${page}&limit=10&isActive=true`;
 
     Object.entries(filters).forEach(([key, value]) => {
       url += `&${key}=${encodeURIComponent(value)}`;
@@ -193,9 +190,6 @@ export default function Page() {
               <th className="px-4 py-3">DOB</th>
               <th className="px-4 py-3">Programme</th>
               <th className="px-4 py-3">Mobile</th>
-              <th className="px-4 py-3">Payment</th>
-              <th className="px-4 py-3">Enroll</th>
-              <th className="px-4 py-3">Marksheet</th>
               <th className="px-4 py-3">Action</th>
             </tr>
           </thead>
@@ -232,65 +226,10 @@ export default function Page() {
                 <td className="px-4 py-3">{item.programme}</td>
                 <td className="px-4 py-3">{item.mobile}</td>
 
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 text-xs rounded ${item.paymentStatus
-                      ? "bg-green-100 text-green-700"
-                      : "bg-yellow-100 text-yellow-700"
-                      }`}
-                  >
-                    {item.paymentStatus ? "Paid" : "Pending"}
-                  </span>
-                </td>
+
 
                 <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 text-xs rounded ${item.enrollStatus
-                      ? "bg-blue-100 text-blue-700"
-                      : "bg-gray-100 text-gray-600"
-                      }`}
-                  >
-                    {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
-                  </span>
-                </td>
-
-                <td className="px-4 py-3">
-                  {item.paymentStatus && item.enrollStatus ? (
-                    item.marksheetStatus ? (
-                      <div className="flex gap-3">
-                        {/* UPDATE LINK */}
-                        <Link
-                          href={`/admin/msheet/${item.enrollmentNumber}`}
-                          className="text-green-600 font-medium hover:underline"
-                        >
-                          Update
-                        </Link>
-
-                        {/* CHECK LINK */}
-                        <Link
-                          href={`/admin/msheet`}
-                          className="text-blue-600 font-medium hover:underline"
-                        >
-                          Check
-                        </Link>
-                      </div>
-                    ) : (
-                      <Link
-                        href={`/admin/msheet/${item.enrollmentNumber}`}
-                        className="text-green-600 font-medium hover:underline"
-                      >
-                        Generate Marksheet
-                      </Link>
-                    )
-                  ) : (
-                    <span className="text-gray-400 cursor-not-allowed">
-                      {item.marksheetStatus ? "Marksheet" : "Generate Marksheet"}
-                    </span>
-                  )}
-                </td>
-
-                <td className="px-4 py-3">
-                  <Link href={`./Admission/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">
+                  <Link href={`./Allquery/${item.enrollmentNumber}`} className="text-orange-600 hover:underline">
                     Action
                   </Link>
                 </td>

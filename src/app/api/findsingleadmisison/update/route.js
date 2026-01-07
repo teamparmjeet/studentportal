@@ -37,6 +37,7 @@ export async function PUT(req) {
     const updateData = {
       programme: formData.get("programme"),
       paymentStatus: formData.get("paymentStatus"),
+      isActive: formData.get("isActive"),
       enrollStatus: formData.get("enrollStatus"),
       admissionDate: formData.get("admissionDate"),
       name: formData.get("name"),
