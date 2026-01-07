@@ -20,6 +20,8 @@ export default function MarksheetPage() {
     semester: "",
     examiner: "",
     issueDate: new Date().toISOString().split("T")[0],
+    title1: "",   // ✅ NEW
+    title2: "",   // ✅ NEW
     subjects: [],
     total: 0,
     maxTotal: 0,
@@ -114,34 +116,34 @@ export default function MarksheetPage() {
   /* ======================
      UPDATE SUBJECT MARKS
   ====================== */
- const updateSubject = (code, field, value) => {
-  setMarksheet(prev => {
-    const updatedSubjects = prev.subjects.map(s =>
-      s.code === code ? { ...s, [field]: Number(value) } : s
-    );
+  const updateSubject = (code, field, value) => {
+    setMarksheet(prev => {
+      const updatedSubjects = prev.subjects.map(s =>
+        s.code === code ? { ...s, [field]: Number(value) } : s
+      );
 
-    const total = updatedSubjects.reduce((t, s) => t + s.marks, 0);
-    const maxTotal = updatedSubjects.reduce((t, s) => t + s.max, 0);
-    const percentage = maxTotal
-      ? ((total / maxTotal) * 100).toFixed(2)
-      : 0;
+      const total = updatedSubjects.reduce((t, s) => t + s.marks, 0);
+      const maxTotal = updatedSubjects.reduce((t, s) => t + s.max, 0);
+      const percentage = maxTotal
+        ? ((total / maxTotal) * 100).toFixed(2)
+        : 0;
 
-    const grade =
-      percentage >= 75 ? "A" :
-      percentage >= 60 ? "B" :
-      percentage >= 45 ? "C" : "D";
+      const grade =
+        percentage >= 75 ? "A" :
+          percentage >= 60 ? "B" :
+            percentage >= 45 ? "C" : "D";
 
-    return {
-      ...prev,
-      subjects: updatedSubjects,
-      total,
-      maxTotal,
-      percentage,
-      grade,
-      marksInWords: numberToWords(total),
-    };
-  });
-};
+      return {
+        ...prev,
+        subjects: updatedSubjects,
+        total,
+        maxTotal,
+        percentage,
+        grade,
+        marksInWords: numberToWords(total),
+      };
+    });
+  };
 
 
   /* ======================
@@ -268,6 +270,37 @@ export default function MarksheetPage() {
                    focus:border-orange-400"
               />
             </div>
+            {/* Title 1 */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">
+                Title 1
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. BOARD OF TECHNICAL EDUCATION"
+                value={marksheet.title1}
+                onChange={(e) =>
+                  setMarksheet({ ...marksheet, title1: e.target.value })
+                }
+                className="w-full rounded-lg border px-3 py-2 text-sm"
+              />
+            </div>
+
+            {/* Title 2 */}
+            <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">
+                Title 2
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. STATEMENT OF MARKS"
+                value={marksheet.title2}
+                onChange={(e) =>
+                  setMarksheet({ ...marksheet, title2: e.target.value })
+                }
+                className="w-full rounded-lg border px-3 py-2 text-sm"
+              />
+            </div>
 
           </div>
         </div>
@@ -329,36 +362,36 @@ export default function MarksheetPage() {
         <div className="bg-white p-6 rounded-xl shadow">
           <h2 className="font-semibold mb-2">Enter Marks</h2>
 
-         {marksheet.subjects.map((s, i) => (
-  <div key={i} className="grid grid-cols-4 gap-2 mb-2">
-    <input
-      value={`${s.code} - ${s.subject}`}
-      disabled
-      className="border p-2 bg-gray-100"
-    />
+          {marksheet.subjects.map((s, i) => (
+            <div key={i} className="grid grid-cols-4 gap-2 mb-2">
+              <input
+                value={`${s.code} - ${s.subject}`}
+                disabled
+                className="border p-2 bg-gray-100"
+              />
 
-    <input
-      type="number"
-      value={s.min}
-      onChange={e => updateSubject(s.code, "min", e.target.value)}
-      className="border p-2 text-center"
-    />
+              <input
+                type="number"
+                value={s.min}
+                onChange={e => updateSubject(s.code, "min", e.target.value)}
+                className="border p-2 text-center"
+              />
 
-    <input
-      type="number"
-      value={s.max}
-      onChange={e => updateSubject(s.code, "max", e.target.value)}
-      className="border p-2 text-center"
-    />
+              <input
+                type="number"
+                value={s.max}
+                onChange={e => updateSubject(s.code, "max", e.target.value)}
+                className="border p-2 text-center"
+              />
 
-    <input
-      type="number"
-      value={s.marks}
-      onChange={e => updateSubject(s.code, "marks", e.target.value)}
-      className="border p-2 text-center"
-    />
-  </div>
-))}
+              <input
+                type="number"
+                value={s.marks}
+                onChange={e => updateSubject(s.code, "marks", e.target.value)}
+                className="border p-2 text-center"
+              />
+            </div>
+          ))}
 
         </div>
       </div>

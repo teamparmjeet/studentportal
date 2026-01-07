@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const SubjectSchema = new mongoose.Schema(
   {
     subject: { type: String, required: true },
+    code: { type: String, required: true },
     min: { type: Number, default: 40 },
     max: { type: Number, default: 100 },
     marks: { type: Number, required: true },
@@ -18,7 +19,8 @@ const MarksheetSchema = new mongoose.Schema(
     rollNumber: { type: String, required: true },
     enrollment: { type: String, required: true, index: true },
     profileImage: { type: String },
-
+    title1: { type: String },
+    title2: { type: String },
     // 🔹 Academic Info
     session: { type: String, required: true },
     semester: { type: String, required: true },
@@ -44,5 +46,5 @@ const MarksheetSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Marksheet ||
-  mongoose.model("Marksheet", MarksheetSchema);
+export default mongoose.models.Marksheet2 ||
+  mongoose.model("Marksheet2", MarksheetSchema);

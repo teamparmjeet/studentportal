@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Contactus() {
@@ -10,7 +10,7 @@ export default function Contactus() {
     phone: '',
     message: '',
   });
-
+  const [liveAddress, setLiveAddress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +18,18 @@ export default function Contactus() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    const fetchLiveAddress = async () => {
+      try {
+        const res = await axios.get('/api/Address/live');
+        setLiveAddress(res.data);
+      } catch (err) {
+        console.log('No live address found');
+      }
+    };
 
+    fetchLiveAddress();
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -40,7 +51,7 @@ export default function Contactus() {
     } catch (err) {
       setError(
         err?.response?.data?.message ||
-          'Something went wrong. Please try again.'
+        'Something went wrong. Please try again.'
       );
     } finally {
       setLoading(false);
@@ -71,7 +82,7 @@ export default function Contactus() {
               <div>
                 <p className="font-semibold">Address</p>
                 <p className="text-sm mt-1 leading-relaxed">
-                  Mathura Rd, near Purana Qila, Pragati Maidan, New Delhi, Delhi 110003
+                  {liveAddress?.addressText || 'Address not available'}
                 </p>
               </div>
 

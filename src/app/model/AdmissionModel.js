@@ -55,29 +55,30 @@ AdmissionSchema.pre("save", async function () {
   if (this.enrollmentNumber && this.rollNumber) return;
 
   const Admission = mongoose.model("Admission");
+  let programmeCode = "GEN";
 
+  if (this.programme) {
+    programmeCode = this.programme
+      .trim()
+      .split(/\s+/)[0]   // first word
+      .slice(0, 3)       // first 3 letters
+      .toUpperCase();
+  }
   /* -------- ENROLLMENT NUMBER -------- */
-  if (!this.enrollmentNumber) {
-    const year = new Date().getFullYear();
+   if (!this.enrollmentNumber) {
+    let exists = true;
+    let enrollment;
 
-    const programmeCode =
-      this.programme === "Diploma"
-        ? "DIP"
-        : this.programme === "Bachelor"
-        ? "BAC"
-        : "MAS";
+    while (exists) {
+      const randomSix = Math.floor(100000 + Math.random() * 900000);
+      enrollment = `NIET-${programmeCode}-${randomSix}`;
 
-    const lastRecord = await Admission.findOne({})
-      .sort({ createdAt: -1 })
-      .select("enrollmentNumber");
+      exists = await Admission.exists({
+        enrollmentNumber: enrollment,
+      });
+    }
 
-    const lastNumber = lastRecord?.enrollmentNumber
-      ? parseInt(lastRecord.enrollmentNumber.split("-").pop())
-      : 0;
-
-    const nextNumber = String(lastNumber + 1).padStart(6, "0");
-
-    this.enrollmentNumber = `ENR-${year}-${programmeCode}-${nextNumber}`;
+    this.enrollmentNumber = enrollment;
   }
 
   /* -------- ROLL NUMBER (6 DIGIT UNIQUE) -------- */

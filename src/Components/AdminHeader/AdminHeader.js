@@ -54,7 +54,9 @@ export default function AdminHeader() {
                             <Link href="/admin/msheet" className={`${isActive("/admin/msheet")} hover:text-orange-600`}>
                                 Marksheet
                             </Link>
-
+                            <Link href="/admin/Address" className={`${isActive("/admin/Address")} hover:text-orange-600`}>
+                                Address
+                            </Link>
 
 
                             <button

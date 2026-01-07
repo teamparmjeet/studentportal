@@ -21,8 +21,38 @@ export default function Header() {
         <>
 
             <header
-                className="fixed top-0 w-full z-50 transition-all duration-300  bg-white/80 backdrop-blur-md shadow-md"
+                className="fixed top-0 w-full z-50 transition-all duration-300  bg-white backdrop-blur-md shadow-md"
             >
+                <div className="w-full bg-orange-50 border-b border-orange-200">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className=" py-1 flex items-center justify-between text-sm text-gray-700">
+
+
+                            <div className="flex items-center gap-6 tracking-wide">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-orange-600">🕘</span>
+                                    <span>9 AM to 6 PM</span>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <span className="text-orange-600">📞</span>
+                                    <span>91 74268 18903</span>
+                                </div>
+
+
+                            </div>
+
+
+                            <div className="hidden md:flex items-center gap-4 text-orange-600">
+                                <a href="#" className="hover:text-orange-700 transition">𝕏</a>
+                                <a href="#" className="hover:text-orange-700 transition">f</a>
+                                <a href="#" className="hover:text-orange-700 transition">in</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="h-16 flex items-center justify-between">
 

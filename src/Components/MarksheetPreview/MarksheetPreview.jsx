@@ -45,6 +45,8 @@ export default function MarksheetPreview({ marksheet }) {
     enrollment: marksheet.enrollment || "",
     examiner: marksheet.examiner || "",
     semester: marksheet.semester || "VI",
+    title1: marksheet.title1 || "The national Institute of engineering & technology",
+    title2: marksheet.title2 || "engineering & technology",
     session: marksheet.session || "2019 - 2020",
     name: marksheet.name || "YUVRAJ GOSWAMI",
     fatherName: marksheet.fatherName || "RAMDEV PURI GOSWAMI",
@@ -155,7 +157,7 @@ export default function MarksheetPreview({ marksheet }) {
                 {/* COURSE TITLE */}
                 <div className="text-center mb-5">
                   <h2 className="text-lg font-bold text-[#3d2616] underline decoration-[1.5px] underline-offset-4">
-                    Diploma Program in Electrical Engineering <br /> (DEE - Electrical)
+                    {data.title1} <br /> ({data.title2})
                   </h2>
                 </div>
 
@@ -166,7 +168,7 @@ export default function MarksheetPreview({ marksheet }) {
                     <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-[220px] inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
                   </div>
                   <div className="flex items-end">
-                    <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER'S/HUSBAND'S NAME :</span>
+                    <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER:</span>
                     <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-[220px] inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
                   </div>
                 </div>

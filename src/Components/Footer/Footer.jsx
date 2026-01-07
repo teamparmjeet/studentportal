@@ -1,7 +1,25 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Link from "next/link";
 import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
+    const [liveAddress, setLiveAddress] = useState(null);
+
+    useEffect(() => {
+        const fetchLiveAddress = async () => {
+            try {
+                const res = await axios.get('/api/Address/live');
+                setLiveAddress(res.data);
+            } catch (err) {
+                console.log('No live address found');
+            }
+        };
+
+        fetchLiveAddress();
+    }, []);
     return (
         <footer className="footerbg text-gray-300 pt-14">
             <div className="max-w-7xl mx-auto px-4">
@@ -82,13 +100,15 @@ export default function Footer() {
                             Location
                         </h4>
                         <div className="rounded-xl overflow-hidden border border-gray-700">
+                               {liveAddress?.mapEmbedUrl && (
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1664.688924660219!2d77.24270266614498!3d28.60913743480658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3214b3b6771%3A0x139279610ab2ccb3!2sPurana%20Quila!5e1!3m2!1sen!2sin!4v1767682211157!5m2!1sen!2sin"
+                               src={liveAddress.mapEmbedUrl}
                                 width="100%"
                                 height="130"
                                 loading="lazy"
                                 className="border-0"
                             ></iframe>
+                              )}
                         </div>
                     </div>
 
