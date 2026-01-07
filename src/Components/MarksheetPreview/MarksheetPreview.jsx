@@ -41,16 +41,16 @@ export default function MarksheetPreview({ marksheet }) {
   const grandTotal = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
 
   const data = {
-    rollNumber: marksheet.rollNumber || "123610",
+    rollNumber: marksheet.rollNumber || "-----",
     enrollment: marksheet.enrollment || "",
     examiner: marksheet.examiner || "",
-    semester: marksheet.semester || "VI",
-    title1: marksheet.title1 || "The national Institute of engineering & technology",
-    title2: marksheet.title2 || "engineering & technology",
-    session: marksheet.session || "2019 - 2020",
-    name: marksheet.name || "YUVRAJ GOSWAMI",
-    fatherName: marksheet.fatherName || "RAMDEV PURI GOSWAMI",
-    issueDate: marksheet.issueDate || "15th July, 2020",
+    semester: marksheet.semester || "--",
+    title1: marksheet.title1 || "----",
+    title2: marksheet.title2 || "---",
+    session: marksheet.session || "---",
+    name: marksheet.name || "---",
+    fatherName: marksheet.fatherName || "--",
+    issueDate: marksheet.issueDate || "-",
 
     subjects,
 
@@ -69,7 +69,7 @@ export default function MarksheetPreview({ marksheet }) {
   return (
     // Main Container - Fixed A4 width proportions
     <div className="w-full max-w-[210mm] mx-auto my-8 relative z-0">
-      
+
       {/* --- LAYER 1: The Attractive Complex Border Frame Simulation --- */}
       {/* Outer darkest brown border with shadow */}
       <div className="bg-[#5c3a21] p-[2px] rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
@@ -174,54 +174,69 @@ export default function MarksheetPreview({ marksheet }) {
                 </div>
 
                 {/* MAIN SUBJECT TABLE */}
-                <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-1 bg-[#fffdfa]/40">
+                {/* MAIN SUBJECT TABLE */}
+                <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-0 bg-[#fffdfa]/40 table-fixed">
                   <thead>
-                    <tr className="bg-[#f3e5d0] text-center font-bold text-[#5c3a21] tracking-wider">
-                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-10">S.No</th>
-                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-16">CODE</th>
-                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 text-left pl-4">SUBJECT (S)/ PAPER (S)</th>
-                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-12 leading-tight">Max<br />Marks</th>
-                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-12 leading-tight">Min<br />Passing</th>
-                      <th className="border-[1.5px] border-[#5c3a21] py-1.5 w-16 leading-tight">Current Exam<br />Marks</th>
+                    <tr className="bg-[#f3e5d0] text-center font-bold text-[#5c3a21] tracking-wider uppercase">
+                      <th className="border-[1.5px] border-[#5c3a21] py-2 w-[8%]">S.No</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%]">Code</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-2 text-left pl-4 w-[40%]">Subject (s) / Paper (s)</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Max<br />Marks</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Min<br />Passing</th>
+                      <th className="border-[1.5px] border-[#5c3a21] py-2 w-[16%] leading-tight text-[9px]">Marks<br />Obtained</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {/* Dynamic Subject Rows */}
                     {data.subjects.map((s, i) => (
-                      <tr key={i} className="text-center h-7">
-                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 font-bold">0{i + 1}.</td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5">{s.code}</td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 text-left font-semibold pl-4 uppercase">{s.subject}</td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 bg-orange-50/50 font-semibold">{s.max}</td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5">{s.min}</td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] py-0.5 font-bold text-[11px]">{s.marks}</td>
+                      <tr key={i} className="text-center h-9 hover:bg-orange-50/30 transition-colors">
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/30 border-l-[1.5px] border-l-[#5c3a21] py-1 font-bold">
+                          {String(i + 1).padStart(2, '0')}.
+                        </td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/30 py-1 tracking-tighter">
+                          {s.code}
+                        </td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/30 py-1 text-left font-semibold pl-4 uppercase text-[11px] truncate">
+                          {s.subject}
+                        </td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/30 py-1 bg-[#f3e5d0]/20 font-semibold">
+                          {s.max}
+                        </td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/30 py-1">
+                          {s.min}
+                        </td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/30 py-1 font-bold text-[12px] ">
+                          {s.marks}
+                        </td>
                       </tr>
                     ))}
 
-                    {/* Filler Rows for visual balance */}
-                    {[...Array(4)].map((_, i) => (
-                      <tr key={`empty-${i}`} className="h-6">
-                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
-                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
-                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] bg-orange-50/50"></td>
-                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
-                        <td className="border-r-[1.5px] border-[#5c3a21]"></td>
+                    {/* Intelligent Filler Rows: Ensures table height is always consistent for A4 printing */}
+                    {[...Array(Math.max(0, 10 - data.subjects.length))].map((_, i) => (
+                      <tr key={`empty-${i}`} className="h-9">
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/10 border-l-[1.5px] border-l-[#5c3a21]"></td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/10"></td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/10"></td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/10 bg-[#f3e5d0]/10"></td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/10"></td>
+                        <td className="border-r-[1.5px] border-b-[1px] border-[#5c3a21]/10"></td>
                       </tr>
                     ))}
 
-                    {/* TOTALS SECTION (Simulated structure from image) */}
-                    <tr className="border-t-[1.5px] border-b-[1.5px] border-[#5c3a21] font-bold bg-[#f9f3e7]">
-                      <td colSpan={3} className="text-right py-1 pr-4 border-r-[1.5px] border-[#5c3a21] uppercase text-[9px] tracking-wide">Grand Total (I + II + III + IV + V + VI Sem.)</td>
-                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">
+                    {/* TOTALS SECTION */}
+                    <tr className="border-[1.5px] border-[#5c3a21] font-bold bg-[#f3e5d0] shadow-inner">
+                      <td colSpan={3} className="text-right py-2.5 pr-4 border-r-[1.5px] border-[#5c3a21] uppercase text-[10px] tracking-[0.1em]">
+                        Grand Total (Current Semester / Year)
+                      </td>
+                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
                         {data.maxTotal}
                       </td>
-                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[11px]">
+                      <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
                         {data.minTotal}
                       </td>
-                      <td className="text-center text-[11px]">
+                      <td className="text-center text-[14px]  text-[#5c3a21]">
                         {data.grandTotal}
                       </td>
-
                     </tr>
                   </tbody>
                 </table>
@@ -239,7 +254,7 @@ export default function MarksheetPreview({ marksheet }) {
                 </div>
 
                 {/* SIGNATURES FOOTER */}
-                <div className="flex justify-between items-end text-[11px] mt-20 px-2 relative">
+                <div className="flex justify-between items-end text-[11px] mt-20 py-20 px-2 relative">
                   <div>
                     <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
                     <p className="font-semibold pl-2">
@@ -252,16 +267,13 @@ export default function MarksheetPreview({ marksheet }) {
 
                   </div>
 
-
-
                   <div className="flex flex-col items-center justify-end relative min-w-[150px]">
-
                     <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">Controller of Examination</p>
-                    <p className="font-semibold text-[10px]">{data.examiner}</p>
+                    <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
                   </div>
                 </div>
 
-              </div> {/* End Content Area */}
+              </div>
             </div>
           </div>
         </div>
