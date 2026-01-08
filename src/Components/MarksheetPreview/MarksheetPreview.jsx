@@ -68,220 +68,32 @@ export default function MarksheetPreview({ marksheet }) {
       marksheet.description ||
       "This marksheet is issued based on the performance of the student in the above-mentioned examination. All information has been compiled from the records maintained by the institution. Any tampering, overwriting, or unauthorised alteration will render this marksheet null and void. The marks and results are subject to verification from the original records held with the Controller of Examination."
   };
-
+  const handlePrint = () => {
+    window.print();
+  };
   return (
     <>
       <div
-        className="w-full max-w-[210mm] h-[297mm] mx-auto my-8 relative z-0"
-        style={{ WebkitPrintColorAdjust: "exact", printColorAdjust: "exact" }}
+        className="w-full  max-w-[210mm]  mx-auto  relative z-0"
       >
-        <div className="bg-[#5c3a21] p-0.5 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
-        
-          <div className="bg-[#cba35800] p-0.75 border border-[#8c6239]">
-       
-            <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
-              <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
-
-                <div
-                  className="absolute bgbg h-[297mm] w-full top-0 left-0  z-0"
-
-                ></div>
-
-                <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none overflow-hidden">
-                  <Image
-                    src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
-                    alt="Watermark Seal"
-                    className=" w-48 h-48 sm:w-64 sm:h-64 object-contain"
-                    height={50}
-                    width={50}
-                  />
-                </div>
-
-                <div className="p-6 relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
-
-                  <div className="text-center mb-5 relative">
-                    <div className="relative flex items-center mb-4">
-
-                      <div className="absolute left-0 flex items-center">
-                        <Image
-                          src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
-                          alt="Watermark Seal"
-                          height={50}
-                          width={50}
-                        />
-                      </div>
-
-                      <div className="mx-auto text-center">
-                        <h1
-                          className="text-xl sm:text-3xl font-bold text-[#3d2616] tracking-wide uppercase leading-tight"
-
-                        >
-                          My Brand
-                        </h1>
-                        <p className="text-[9px] sm:text-[10px] font-bold text-[#1a365d] mt-1 tracking-wider">
-                          ISO 9001 : 2015 CERTIFIED INTERNATIONAL B-SCHOOL
-                        </p>
-                      </div>
-
-                    </div>
-
-
-                    <div className="flex justify-center mt-4 relative z-20">
-                      <div className="bg-linear-to-b from-[#e67e22] to-[#d35400] text-white font-bold px-14 py-1.5 rounded-sm shadow-[0_2px_4px_rgba(0,0,0,0.2)] border-b-2 border-[#a04000] uppercase tracking-[0.2em] text-sm">
-                        Marksheet
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* STUDENT DETAILS GRID (Top) */}
-                  <div className="border-[1.5px] border-[#5c3a21] text-[11px] font-bold mb-5 shadow-sm bg-[#fffdfa]/40">
-                    <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] border-b-[1.5px] border-[#5c3a21] bg-[#f3e5d0] text-[#5c3a21] tracking-wider">
-                      <div className="py-1.5">ROLL NO.</div>
-                      <div className="py-1.5">ENROLLMENT NO</div>
-                      <div className="py-1.5">SEM./YEAR/SEC</div>
-                      <div className="py-1.5">SESSION EXAMINATION</div>
-                    </div>
-                    <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] font-semibold">
-                      <div className="py-2">{data.rollNumber}</div>
-                      <div className="py-2">{data.enrollment}</div>
-                      <div className="py-2">{data.semester}</div>
-                      <div className="py-2">{data.session}</div>
-                    </div>
-                  </div>
-
-                  {/* COURSE TITLE */}
-                  <div className="text-center mb-5">
-                    <h2 className="text-lg font-bold text-[#3d2616] underline decoration-[1.5px] underline-offset-4">
-                      {data.title1} <br /> ({data.title2})
-                    </h2>
-                  </div>
-
-                  {/* NAME SECTION */}
-                  <div className="flex justify-between text-[11px] font-bold mb-4 uppercase px-1 tracking-wide">
-                    <div className="flex items-end">
-                      <span className="text-[#5c3a21] mr-2 whitespace-nowrap">NAME :</span>
-                      <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
-                    </div>
-                    <div className="flex items-end">
-                      <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER:</span>
-                      <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
-                    </div>
-                  </div>
-
-                  <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-0 bg-[#fffdfa]/40 table-fixed">
-                    <thead>
-                      <tr className="bg-[#f3e5d0] text-center font-bold text-[#5c3a21] tracking-wider uppercase">
-                        <th className="border-[1.5px] border-[#5c3a21] py-2 w-[8%]">S.No</th>
-                        <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%]">Code</th>
-                        <th className="border-[1.5px] border-[#5c3a21] py-2 text-left pl-4 w-[40%]">Subject (s) / Paper (s)</th>
-                        <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Max<br />Marks</th>
-                        <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Min<br />Passing</th>
-                        <th className="border-[1.5px] border-[#5c3a21] py-2 w-[16%] leading-tight text-[9px]">Marks<br />Obtained</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.subjects.map((s, i) => (
-                        <tr key={i} className="text-center h-9 hover:bg-orange-50/30 transition-colors">
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 border-l-[1.5px] border-l-[#5c3a21] py-1 font-bold">
-                            {String(i + 1).padStart(2, '0')}.
-                          </td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 tracking-tighter">
-                            {s.code}
-                          </td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 text-left font-semibold pl-4 uppercase text-[11px] truncate">
-                            {s.subject}
-                          </td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 bg-[#f3e5d0]/20 font-semibold">
-                            {s.max}
-                          </td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1">
-                            {s.min}
-                          </td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 font-bold text-[12px] ">
-                            {s.marks}
-                          </td>
-                        </tr>
-                      ))}
-
-                      {[...Array(Math.max(0, 10 - data.subjects.length))].map((_, i) => (
-                        <tr key={`empty-${i}`} className="h-9">
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/10 border-l-[1.5px] border-l-[#5c3a21]"></td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/10 bg-[#f3e5d0]/10"></td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
-                          <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
-                        </tr>
-                      ))}
-
-                      {/* TOTALS SECTION */}
-                      <tr className="border-[1.5px] border-[#5c3a21] font-bold bg-[#f3e5d0] shadow-inner">
-                        <td colSpan={3} className="text-right py-2.5 pr-4 border-r-[1.5px] border-[#5c3a21] uppercase text-[10px] tracking-widest">
-                          Grand Total (Current Semester / Year)
-                        </td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
-                          {data.maxTotal}
-                        </td>
-                        <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
-                          {data.minTotal}
-                        </td>
-                        <td className="text-center text-[14px]  text-[#5c3a21]">
-                          {data.grandTotal}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                  <div className="border-[1.5px] border-t-0 border-[#5c3a21] text-[10px] font-bold p-1.5 flex justify-between items-center bg-[#f3e5d0] mb-10 shadow-sm">
-                    <div className="flex gap-6 uppercase tracking-wider">
-                      <span>RESULT : <span className="text-black">{data.result}</span></span>
-                      <span className="ml-6">GRADE : <span className="text-black">"{data.grade}"</span></span>
-                    </div>
-                    <span className="uppercase italic text-black text-[11px]">
-                      {data.marksInWords} Only
-                    </span>
-
-                  </div>
-
-                   <div className="flex justify-between items-end text-[11px] mt-20 py-20 px-2 relative">
-                    <div>
-                      <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
-                      <p className="font-semibold pl-2">
-                        {new Date(data.issueDate).toLocaleDateString("en-GB", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </p>
-
-                    </div>
-
-                    <div className="flex flex-col items-center justify-end relative min-w-37.5">
-                      <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">Controller of Examination</p>
-                      <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="w-full max-w-[210mm] h-[297mm]  mx-auto my-8 relative z-0"
+        <button className='print:hidden' onClick={handlePrint}>Print</button>
+      <div className="print-page"
           style={{
             WebkitPrintColorAdjust: "exact",
             printColorAdjust: "exact",
-            pageBreakBefore: "always",
           }}
         >
-          <div className="bg-[#5c3a21] p-0.5  rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
-            <div className="bg-[#cba35800] p-0.75  border border-[#8c6239]">
-              <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
-                <div className="border-[3px] h-[297mm] border-double border-[#8c6239]/60 relative overflow-hidden">
+          <div className="bg-[#5c3a21] p-0.5 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
 
-                  <div className="absolute bgbg h-full w-full top-0 left-0 z-0"></div>
+            <div className="bg-[#cba35800] p-0.75 border border-[#8c6239]">
+
+              <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
+                <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
+
+                  <div
+                    className="absolute bgbg h-[297mm] w-full top-0 left-0  z-0"
+
+                  ></div>
 
                   <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
@@ -293,58 +105,261 @@ export default function MarksheetPreview({ marksheet }) {
                     />
                   </div>
 
-                   <div className="p-6  h-full relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
-                    <div className=' py-16 flex flex-col justify-between h-full'>
-                      <div>
-                        <div className="text-center mb-6">
-                          <h2 className="text-xl font-bold text-[#3d2616] uppercase tracking-wide">
-                            Important Information / Description
-                          </h2>
-                          <p className="text-xs mt-2 text-[#5c3a21] tracking-wide">
-                            Please read the following notes carefully. This page forms an integral part of the marksheet.
+                  <div className="p-6 relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+
+                    <div className="text-center mb-5 relative">
+                      <div className="relative flex items-center mb-4">
+
+                        <div className="absolute left-0 flex items-center">
+                          <Image
+                            src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
+                            alt="Watermark Seal"
+                            height={50}
+                            width={50}
+                          />
+                        </div>
+
+                        <div className="mx-auto text-center">
+                          <h1
+                            className="text-xl sm:text-3xl font-bold text-[#3d2616] tracking-wide uppercase leading-tight"
+
+                          >
+                            My Brand
+                          </h1>
+                          <p className="text-[9px] sm:text-[10px] font-bold text-[#1a365d] mt-1 tracking-wider">
+                            ISO 9001 : 2015 CERTIFIED INTERNATIONAL B-SCHOOL
                           </p>
                         </div>
 
-                        <div className="text-[11px] leading-relaxed space-y-3 text-justify">
-                          <p>{data.description}</p>
+                      </div>
 
-                          <ul className="list-decimal pl-5 space-y-1 mt-3">
-                            <li>
-                              The grades and marks shown on this marksheet are awarded as per the evaluation
-                              scheme approved by the institution.
-                            </li>
-                            <li>
-                              In case of any discrepancy, the records available with the Controller of Examination
-                              shall be treated as final and binding.
-                            </li>
-                            <li>
-                              This marksheet is valid only when it bears the authorised seal and signature of the
-                              Controller of Examination.
-                            </li>
-                            <li>
-                              Photocopies or scanned copies of this marksheet should be duly attested where
-                              required for official purposes.
-                            </li>
-                            <li>
-                              The institution reserves the right to correct any inadvertent error detected at a later
-                              stage without any prior notice.
-                            </li>
-                          </ul>
+
+                      <div className="flex justify-center mt-4 relative z-20">
+                        <div className="bg-linear-to-b from-[#e67e22] to-[#d35400] text-white font-bold px-14 py-1.5 rounded-sm shadow-[0_2px_4px_rgba(0,0,0,0.2)] border-b-2 border-[#a04000] uppercase tracking-[0.2em] text-sm">
+                          Marksheet
                         </div>
                       </div>
-                      <div className="flex justify-end align-bottom mt-16 pr-4">
-                        <div className="text-right text-[11px]">
-                          <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider">
-                            Controller of Examination
-                          </p>
-                          <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
+                    </div>
 
-                        </div>
+                    {/* STUDENT DETAILS GRID (Top) */}
+                    <div className="border-[1.5px] border-[#5c3a21] text-[11px] font-bold mb-5 shadow-sm bg-[#fffdfa]/40">
+                      <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] border-b-[1.5px] border-[#5c3a21] bg-[#f3e5d0] text-[#5c3a21] tracking-wider">
+                        <div className="py-1.5">ROLL NO.</div>
+                        <div className="py-1.5">ENROLLMENT NO</div>
+                        <div className="py-1.5">SEM./YEAR/SEC</div>
+                        <div className="py-1.5">SESSION EXAMINATION</div>
                       </div>
+                      <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] font-semibold">
+                        <div className="py-2">{data.rollNumber}</div>
+                        <div className="py-2">{data.enrollment}</div>
+                        <div className="py-2">{data.semester}</div>
+                        <div className="py-2">{data.session}</div>
+                      </div>
+                    </div>
+
+                    {/* COURSE TITLE */}
+                    <div className="text-center mb-5">
+                      <h2 className="text-lg font-bold text-[#3d2616] underline decoration-[1.5px] underline-offset-4">
+                        {data.title1} <br /> ({data.title2})
+                      </h2>
+                    </div>
+
+                    {/* NAME SECTION */}
+                    <div className="flex justify-between text-[11px] font-bold mb-4 uppercase px-1 tracking-wide">
+                      <div className="flex items-end">
+                        <span className="text-[#5c3a21] mr-2 whitespace-nowrap">NAME :</span>
+                        <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
+                      </div>
+                      <div className="flex items-end">
+                        <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER:</span>
+                        <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
+                      </div>
+                    </div>
+
+                    <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-0 bg-[#fffdfa]/40 table-fixed">
+                      <thead>
+                        <tr className="bg-[#f3e5d0] text-center font-bold text-[#5c3a21] tracking-wider uppercase">
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 w-[8%]">S.No</th>
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%]">Code</th>
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 text-left pl-4 w-[40%]">Subject (s) / Paper (s)</th>
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Max<br />Marks</th>
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Min<br />Passing</th>
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 w-[16%] leading-tight text-[9px]">Marks<br />Obtained</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.subjects.map((s, i) => (
+                          <tr key={i} className="text-center h-9 hover:bg-orange-50/30 transition-colors">
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 border-l-[1.5px] border-l-[#5c3a21] py-1 font-bold">
+                              {String(i + 1).padStart(2, '0')}.
+                            </td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 tracking-tighter">
+                              {s.code}
+                            </td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 text-left font-semibold pl-4 uppercase text-[11px] truncate">
+                              {s.subject}
+                            </td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 bg-[#f3e5d0]/20 font-semibold">
+                              {s.max}
+                            </td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1">
+                              {s.min}
+                            </td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 font-bold text-[12px] ">
+                              {s.marks}
+                            </td>
+                          </tr>
+                        ))}
+
+                        {[...Array(Math.max(0, 10 - data.subjects.length))].map((_, i) => (
+                          <tr key={`empty-${i}`} className="h-9">
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/10 border-l-[1.5px] border-l-[#5c3a21]"></td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/10 bg-[#f3e5d0]/10"></td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/10"></td>
+                          </tr>
+                        ))}
+
+                        {/* TOTALS SECTION */}
+                        <tr className="border-[1.5px] border-[#5c3a21] font-bold bg-[#f3e5d0] shadow-inner">
+                          <td colSpan={3} className="text-right py-2.5 pr-4 border-r-[1.5px] border-[#5c3a21] uppercase text-[10px] tracking-widest">
+                            Grand Total (Current Semester / Year)
+                          </td>
+                          <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
+                            {data.maxTotal}
+                          </td>
+                          <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
+                            {data.minTotal}
+                          </td>
+                          <td className="text-center text-[14px]  text-[#5c3a21]">
+                            {data.grandTotal}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div className="border-[1.5px] border-t-0 border-[#5c3a21] text-[10px] font-bold p-1.5 flex justify-between items-center bg-[#f3e5d0] mb-10 shadow-sm">
+                      <div className="flex gap-6 uppercase tracking-wider">
+                        <span>RESULT : <span className="text-black">{data.result}</span></span>
+                        <span className="ml-6">GRADE : <span className="text-black">"{data.grade}"</span></span>
+                      </div>
+                      <span className="uppercase italic text-black text-[11px]">
+                        {data.marksInWords} Only
+                      </span>
 
                     </div>
-                  </div>
 
+                    <div className="flex justify-between items-end text-[11px] mt-20 py-20 px-2 relative">
+                      <div>
+                        <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
+                        <p className="font-semibold pl-2">
+                          {new Date(data.issueDate).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </p>
+
+                      </div>
+
+                      <div className="flex flex-col items-center justify-end relative min-w-37.5">
+                        <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">Controller of Examination</p>
+                        <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div className="print-page"
+          style={{
+            WebkitPrintColorAdjust: "exact",
+            printColorAdjust: "exact",
+          }}
+        >
+          <div
+            className="w-full max-w-[210mm] h-[297mm]  mx-auto my-8 relative z-0"
+            style={{
+              WebkitPrintColorAdjust: "exact",
+              printColorAdjust: "exact",
+              pageBreakBefore: "always",
+            }}
+          >
+            <div className="bg-[#5c3a21] p-0.5  rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
+              <div className="bg-[#cba35800] p-0.75  border border-[#8c6239]">
+                <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
+                  <div className="border-[3px] h-[297mm] border-double border-[#8c6239]/60 relative overflow-hidden">
+
+                    <div className="absolute bgbg h-full w-full top-0 left-0 z-0"></div>
+
+                    <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none overflow-hidden">
+                      <Image
+                        src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
+                        alt="Watermark Seal"
+                        className=" w-48 h-48 sm:w-64 sm:h-64 object-contain"
+                        height={50}
+                        width={50}
+                      />
+                    </div>
+
+                    <div className="p-6  h-full relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+                      <div className=' py-16 flex flex-col justify-between h-full'>
+                        <div>
+                          <div className="text-center mb-6">
+                            <h2 className="text-xl font-bold text-[#3d2616] uppercase tracking-wide">
+                              Important Information / Description
+                            </h2>
+                            <p className="text-xs mt-2 text-[#5c3a21] tracking-wide">
+                              Please read the following notes carefully. This page forms an integral part of the marksheet.
+                            </p>
+                          </div>
+
+                          <div className="text-[11px] leading-relaxed space-y-3 text-justify">
+                            <p>{data.description}</p>
+
+                            <ul className="list-decimal pl-5 space-y-1 mt-3">
+                              <li>
+                                The grades and marks shown on this marksheet are awarded as per the evaluation
+                                scheme approved by the institution.
+                              </li>
+                              <li>
+                                In case of any discrepancy, the records available with the Controller of Examination
+                                shall be treated as final and binding.
+                              </li>
+                              <li>
+                                This marksheet is valid only when it bears the authorised seal and signature of the
+                                Controller of Examination.
+                              </li>
+                              <li>
+                                Photocopies or scanned copies of this marksheet should be duly attested where
+                                required for official purposes.
+                              </li>
+                              <li>
+                                The institution reserves the right to correct any inadvertent error detected at a later
+                                stage without any prior notice.
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div className="flex justify-end align-bottom mt-16 pr-4">
+                          <div className="text-right text-[11px]">
+                            <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider">
+                              Controller of Examination
+                            </p>
+                            <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>

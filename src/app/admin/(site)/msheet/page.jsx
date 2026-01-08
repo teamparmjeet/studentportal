@@ -6,8 +6,8 @@ import MarksheetPreview from "@/Components/MarksheetPreview/MarksheetPreview";
 export default function Page() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-const [selectedMarksheet, setSelectedMarksheet] = useState(null);
-const [openPreview, setOpenPreview] = useState(false);
+  const [selectedMarksheet, setSelectedMarksheet] = useState(null);
+  const [openPreview, setOpenPreview] = useState(false);
 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
@@ -131,24 +131,24 @@ const [openPreview, setOpenPreview] = useState(false);
                   <td className="p-3">
                     <span
                       className={`px-2 py-1 rounded text-xs ${m.status === "PUBLISHED"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
                         }`}
                     >
                       {m.status}
                     </span>
                   </td>
-                <td className="p-3">
-  <button
-    onClick={() => {
-      setSelectedMarksheet(m);
-      setOpenPreview(true);
-    }}
-    className="text-blue-600 hover:underline font-medium"
-  >
-    Check
-  </button>
-</td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => {
+                        setSelectedMarksheet(m);
+                        setOpenPreview(true);
+                      }}
+                      className="text-blue-600 hover:underline font-medium"
+                    >
+                      Check
+                    </button>
+                  </td>
 
                 </tr>
               ))}
@@ -156,26 +156,26 @@ const [openPreview, setOpenPreview] = useState(false);
           </table>
         )}
       </div>
-     {/* 🔍 MARKSHEET PREVIEW MODAL */}
-{openPreview && selectedMarksheet && (
-  <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-    <div className="bg-white w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-lg shadow-lg relative">
+      {/* 🔍 MARKSHEET PREVIEW MODAL */}
+      {openPreview && selectedMarksheet && (
+        <div className="fixed inset-0 z-50 bg-gray-100 overflow-auto">
 
-      {/* ❌ Close Button */}
-      <button
-        onClick={() => setOpenPreview(false)}
-        className="absolute top-4 right-4 text-gray-600 hover:text-black text-xl"
-      >
-        ✕
-      </button>
+          {/* ❌ Floating Close Button */}
+          <button
+            onClick={() => setOpenPreview(false)}
+            className="fixed print:hidden top-4 right-4 z-50 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center text-xl hover:bg-gray-100"
+          >
+            ✕
+          </button>
 
-      {/* 📄 Preview */}
-      <div className="p-6">
-        <MarksheetPreview marksheet={selectedMarksheet} />
-      </div>
-    </div>
-  </div>
-)}
+          {/* 📄 FULL PAGE MARKSHEET */}
+          <div className="min-h-screen flex justify-center ">
+            <MarksheetPreview marksheet={selectedMarksheet} />
+          </div>
+
+        </div>
+      )}
+
 
       {/* 📄 Pagination */}
       <div className="flex justify-between items-center mt-6">
