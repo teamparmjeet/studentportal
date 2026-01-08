@@ -59,7 +59,7 @@ export default function Header() {
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/Images/bgrlogo1.png"
+                                src="/images/bgrlogo1.png"
                                 alt="NIET Logo"
                                 width={60}
                                 height={60}
