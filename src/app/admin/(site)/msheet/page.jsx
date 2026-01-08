@@ -169,7 +169,7 @@ export default function Page() {
           </button>
 
           {/* 📄 FULL PAGE MARKSHEET */}
-          <div className="min-h-screen flex justify-center ">
+          <div className=" flex justify-center border ">
             <MarksheetPreview marksheet={selectedMarksheet} />
           </div>
 

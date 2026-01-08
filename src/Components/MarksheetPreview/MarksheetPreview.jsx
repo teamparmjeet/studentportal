@@ -77,7 +77,7 @@ export default function MarksheetPreview({ marksheet }) {
         className="w-full  max-w-[210mm]  mx-auto  relative z-0"
       >
         <button className='print:hidden' onClick={handlePrint}>Print</button>
-      <div className="print-page"
+        <div className="print-page"
           style={{
             WebkitPrintColorAdjust: "exact",
             printColorAdjust: "exact",
@@ -276,7 +276,7 @@ export default function MarksheetPreview({ marksheet }) {
             </div>
           </div>
         </div>
-      <div className="print-page"
+        <div className="print-page page-break"
           style={{
             WebkitPrintColorAdjust: "exact",
             printColorAdjust: "exact",

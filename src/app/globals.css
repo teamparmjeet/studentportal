@@ -4,7 +4,9 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-
+::-webkit-scrollbar {
+  width: 0px!important;
+}
 code,
 pre,
 .mono {
@@ -45,26 +47,20 @@ pre,
   position: relative;
   z-index: 2;
 }
-
 @media print {
   body {
     margin: 0;
-    padding: 0;
+    
   }
 
   .print-page {
-    width: 210mm;
-    height: 297mm;
     page-break-after: always;
     break-after: page;
+   
   }
 
   .print-page:last-child {
     page-break-after: auto;
     break-after: auto;
-  }
-
-  .print\:hidden {
-    display: none !important;
   }
 }
