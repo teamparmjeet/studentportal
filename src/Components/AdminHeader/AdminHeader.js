@@ -33,8 +33,8 @@ export default function AdminHeader() {
                     <div className="h-16 flex items-center justify-between">
 
                         {/* Logo */}
-                        <Link href="/" className="text-2xl font-bold text-orange-600">
-                            MyBrand
+                        <Link href="/admin" className="text-2xl font-bold text-orange-600">
+                            Dashboard
                         </Link>
 
                         {/* DESKTOP MENU (RIGHT SIDE) */}
