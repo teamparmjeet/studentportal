@@ -1,39 +1,36 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import Link from 'next/link';
 import 'swiper/css';
-import 'swiper/css/effect-fade';
 
 export default function Herobanner() {
-    const slides = [
+     const slides = [
         {
             title: 'ADMISSION OPEN 2026',
-            desc: 'Enroll now for Diploma, BE, ME (All Branches), BBA, MBA with 100+ specializations, and Computer courses including DCA, PGDCA, BCA & MCA. Limited seats available.',
-            img: '/images/slide1.webp',
+            desc: 'Enroll now for Engineering (BE / ME), Polytechnic (Diploma), ITI Trades, and Skill-Based Professional Courses. Limited seats with practical training & industry exposure.',
+            img: '/images/1-2-1920x500.jpg',
         },
         {
-            title: 'Opportunities for Lifelong Learning',
-            desc: 'Build your future with industry-focused programs, experienced faculty, modern infrastructure, and career-oriented education designed for long-term success.',
-            img: '/images/slide2.webp',
+            title: 'Polytechnic & ITI – Learn Skills, Build Career',
+            desc: 'Hands-on training, modern labs, certified instructors, and job-oriented programs designed for Polytechnic & ITI students to succeed in real-world industries.',
+            img: '/images/501-1920x500.jpg',
         },
         {
-            title: 'Shape Your Career with Quality Education',
-            desc: 'From technical degrees to management and computer programs, we prepare students with practical knowledge, professional skills, and global opportunities.',
-            img: '/images/slide3.webp',
+            title: 'Engineering Excellence for a Strong Future',
+            desc: 'Advanced engineering education with experienced faculty, industry projects, internships, and placement-focused learning for tomorrow’s professionals.',
+            img: '/images/engineering-degrees-story.jpg',
         },
     ];
 
     return (
-        <section className="relative w-full h-[60vh] md:h-[95vh] overflow-hidden">
+        <section className="relative w-full h-[50vh] md:h-[90vh] overflow-hidden">
             <Swiper
-                modules={[Autoplay, EffectFade]}
-                effect="fade"
-                fadeEffect={{ crossFade: true }}
-                speed={2200}
+                modules={[Autoplay]}
+                speed={1200}
                 autoplay={{
-                    delay: 6000,
+                    delay: 5000,
                     disableOnInteraction: false,
                 }}
                 loop
@@ -43,24 +40,25 @@ export default function Herobanner() {
                 {slides.map((slide, index) => (
                     <SwiperSlide key={index}>
                         <div
-                            className="hero-slide relative w-full h-full flex items-center"
+                            className="relative w-full h-full flex items-center bg-cover bg-center"
                             style={{ backgroundImage: `url(${slide.img})` }}
                         >
-                            {/* Soft gradient overlay (NO color flash) */}
-                            <div className="absolute inset-0 bg-black/70 "></div>
+                            <div className="absolute inset-0 bg-black/70"></div>
 
-                            {/* Content */}
                             <div className="relative z-10 container mx-auto px-6">
                                 <div className="max-w-3xl mx-auto text-center text-white">
-                                    <h1 className="hero-title text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                                    <h1 className="text-2xl md:text-4xl font-bold mb-4">
                                         {slide.title}
                                     </h1>
 
-                                    <p className="hero-desc text-base md:text-lg mb-8 text-gray-200">
+                                    <p className="text-base md:text-lg mb-8 text-gray-200 hidden md:block">
                                         {slide.desc}
                                     </p>
 
-                                    <Link href="/services/applynow" className="px-9 py-3 bg-orange-500 hover:bg-orange-600 transition-all duration-300 rounded-xl font-semibold shadow-xl ">
+                                    <Link
+                                        href="/services/applynow"
+                                        className="px-9 py-3 bg-orange-500 hover:bg-orange-600 transition-all duration-300 rounded-xl font-semibold shadow-xl"
+                                    >
                                         Apply Now
                                     </Link>
                                 </div>
@@ -69,36 +67,6 @@ export default function Herobanner() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-
-            {/* Animations */}
-            <style jsx>{`
-                .hero-slide {
-                    background-size: cover;
-                    background-position: center;
-                    animation: slowZoom 12s ease-in-out forwards;
-                }
-
-               
-
-                .hero-title {
-                    animation: fadeUp 1.1s ease-out forwards;
-                }
-
-                .hero-desc {
-                    animation: fadeUp 1.3s ease-out forwards;
-                }
-
-                @keyframes fadeUp {
-                    from {
-                        opacity: 0;
-                        transform: translateY(25px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-            `}</style>
         </section>
     );
 }
