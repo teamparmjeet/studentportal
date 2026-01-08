@@ -88,7 +88,7 @@ export default function Contactus() {
 
               <div>
                 <p className="font-semibold">Email</p>
-                <p className="text-sm mt-1">info@mybrand.in</p>
+                <p className="text-sm mt-1">engineeringCollege47@gmail.com</p>
               </div>
 
               <div>

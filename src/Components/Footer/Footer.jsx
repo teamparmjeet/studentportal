@@ -69,7 +69,7 @@ export default function Footer() {
 
                         <p className="flex items-center gap-2 text-sm mb-3">
                             <Mail size={18} className="text-orange-500" />
-                            info@mybrand.co.in
+                            engineeringCollege47@gmail.com
                         </p>
 
                         <p className="flex items-center gap-2 text-sm mb-2">
@@ -100,15 +100,15 @@ export default function Footer() {
                             Location
                         </h4>
                         <div className="rounded-xl overflow-hidden border border-gray-700">
-                               {liveAddress?.mapEmbedUrl && (
-                            <iframe
-                               src={liveAddress.mapEmbedUrl}
-                                width="100%"
-                                height="130"
-                                loading="lazy"
-                                className="border-0"
-                            ></iframe>
-                              )}
+                            {liveAddress?.mapEmbedUrl && (
+                                <iframe
+                                    src={liveAddress.mapEmbedUrl}
+                                    width="100%"
+                                    height="130"
+                                    loading="lazy"
+                                    className="border-0"
+                                ></iframe>
+                            )}
                         </div>
                     </div>
 
