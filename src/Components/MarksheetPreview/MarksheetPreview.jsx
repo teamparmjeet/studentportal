@@ -122,10 +122,10 @@ export default function MarksheetPreview({ marksheet }) {
 
                         <div className="mx-auto text-center">
                           <h1
-                            className="text-xl sm:text-3xl font-bold text-[#3d2616] tracking-wide uppercase leading-tight"
+                            className="text-xl sm:text-2xl font-bold text-[#3d2616] tracking-wide uppercase leading-tight"
 
                           >
-                            My Brand
+                          national Institute of <br></br> engineering & technology
                           </h1>
                           <p className="text-[9px] sm:text-[10px] font-bold text-[#1a365d] mt-1 tracking-wider">
                             ISO 9001 : 2015 CERTIFIED INTERNATIONAL B-SCHOOL
