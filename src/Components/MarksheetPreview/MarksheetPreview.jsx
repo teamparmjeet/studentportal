@@ -95,13 +95,13 @@ export default function MarksheetPreview({ marksheet }) {
 
                   ></div>
 
-                  <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none overflow-hidden">
+                  <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
-                      src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
+                      src="/images/bgrlogo1.png"
                       alt="Watermark Seal"
-                      className=" w-48 h-48 sm:w-64 sm:h-64 object-contain"
-                      height={50}
-                      width={50}
+                      className="object-contain opacity-20 grayscale"
+                      height={600}
+                      width={600}
                     />
                   </div>
 
@@ -110,12 +110,13 @@ export default function MarksheetPreview({ marksheet }) {
                     <div className="text-center mb-5 relative">
                       <div className="relative flex items-center mb-4">
 
-                        <div className="absolute left-0 flex items-center">
+                        <div className="absolute left-0 flex items-center mt-8">
                           <Image
-                            src="/images/1600w-Aro9ea9TDP4-removebg-preview.png"
+                            src="/images/bgrlogo1.png"
                             alt="Watermark Seal"
-                            height={50}
-                            width={50}
+                            height={150}
+                            width={150}
+                            className='grayscale'
                           />
                         </div>
 
