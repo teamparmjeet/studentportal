@@ -59,8 +59,8 @@ export default function Contactus() {
   };
 
   return (
-    <section className="bg-slate-50 py-20">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="bg-slate-50 py-8 md:py-20">
+      <div className="max-w-7xl mx-auto px-2 md:px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
           {/* CONTACT INFO */}
@@ -99,12 +99,12 @@ export default function Contactus() {
           </div>
 
           {/* CONTACT FORM */}
-          <div className="bg-white rounded-2xl shadow-lg p-5 md:p-10">
+          <div className="bg-white rounded-2xl shadow-lg py-5 px-2 md:px-5 md:p-10">
             <h3 className="text-2xl font-semibold text-slate-900 mb-6">
               Send Us a Message
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
 
               {/* Name */}
               <div>

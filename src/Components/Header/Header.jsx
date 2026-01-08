@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
-
+import Image from "next/image";
 export default function Header() {
     const pathname = usePathname();
 
@@ -57,9 +57,25 @@ export default function Header() {
                     <div className="h-16 flex items-center justify-between">
 
                         {/* Logo */}
-                        <Link href="/" className="text-2xl font-bold text-orange-600">
-                            MyBrand
+                        <Link href="/" className="flex items-center gap-3">
+                            <Image
+                                src="/Images/bgrlogo1.png"
+                                alt="NIET Logo"
+                                width={60}
+                                height={60}
+                                className="object-contain"
+                            />
+
+                            <div className="leading-tight hidden md:block">
+                                <h1 className="text-lg font-bold text-orange-600">
+                                    National Institute
+                                </h1>
+                                <p className="text-xs text-gray-600">
+                                    Engineering & Technology
+                                </p>
+                            </div>
                         </Link>
+
 
                         {/* DESKTOP MENU (RIGHT SIDE) */}
                         <nav className="hidden md:flex items-center gap-8 font-medium">

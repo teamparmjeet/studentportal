@@ -10,22 +10,22 @@ export default function Herobanner() {
         {
             title: 'ADMISSION OPEN 2026',
             desc: 'Enroll now for Engineering (BE / ME), Polytechnic (Diploma), ITI Trades, and Skill-Based Professional Courses. Limited seats with practical training & industry exposure.',
-            img: '/images/1-2-1920x500.jpg',
+            img: '/images/504-1920x500.jpg',
         },
         {
             title: 'Polytechnic & ITI – Learn Skills, Build Career',
             desc: 'Hands-on training, modern labs, certified instructors, and job-oriented programs designed for Polytechnic & ITI students to succeed in real-world industries.',
-            img: '/images/501-1920x500.jpg',
+            img: '/images/1-2-1920x500.jpg',
         },
         {
             title: 'Engineering Excellence for a Strong Future',
             desc: 'Advanced engineering education with experienced faculty, industry projects, internships, and placement-focused learning for tomorrow’s professionals.',
-            img: '/images/engineering-degrees-story.jpg',
+            img: '/images/501-1920x500.jpg',
         },
     ];
 
     return (
-        <section className="relative w-full h-[50vh] md:h-[90vh] overflow-hidden">
+        <section className="relative w-full h-[30vh] md:h-[90vh] overflow-hidden">
             <Swiper
                 modules={[Autoplay]}
                 speed={1200}

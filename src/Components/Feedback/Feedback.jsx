@@ -37,8 +37,8 @@ export default function Feedback() {
   ];
 
   return (
-    <section className="py-16 ">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="py-8 md:py-16 ">
+      <div className="max-w-6xl mx-auto px-2 md:px-4">
 
         {/* Header */}
         <div className="text-center mb-10">

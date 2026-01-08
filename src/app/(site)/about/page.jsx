@@ -9,7 +9,7 @@ export default function page() {
 
         {/* HERO SECTION */}
         <section className="relative footerbg whychoose">
-          <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <div className="max-w-7xl mx-auto px-2 md:px-4 py-20 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               About Our Institute
             </h1>
@@ -22,7 +22,7 @@ export default function page() {
         </section>
 
         {/* ABOUT INTRO */}
-        <section className="py-20">
+        <section className="md:py-20 py-8">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -30,14 +30,14 @@ export default function page() {
               <div>
                 <span className="inline-block mb-3 px-4 py-1 text-xs font-semibold 
                 text-orange-600 bg-orange-100 rounded-full">
-                  About NIET
+                  About My Brand
                 </span>
 
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-5">
                   Who We Are
                 </h2>
 
-                <p className="text-slate-600 leading-relaxed mb-4">
+                <p className="text-slate-600 leading-relaxed md:mb-4 mb-2">
                   The National Institute of Engineering & Technology is an autonomous
                   institution focused on delivering excellence in engineering,
                   technical, and professional education. We emphasize skill-based,
@@ -52,7 +52,7 @@ export default function page() {
               </div>
 
               {/* RIGHT CARD */}
-              <div className="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+              <div className="bg-white rounded-2xl shadow-lg p-4 md:p-10">
                 <h3 className="text-xl font-semibold text-slate-900 mb-6">
                   <span className="text-orange-600">Key</span> Highlights
                 </h3>

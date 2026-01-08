@@ -40,11 +40,11 @@ export default function Courses() {
   }, []);
 
   return (
-    <section className="py-20 from-white to-gray-50">
-      <div className="container mx-auto px-6">
+    <section className="py-8 md:py-20 from-white to-gray-50">
+      <div className="container mx-auto px-3 md:px-4">
 
         {/* Header */}
-        <div className="flex justify-between items-center mb-5">
+        <div className="flex justify-between items-center mb-2 md:mb-5">
           <h2 className="text-xl md:text-4xl font-extrabold">
             Explore Our Courses
           </h2>
