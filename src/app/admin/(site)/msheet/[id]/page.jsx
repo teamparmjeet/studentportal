@@ -17,7 +17,7 @@ export default function MarksheetPage() {
     profileImage: "",
     enrollment: "",
     session: "",
-    semester: "",
+    semester: "Final Year",
     examiner: "",
     issueDate: new Date().toISOString().split("T")[0],
     title1: "",   // ✅ NEW
@@ -205,18 +205,28 @@ export default function MarksheetPage() {
               <label className="text-sm font-medium text-gray-600">
                 Academic Session
               </label>
+
               <input
                 type="text"
-                placeholder="e.g. 2024–25"
+                placeholder="e.g. 2024-25"
                 value={marksheet.session}
-                onChange={(e) =>
-                  setMarksheet({ ...marksheet, session: e.target.value })
-                }
+                maxLength={7}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/[^0-9]/g, "");
+
+                  // Auto add dash after 4 digits
+                  if (value.length > 4) {
+                    value = value.slice(0, 4) + "-" + value.slice(4, 6);
+                  }
+
+                  setMarksheet({ ...marksheet, session: value });
+                }}
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
-                   focus:outline-none focus:ring-2 focus:ring-orange-400
-                   focus:border-orange-400"
+               focus:outline-none focus:ring-2 focus:ring-orange-400
+               focus:border-orange-400"
               />
             </div>
+
 
             {/* Semester */}
             <div className="space-y-1">

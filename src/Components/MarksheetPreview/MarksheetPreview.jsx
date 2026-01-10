@@ -147,7 +147,7 @@ export default function MarksheetPreview({ marksheet }) {
                       <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] border-b-[1.5px] border-[#5c3a21] bg-[#f3e5d0] text-[#5c3a21] tracking-wider">
                         <div className="py-1.5">ROLL NO.</div>
                         <div className="py-1.5">ENROLLMENT NO</div>
-                        <div className="py-1.5">SEM./YEAR/SEC</div>
+                        <div className="py-1.5">YEAR</div>
                         <div className="py-1.5">SESSION EXAMINATION</div>
                       </div>
                       <div className="grid grid-cols-4 text-center divide-x-[1.5px] divide-[#5c3a21] font-semibold">
