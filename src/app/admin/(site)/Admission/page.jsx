@@ -195,6 +195,7 @@ export default function Page() {
               <th className="px-4 py-3">Mobile</th>
               <th className="px-4 py-3">Payment</th>
               <th className="px-4 py-3">Enroll</th>
+              <th className="px-4 py-3">Certificate</th>
               <th className="px-4 py-3">Marksheet</th>
               <th className="px-4 py-3">Action</th>
             </tr>
@@ -253,6 +254,43 @@ export default function Page() {
                     {item.enrollStatus ? "Enrolled" : "Not Enrolled"}
                   </span>
                 </td>
+
+                <td className="px-4 py-3">
+                  {item.paymentStatus && item.enrollStatus ? (
+                    item.certificateStatus ? (
+                      <div className="flex gap-3">
+                        {/* UPDATE LINK */}
+                        <Link
+                          href={`/admin/csheet/${item.enrollmentNumber}`}
+                          className="text-green-600 font-medium hover:underline"
+                        >
+                          Update
+                        </Link>
+
+                        {/* CHECK LINK */}
+                        <Link
+                          href={`/admin/csheet`}
+                          className="text-blue-600 font-medium hover:underline"
+                        >
+                          Check
+                        </Link>
+                      </div>
+                    ) : (
+                      <Link
+                        href={`/admin/csheet/${item.enrollmentNumber}`}
+                        className="text-green-600 font-medium hover:underline"
+                      >
+                        Generate Certificate
+                      </Link>
+                    )
+                  ) : (
+                    <span className="text-gray-400 cursor-not-allowed">
+                      {item.certificateStatus ? "Certificate" : "Generate Certificate"}
+                    </span>
+                  )}
+                </td>
+
+
 
                 <td className="px-4 py-3">
                   {item.paymentStatus && item.enrollStatus ? (

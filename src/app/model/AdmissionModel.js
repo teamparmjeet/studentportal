@@ -42,6 +42,7 @@ const AdmissionSchema = new mongoose.Schema(
     paymentStatus: { type: Boolean, default: false },
     enrollStatus: { type: Boolean, default: false },
     marksheetStatus: { type: Boolean, default: false },
+    certificateStatus: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
@@ -54,7 +55,7 @@ AdmissionSchema.pre("save", async function () {
   // 🔹 Prevent regeneration on update
   if (this.enrollmentNumber && this.rollNumber) return;
 
-  const Admission = mongoose.model("Admission");
+  const Admissiondata = mongoose.model("Admissiondata");
   let programmeCode = "GEN";
 
   if (this.programme) {
@@ -73,7 +74,7 @@ AdmissionSchema.pre("save", async function () {
       const randomSix = Math.floor(100000 + Math.random() * 900000);
       enrollment = `NIET-${programmeCode}-${randomSix}`;
 
-      exists = await Admission.exists({
+      exists = await Admissiondata.exists({
         enrollmentNumber: enrollment,
       });
     }
@@ -89,7 +90,7 @@ AdmissionSchema.pre("save", async function () {
     while (!unique) {
       roll = Math.floor(100000 + Math.random() * 900000).toString();
 
-      const exists = await Admission.findOne({ rollNumber: roll });
+      const exists = await Admissiondata.findOne({ rollNumber: roll });
 
       if (!exists) unique = true;
     }
@@ -101,5 +102,5 @@ AdmissionSchema.pre("save", async function () {
 /* ======================
    EXPORT MODEL
 ====================== */
-export default mongoose.models.Admission ||
-  mongoose.model("Admission", AdmissionSchema);
+export default mongoose.models.Admissiondata ||
+  mongoose.model("Admissiondata", AdmissionSchema);

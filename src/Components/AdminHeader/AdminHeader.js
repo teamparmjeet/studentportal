@@ -54,10 +54,13 @@ export default function AdminHeader() {
                             <Link href="/admin/msheet" className={`${isActive("/admin/msheet")} hover:text-orange-600`}>
                                 Marksheet
                             </Link>
+                            <Link href="/admin/csheet" className={`${isActive("/admin/csheet")} hover:text-orange-600`}>
+                                Certificate
+                            </Link>
                             <Link href="/admin/Address" className={`${isActive("/admin/Address")} hover:text-orange-600`}>
                                 Address
                             </Link>
-                             <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600`}>
+                            <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600`}>
                                 Pending
                             </Link>
 
@@ -104,6 +107,7 @@ export default function AdminHeader() {
                     <Link href="/admin/Courses" onClick={() => setOpen(false)}>Courses</Link>
                     <Link href="/admin/Enquiry" onClick={() => setOpen(false)}>Enquiry</Link>
                     <Link href="/admin/msheet" onClick={() => setOpen(false)}>Marksheet</Link>
+                    <Link href="/admin/csheet" onClick={() => setOpen(false)}>Certificate</Link>
                     <Link href="/admin/Address" onClick={() => setOpen(false)}>Address</Link>
                     <Link href="/admin/Allquery" onClick={() => setOpen(false)}>Pending</Link>
 

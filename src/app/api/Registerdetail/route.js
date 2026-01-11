@@ -40,12 +40,12 @@ export async function GET(req) {
     const admission = await AdmissionModel.findOne({
       enrollmentNumber,
       dob: dobDate,
-      isActive: true,
+
     }).select({
       enrollmentNumber: 1,
       programme: 1,
       admissionDate: 1,
-      rollNumber:1,
+      rollNumber: 1,
       name: 1,
       fatherName: 1,
       motherName: 1,
@@ -57,8 +57,9 @@ export async function GET(req) {
       paymentOption: 1,
       paymentStatus: 1,
       enrollStatus: 1,
+      isActive: 1,
     });
-
+    
     if (!admission) {
       return NextResponse.json(
         { error: "No record found. Please check details." },
