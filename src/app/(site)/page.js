@@ -17,7 +17,7 @@ export default function page() {
       <Card1/>
       <Card2/>
       <Contactus/>
-      <Feedback/>
+      {/* <Feedback/> */}
     </>
   )
 }
