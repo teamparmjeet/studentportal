@@ -125,7 +125,7 @@ export default function MarksheetPreview({ marksheet }) {
                             className="text-xl sm:text-2xl font-bold text-[#3d2616] tracking-wide uppercase leading-tight"
 
                           >
-                          national Institute of <br></br> engineering & technology
+                            national Institute of <br></br> engineering & technology
                           </h1>
                           <p className="text-[9px] sm:text-[10px] font-bold text-[#1a365d] mt-1 tracking-wider">
                             ISO 9001 : 2015 CERTIFIED INTERNATIONAL B-SCHOOL
@@ -308,58 +308,153 @@ export default function MarksheetPreview({ marksheet }) {
                       />
                     </div>
 
-                    <div className="p-6  h-full relative z-10 font-serif text-[#332211]" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
-                      <div className=' py-16 flex flex-col justify-between h-full'>
+                    <div
+                      className="p-6 h-full relative z-10 font-serif text-[#332211]"
+                      style={{ fontFamily: '"Times New Roman", Times, serif' }}
+                    >
+                      <div className="py-16 flex flex-col justify-between h-full">
+
+                        {/* HEADER */}
                         <div>
-                          <div className="text-center mb-6">
-                            <h2 className="text-xl font-bold text-[#3d2616] uppercase tracking-wide">
-                              Important Information / Description
+                          <div className="text-center mb-10">
+                            <h2 className="text-xl font-bold text-[#3d2616] uppercase tracking-[0.15em]">
+                              Important Information, Rules & Regulations
                             </h2>
-                            <p className="text-xs mt-2 text-[#5c3a21] tracking-wide">
-                              Please read the following notes carefully. This page forms an integral part of the marksheet.
+                            <p className="text-xs mt-3 text-[#5c3a21] tracking-wide leading-relaxed">
+                              This page constitutes an essential and legally binding component of the official
+                              Statement of Marks issued by the institution.
                             </p>
                           </div>
 
-                          <div className="text-[11px] leading-relaxed space-y-3 text-justify">
-                            <p>{data.description}</p>
+                          {/* BODY */}
+                          <div className="text-[11px] leading-relaxed text-justify space-y-5">
 
-                            <ul className="list-decimal pl-5 space-y-1 mt-3">
-                              <li>
-                                The grades and marks shown on this marksheet are awarded as per the evaluation
-                                scheme approved by the institution.
-                              </li>
-                              <li>
-                                In case of any discrepancy, the records available with the Controller of Examination
-                                shall be treated as final and binding.
-                              </li>
-                              <li>
-                                This marksheet is valid only when it bears the authorised seal and signature of the
-                                Controller of Examination.
-                              </li>
-                              <li>
-                                Photocopies or scanned copies of this marksheet should be duly attested where
-                                required for official purposes.
-                              </li>
-                              <li>
-                                The institution reserves the right to correct any inadvertent error detected at a later
-                                stage without any prior notice.
-                              </li>
-                              
-                            </ul>
+                            <p className="indent-8">
+                              {data.description}
+                            </p>
+
+                            {/* I */}
+                            <div>
+                              <h3 className="font-bold uppercase tracking-wide text-[#3d2616] mb-1">
+                                I. Examination & Evaluation Process
+                              </h3>
+                              <ul className="list-decimal pl-6 space-y-1">
+                                <li>
+                                  The assessment of candidates has been conducted strictly in accordance with
+                                  the curriculum, examination ordinances, and academic regulations approved by
+                                  the competent academic authorities of the institution.
+                                </li>
+                                <li>
+                                  The marks indicated include theory, practical, internal assessment, and
+                                  continuous evaluation components, wherever applicable.
+                                </li>
+                                <li>
+                                  Moderation, grace marks, or scaling, if any, have been applied as per approved
+                                  institutional norms.
+                                </li>
+                              </ul>
+                            </div>
+
+                            {/* II */}
+                            <div>
+                              <h3 className="font-bold uppercase tracking-wide text-[#3d2616] mb-1">
+                                II. Declaration of Result
+                              </h3>
+                              <ul className="list-decimal pl-6 space-y-1">
+                                <li>
+                                  The result displayed herein is provisional at the time of publication and is
+                                  subject to verification with institutional records.
+                                </li>
+                                <li>
+                                  The declaration of pass, fail, distinction, or division is governed by the
+                                  prevailing examination rules of the institution.
+                                </li>
+                                <li>
+                                  Successful completion of the examination does not by itself confer any right
+                                  to admission, employment, or award of degree unless formally notified.
+                                </li>
+                              </ul>
+                            </div>
+
+                            {/* III */}
+                            <div>
+                              <h3 className="font-bold uppercase tracking-wide text-[#3d2616] mb-1">
+                                III. Revaluation, Rechecking & Grievance Redressal
+                              </h3>
+                              <ul className="list-decimal pl-6 space-y-1">
+                                <li>
+                                  Applications for revaluation, rechecking, or scrutiny of answer scripts shall be
+                                  entertained only within the stipulated timeframe and subject to prescribed fees.
+                                </li>
+                                <li>
+                                  The outcome of revaluation shall be final and binding, and no further
+                                  correspondence shall be entertained in this regard.
+                                </li>
+                                <li>
+                                  Any grievance related to result publication must be submitted through official
+                                  channels only.
+                                </li>
+                              </ul>
+                            </div>
+
+                            {/* IV */}
+                            <div>
+                              <h3 className="font-bold uppercase tracking-wide text-[#3d2616] mb-1">
+                                IV. Authenticity, Verification & Digital Records
+                              </h3>
+                              <ul className="list-decimal pl-6 space-y-1">
+                                <li>
+                                  The digitally stored examination records maintained by the institution shall be
+                                  deemed authentic and shall supersede all printed copies in case of discrepancy.
+                                </li>
+                                <li>
+                                  Result verification may be carried out through official portals, QR codes, or
+                                  authorised verification mechanisms provided by the institution.
+                                </li>
+                                <li>
+                                  This marksheet remains invalid if found mutilated, altered, or tampered with in
+                                  any manner whatsoever.
+                                </li>
+                              </ul>
+                            </div>
+
+                            {/* V */}
+                            <div>
+                              <h3 className="font-bold uppercase tracking-wide text-[#3d2616] mb-1">
+                                V. Issuance of Duplicate & Transcript
+                              </h3>
+                              <ul className="list-decimal pl-6 space-y-1">
+                                <li>
+                                  Duplicate marksheets or academic transcripts shall be issued only upon receipt
+                                  of a formal written request along with supporting documents and prescribed fees.
+                                </li>
+                                <li>
+                                  The institution shall not be responsible for loss or misuse of this document
+                                  after its lawful issuance.
+                                </li>
+                              </ul>
+                            </div>
+
+                           
+
                           </div>
                         </div>
-                        <div className="flex justify-end align-bottom mt-16 pr-4">
-                          <div className="text-right text-[11px]">
-                            <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider">
+
+                        {/* SIGNATURE */}
+                        <div className="flex justify-end mt-24 pr-6">
+                          <div className="text-center text-[11px] min-w-[240px]">
+                            <p className="border-t-[1.5px] border-[#5c3a21] pt-1 font-bold text-[#5c3a21] uppercase tracking-widest">
                               Controller of Examination
                             </p>
-                            <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
-
+                            <p className="font-bold text-[#5c3a21] uppercase tracking-wider mt-1">
+                              {data.examiner}
+                            </p>
                           </div>
                         </div>
 
                       </div>
                     </div>
+
 
                   </div>
                 </div>
