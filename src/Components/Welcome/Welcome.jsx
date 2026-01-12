@@ -4,43 +4,52 @@ import Link from 'next/link'
 export default function Welcome() {
     return (
         <>
-            <section className="lg:pt-20 lg:pb-5 pt-0 md:pt-12 bg-white">
+            <section className="lg:pt-20 lg:pb-5 pt-5 md:pt-12 bg-white">
                 <div className="max-w-7xl mx-auto px-3 md:px-4">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid lg:grid-cols-2 gap-6 items-center">
 
                         {/* Left Images */}
                         <div className="flex gap-4 sm:gap-6 justify-center lg:justify-start">
-                            <Image
-                                src="/images/—Pngtree—smilling student_19164923.webp"
-                                height={200}
-                                width={200}
-                                alt="Graduate Student"
-                                className="
-      w-40 h-52
-      sm:w-40 sm:h-52
-      md:w-52 md:h-72
-      lg:w-64 lg:h-80
-      object-cover
-      rounded-lg
-    "
-                            />
 
-                            <Image
-                                src="/images/—Pngtree—portrait of a young male_19532775.webp"
-                                height={200}
-                                width={200}
-                                alt="Graduate Student"
-                                className="
-      w-40 h-52
-      sm:w-40 sm:h-52
-      md:w-52 md:h-72
-      lg:w-64 lg:h-80
-      object-cover
-      rounded-lg
-      mt-4 sm:mt-6 lg:mt-10
-    "
-                            />
+                            {/* Image 1 */}
+                            <div className="relative rounded-lg overflow-hidden">
+                                <Image
+                                    src="/images/11.png"
+                                    height={200}
+                                    width={200}
+                                    alt="Graduate Student"
+                                    className="
+        w-40 h-52
+        sm:w-40 sm:h-52
+        md:w-52 md:h-72
+        lg:w-64 lg:h-80
+        object-cover
+      "
+                                />
+                                <div className="absolute inset-0 bg-orange-500/10"></div>
+
+                            </div>
+
+                            {/* Image 2 */}
+                            <div className="relative rounded-lg overflow-hidden md:mt-4 sm:mt-6 lg:mt-10">
+                                <Image
+                                    src="/images/22.png"
+                                    height={200}
+                                    width={200}
+                                    alt="Graduate Student"
+                                    className="
+        w-40 h-52
+        sm:w-40 sm:h-52
+        md:w-52 md:h-72
+        lg:w-64 lg:h-80
+        object-cover
+      "
+                                />
+                                <div className="absolute inset-0 bg-orange-500/10"></div>
+                            </div>
+
                         </div>
+
 
 
                         {/* Right Content */}
