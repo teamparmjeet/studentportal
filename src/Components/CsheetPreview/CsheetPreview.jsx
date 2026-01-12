@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Image from 'next/image';
 export default function CsheetPreview({ data }) {
     // --- STATIC RESOURCES ---
     const emblemUrl = "/images/bgrlogo1.png";
@@ -35,8 +35,16 @@ export default function CsheetPreview({ data }) {
     return (
         <>
             <button className='print:hidden' onClick={handlePrint}>Print</button>
-            <div className="w-full overflow-auto bg-gray-200 py-8 flex justify-center">
-
+            <div className="w-full relative overflow-auto bg-gray-200 py-8 flex justify-center">
+                <div className="absolute top-0 bottom-0 left-0 right-0 inset-0 z-10 flex items-center justify-center pointer-events-none overflow-hidden">
+                    <Image
+                        src="/images/bgrlogo1.png"
+                        alt="Watermark Seal"
+                        className="object-contain opacity-10 grayscale"
+                        height={600}
+                        width={600}
+                    />
+                </div>
                 {/* FIXED SIZE A4 LANDSCAPE CONTAINER: 1123px x 794px */}
                 <div
                     className="bg-white shadow-xl relative mx-auto flex-none"
