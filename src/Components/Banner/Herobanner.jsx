@@ -6,7 +6,12 @@ import Link from 'next/link';
 import 'swiper/css';
 
 export default function Herobanner() {
-     const slides = [
+    const slides = [
+        {
+            title: 'ADMISSION OPEN',
+            desc: 'Enroll now for Engineering (BE / ME), Polytechnic (Diploma), ITI Trades, and Skill-Based Professional Courses. Limited seats with practical training & industry exposure.',
+            img: '/images/3.jpg',
+        },
         {
             title: 'ADMISSION OPEN 2026',
             desc: 'Enroll now for Engineering (BE / ME), Polytechnic (Diploma), ITI Trades, and Skill-Based Professional Courses. Limited seats with practical training & industry exposure.',
@@ -47,7 +52,7 @@ export default function Herobanner() {
 
                             <div className="relative z-10 container mx-auto px-6">
                                 <div className="max-w-3xl mx-auto text-center text-white">
-                                    <h1 className="text-2xl md:text-4xl font-bold mb-4">
+                                    <h1 className="text-xl md:text-4xl font-bold mb-4">
                                         {slide.title}
                                     </h1>
 

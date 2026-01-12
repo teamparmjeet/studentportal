@@ -107,6 +107,7 @@ export default function Page() {
             <thead className="bg-gray-100">
               <tr>
                 <th className="p-3">Student</th>
+                <th className="p-3">Certificate Number</th>
                 <th className="p-3">fatherName</th>
                 <th className="p-3">DOB</th>
                 <th className="p-3">Rnrollment No</th>
@@ -118,6 +119,7 @@ export default function Page() {
               {data.map((m) => (
                 <tr key={m._id} className="border-t">
                   <td className="p-3 font-medium">{m.name}</td>
+                  <td className="p-3 font-medium">{m.certificateNumber}</td>
                   <td className="p-3">{m.fatherName}</td>
                   <td className="p-3">
                     {m.dob ? new Date(m.dob).toLocaleDateString("en-GB") : "-"}

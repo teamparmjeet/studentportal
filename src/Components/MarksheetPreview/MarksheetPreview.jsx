@@ -97,9 +97,9 @@ export default function MarksheetPreview({ marksheet }) {
 
                   <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
-                      src="/images/bgrlogo1.png"
+                      src="/images/mainlogo.png"
                       alt="Watermark Seal"
-                      className="object-contain opacity-20 grayscale"
+                      className="object-contain opacity-20 "
                       height={600}
                       width={600}
                     />
@@ -112,11 +112,11 @@ export default function MarksheetPreview({ marksheet }) {
 
                         <div className="absolute left-0 flex items-center mt-8">
                           <Image
-                            src="/images/bgrlogo1.png"
+                            src="/images/mainlogo.png"
                             alt="Watermark Seal"
                             height={150}
                             width={150}
-                            className='grayscale'
+                            className=''
                           />
                         </div>
 
@@ -344,6 +344,7 @@ export default function MarksheetPreview({ marksheet }) {
                                 The institution reserves the right to correct any inadvertent error detected at a later
                                 stage without any prior notice.
                               </li>
+                              
                             </ul>
                           </div>
                         </div>

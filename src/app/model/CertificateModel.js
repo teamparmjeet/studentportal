@@ -9,7 +9,11 @@ const CertificateSchema = new mongoose.Schema(
       index: true,
       unique: true,
     },
-
+    certificateNumber: {
+      type: String,
+      unique: true,
+      index: true,
+    },
     name: {
       type: String,
       required: true,
@@ -79,5 +83,5 @@ const CertificateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Certificate ||
-  mongoose.model("Certificate", CertificateSchema);
+export default mongoose.models.Certificate98 ||
+  mongoose.model("Certificate98", CertificateSchema);

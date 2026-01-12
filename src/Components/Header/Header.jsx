@@ -21,9 +21,9 @@ export default function Header() {
         <>
 
             <header
-                className="fixed top-0 w-full z-50 transition-all duration-300  bg-white backdrop-blur-md shadow-md"
+                className="fixed  top-0 w-full z-50 transition-all duration-300  bg-orange-100 border-b border-orange-00 shadow-md"
             >
-                <div className="w-full bg-orange-50 border-b border-orange-200">
+                <div className="w-full hidden sm:block bg-white">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className=" py-1 flex items-center justify-between text-sm text-gray-700">
 
@@ -53,20 +53,20 @@ export default function Header() {
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4">
+                <div className="max-w-7xl mx-auto px-4 ">
                     <div className="h-16 flex items-center justify-between">
 
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-3">
                             <Image
-                                src="/images/bgrlogo1.png"
+                                src="/images/mainlogo.png"
                                 alt="NIET Logo"
                                 width={60}
                                 height={60}
                                 className="object-contain"
                             />
 
-                            <div className="leading-tight hidden md:block">
+                            <div className="leading-tight ">
                                 <h1 className="text-lg font-bold text-orange-600">
                                     National Institute
                                 </h1>
@@ -92,30 +92,70 @@ export default function Header() {
                             </Link>
 
                             {/* Desktop Dropdown */}
+                            {/* Desktop Dropdown */}
                             <div className="relative group cursor-pointer">
                                 <div className="flex items-center gap-1 hover:text-orange-600">
                                     Student Zone <ChevronDown size={16} />
                                 </div>
 
+                                {/* Main Dropdown */}
                                 <div
-                                    className="absolute right-0 top-full  w-52
-                  bg-white rounded-xl shadow-lg opacity-0 invisible
-                  group-hover:opacity-100 group-hover:visible overflow-hidden
-                  transition-all duration-200"
+                                    className="absolute right-0 top-full w-56
+        bg-white/90 shadow-lg opacity-0 invisible
+        group-hover:opacity-100 group-hover:visible
+        transition-all duration-200 overflow-visible"
                                 >
 
-                                    <Link href="/services/applynow" className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100">
+                                    <Link
+                                        href="/services/applynow"
+                                        className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100"
+                                    >
                                         Online Admission
                                     </Link>
-                                    <Link href="/services/registration" className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100">
+
+                                    <Link
+                                        href="/services/registration"
+                                        className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100"
+                                    >
                                         Registration Details
                                     </Link>
-                                    <Link href="/services/result" className="block  px-4 py-3 hover:bg-gray-100">
-                                        Result
-                                    </Link>
+
+                                    {/* RESULT WITH RIGHT SIDE SUBMENU */}
+                                    <div className="relative group/result">
+                                        <div
+                                            className="flex items-center justify-between 
+                px-4 py-3 hover:bg-gray-100 cursor-pointer"
+                                        >
+                                            Result
+                                            <ChevronDown size={14} className="-rotate-90" />
+                                        </div>
+
+                                        {/* Right Side Submenu */}
+                                        <div
+                                            className="absolute overflow-hidden left-full top-0 ml-1 w-48
+                bg-white/90  shadow-lg opacity-0 invisible
+                group-hover/result:opacity-100 group-hover/result:visible
+                transition-all duration-200"
+                                        >
+                                            <Link
+                                                href="/services/result"
+                                                className="block border-b border-orange-200 px-4 py-3 hover:bg-gray-100"
+                                            >
+                                                Marksheet
+                                            </Link>
+
+                                            <Link
+                                                href="/services/certificate"
+                                                className="block px-4 py-3 hover:bg-gray-100"
+                                            >
+                                                Certificate
+                                            </Link>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
+
 
                             <Link href="/contact" className={`${isActive("/contact")} hover:text-orange-600`}>
                                 Contact
@@ -186,6 +226,9 @@ export default function Header() {
                                 </Link>
                                 <Link href="/services/result" onClick={() => setOpen(false)} className="  p-1">
                                     Result
+                                </Link>
+                                <Link href="/services/certificate" onClick={() => setOpen(false)} className="  p-1">
+                                    Certificate
                                 </Link>
 
                             </div>

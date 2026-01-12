@@ -9,22 +9,39 @@ export default function Welcome() {
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
 
                         {/* Left Images */}
-                        <div className="flex gap-6 justify-center lg:justify-start">
+                        <div className="flex gap-4 sm:gap-6 justify-center lg:justify-start">
                             <Image
                                 src="/images/—Pngtree—smilling student_19164923.webp"
                                 height={200}
                                 width={200}
                                 alt="Graduate Student"
-                                className="w-64 h-80 object-cover "
+                                className="
+      w-40 h-52
+      sm:w-40 sm:h-52
+      md:w-52 md:h-72
+      lg:w-64 lg:h-80
+      object-cover
+      rounded-lg
+    "
                             />
+
                             <Image
                                 src="/images/—Pngtree—portrait of a young male_19532775.webp"
                                 height={200}
                                 width={200}
                                 alt="Graduate Student"
-                                className="w-64 h-80 object-cover  mt-10 hidden sm:block"
+                                className="
+      w-40 h-52
+      sm:w-40 sm:h-52
+      md:w-52 md:h-72
+      lg:w-64 lg:h-80
+      object-cover
+      rounded-lg
+      mt-4 sm:mt-6 lg:mt-10
+    "
                             />
                         </div>
+
 
                         {/* Right Content */}
                         <div>

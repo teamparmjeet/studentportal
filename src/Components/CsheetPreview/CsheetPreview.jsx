@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 export default function CsheetPreview({ data }) {
     // --- STATIC RESOURCES ---
-    const emblemUrl = "/images/bgrlogo1.png";
+    const emblemUrl = "/images/mainlogo.png";
 
     // --- STATIC DATA (From PDF Source) ---
     const staticData = {
@@ -27,7 +27,8 @@ export default function CsheetPreview({ data }) {
         state: data?.state || "",
         year: data?.year || "",
         place: data?.place || "",
-        issueDate: data?.issueDate || new Date().toLocaleDateString('en-GB')
+        issueDate: data?.issueDate || new Date().toLocaleDateString('en-GB'),
+        certificateNumber: data?.certificateNumber || "",
     };
     const handlePrint = () => {
         window.print();
@@ -38,7 +39,7 @@ export default function CsheetPreview({ data }) {
             <div className="w-full relative overflow-auto bg-gray-200 py-8 flex justify-center">
                 <div className="absolute top-0 bottom-0 left-0 right-0 inset-0 z-10 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
-                        src="/images/bgrlogo1.png"
+                        src="/images/mainlogo.png"
                         alt="Watermark Seal"
                         className="object-contain opacity-10 grayscale"
                         height={600}
@@ -68,7 +69,16 @@ export default function CsheetPreview({ data }) {
                                     <div className="w-[15%] flex flex-col items-center pt-2">
                                         <img src={safeData.profileimage} alt="Emblem" className="h-36 object-contain" />
 
+                                        {safeData.certificateNumber && (
+                                            <p className="text-[11px] font-semibold text-gray-700 mt-2">
+                                                Certificate No:{" "}
+                                                <p className="text-[#d95f02] font-bold tracking-wide">
+                                                    {safeData.certificateNumber}
+                                                </p>
+                                            </p>
+                                        )}
                                     </div>
+
 
                                     {/* Center: Titles */}
                                     <div className="w-[70%] text-center flex  flex-col items-center justify-center  h-full pt-1">
