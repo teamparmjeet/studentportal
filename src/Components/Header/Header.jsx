@@ -2,18 +2,32 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 export default function Header() {
     const pathname = usePathname();
+    const [livenumber, setLiveNumber] = useState(null);
 
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [serviceOpen, setServiceOpen] = useState(false);
 
 
+    useEffect(() => {
+        const fetchLiveAddress = async () => {
+            try {
+                const res = await axios.get('/api/mobile/live');
+                setLiveNumber(res.data);
+                console.log(res.data)
+            } catch (err) {
+                console.log('No live Mobile found');
+            }
+        };
 
+        fetchLiveAddress();
+    }, []);
     const isActive = (path) =>
         pathname === path ? "text-orange-600" : "text-gray-800";
 
@@ -31,12 +45,12 @@ export default function Header() {
                             <div className="flex items-center gap-6 tracking-wide">
                                 <div className="flex items-center gap-2">
                                     <span className="text-orange-600">🕘</span>
-                                    <span>9 AM to 6 PM</span>
+                                    <span>9 AM to 6 PM</span> 
                                 </div>
 
                                 <div className="flex items-center gap-2">
                                     <span className="text-orange-600">📞</span>
-                                    <span>91 74268 18903</span>
+                                    <span>{livenumber?.mobileNumber || ''}</span>
                                 </div>
 
 

@@ -10,6 +10,8 @@ export default function Contactus() {
     phone: '',
     message: '',
   });
+  const [livenumber, setLiveNumber] = useState(null);
+
   const [liveAddress, setLiveAddress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
@@ -23,6 +25,8 @@ export default function Contactus() {
       try {
         const res = await axios.get('/api/Address/live');
         setLiveAddress(res.data);
+        const res2 = await axios.get('/api/mobile/live');
+        setLiveNumber(res2.data);
       } catch (err) {
         console.log('No live address found');
       }
@@ -93,7 +97,7 @@ export default function Contactus() {
 
               <div>
                 <p className="font-semibold">Phone</p>
-                <p className="text-sm mt-1">+91 7426818903</p>
+                <p className="text-sm mt-1">{livenumber?.mobileNumber || ''}</p>
               </div>
             </div>
           </div>

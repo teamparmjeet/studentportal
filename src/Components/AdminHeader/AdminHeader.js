@@ -60,6 +60,11 @@ export default function AdminHeader() {
                             <Link href="/admin/Address" className={`${isActive("/admin/Address")} hover:text-orange-600`}>
                                 Address
                             </Link>
+                             <Link href="/admin/Mobile" className={`${isActive("/admin/Mobile")} hover:text-orange-600`}>
+                                Mobile
+                            </Link>
+                            
+
                             <Link href="/admin/Allquery" className={`${isActive("/admin/Allquery")} hover:text-orange-600`}>
                                 Pending
                             </Link>
