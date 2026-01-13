@@ -1,15 +1,36 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/dbConnect";
 import Admission from "@/app/model/AdmissionModel";
-import { uploadToS3 } from "@/app/lib/awsUpload";
+import fs from "fs";
+import path from "path";
+import { randomUUID } from "crypto";
+async function saveFileLocally(file, folder = "uploads") {
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
 
-/* ======================
-   PUT → Update Admission
-====================== */
+  const uploadDir = path.join(
+    process.cwd(),
+    "public",
+    folder
+  );
+
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+
+  const ext = path.extname(file.name);
+  const fileName = `${randomUUID()}${ext}`;
+  const filePath = path.join(uploadDir, fileName);
+
+  fs.writeFileSync(filePath, buffer);
+
+  return `/${folder}/${fileName}`;
+}
+
+
 export async function PUT(req) {
   try {
     await dbConnect();
-
     const formData = await req.formData();
 
     const enrollmentNumber = formData.get("enrollmentNumber");
@@ -22,13 +43,16 @@ export async function PUT(req) {
     }
 
     /* ======================
-       IMAGE LOGIC
+       IMAGE LOGIC (LOCAL)
     ====================== */
     let imageUrl;
     const profileImage = formData.get("profileImage");
 
-    if (profileImage && profileImage.size > 0) {
-      imageUrl = await uploadToS3(profileImage, "admissions");
+    if (profileImage && profileImage.name && profileImage.size > 0) {
+      imageUrl = await saveFileLocally(
+        profileImage,
+        "uploads/admissions"
+      );
     }
 
     /* ======================
@@ -58,7 +82,7 @@ export async function PUT(req) {
       paymentOption: formData.get("paymentOption"),
     };
 
-    // attach image only if updated
+    // ✅ attach image only if updated
     if (imageUrl) {
       updateData.profileImage = imageUrl;
     }
@@ -92,3 +116,4 @@ export async function PUT(req) {
     );
   }
 }
+

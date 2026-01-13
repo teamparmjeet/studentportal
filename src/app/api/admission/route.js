@@ -1,7 +1,33 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/dbConnect";
 import AdmissionModel from "@/app/model/AdmissionModel";
-import { uploadToS3 } from "@/app/lib/awsUpload";
+import fs from "fs";
+import path from "path";
+import { randomUUID } from "crypto";
+async function saveFileLocally(file, folder = "uploads") {
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const uploadDir = path.join(
+    process.cwd(),
+    "public",
+    folder
+  );
+
+  // Ensure directory exists
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+
+  const ext = path.extname(file.name);
+  const fileName = `${randomUUID()}${ext}`;
+  const filePath = path.join(uploadDir, fileName);
+
+  fs.writeFileSync(filePath, buffer);
+
+  // Public URL
+  return `/${folder}/${fileName}`;
+}
 
 /* ======================
    POST → Apply Now
@@ -13,8 +39,13 @@ export async function POST(req) {
 
     let imageUrl = "";
     const profileImage = formData.get("profileImage");
-    if (profileImage) {
-      imageUrl = await uploadToS3(profileImage, "admissions");
+
+    // ✅ Local upload
+    if (profileImage && profileImage.name) {
+      imageUrl = await saveFileLocally(
+        profileImage,
+        "uploads/admissions"
+      );
     }
 
     const admission = await AdmissionModel.create({
@@ -47,7 +78,7 @@ export async function POST(req) {
       { status: 200 }
     );
   } catch (err) {
-    console.error(err);
+    console.error("Admission POST Error:", err);
     return NextResponse.json(
       { error: "Server error" },
       { status: 500 }

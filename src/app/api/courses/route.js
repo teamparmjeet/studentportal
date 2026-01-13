@@ -1,7 +1,33 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/app/lib/dbConnect";
 import CourseModel from "@/app/model/CourseModel";
-import {uploadToS3} from "@/app/lib/awsUpload";
+import fs from "fs";
+import path from "path";
+import { randomUUID } from "crypto";
+async function saveFileLocally(file, folder = "uploads") {
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const uploadDir = path.join(
+    process.cwd(),
+    "public",
+    folder
+  );
+
+  // Ensure folder exists
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+
+  const ext = path.extname(file.name);
+  const fileName = `${randomUUID()}${ext}`;
+  const filePath = path.join(uploadDir, fileName);
+
+  fs.writeFileSync(filePath, buffer);
+
+  // Return public URL
+  return `/${folder}/${fileName}`;
+}
 
 /* =========================
    GET (List Courses)
@@ -19,7 +45,6 @@ export async function POST(req) {
   await dbConnect();
 
   const formData = await req.formData();
-
   const title = formData.get("title");
   const image = formData.get("image");
 
@@ -34,8 +59,8 @@ export async function POST(req) {
     );
   }
 
-  // ✅ Upload image
-  const imageUrl = await uploadToS3(image, "courses");
+  // ✅ Local upload
+  const imageUrl = await saveFileLocally(image, "uploads/courses");
 
   const course = await CourseModel.create({
     title,
@@ -48,6 +73,7 @@ export async function POST(req) {
 
   return NextResponse.json(course);
 }
+
 
 /* =========================
    PUT (Update Course)
@@ -84,10 +110,11 @@ export async function PUT(req) {
     }));
   }
 
-  if (formData.get("image")) {
-    updateData.image = await uploadToS3(
-      formData.get("image"),
-      "courses"
+  const image = formData.get("image");
+  if (image && image.name) {
+    updateData.image = await saveFileLocally(
+      image,
+      "uploads/courses"
     );
   }
 
@@ -99,6 +126,7 @@ export async function PUT(req) {
 
   return NextResponse.json(updatedCourse);
 }
+
 
 /* =========================
    DELETE (Remove Course)
