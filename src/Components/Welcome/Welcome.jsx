@@ -55,7 +55,7 @@ export default function Welcome() {
                         {/* Right Content */}
                         <div>
                             <span className="text-orange-600 font-semibold tracking-wide uppercase text-sm">
-                                Welcome To MyBrand
+                                Welcome To NIET
                             </span>
 
                             <h2 className="mt-3 text-2xl md:text-4xl font-bold text-slate-900 leading-tight">
@@ -64,7 +64,8 @@ export default function Welcome() {
                             </h2>
 
                             <p className="mt-4 text-slate-600 leading-relaxed text-sm md:text-base">
-                                Delhi Institute Of Management Technology & Science is an autonomous
+                                National Institute
+                                Engineering & Technology is an autonomous
                                 institute for higher education. It gives a path to early success in
                                 life through distance learning courses. These courses consist of
                                 concepts, case studies, and industrial training that provide broad

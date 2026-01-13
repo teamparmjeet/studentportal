@@ -30,7 +30,7 @@ export default function page() {
               <div>
                 <span className="inline-block mb-3 px-4 py-1 text-xs font-semibold 
                 text-orange-600 bg-orange-100 rounded-full">
-                  About My Brand
+                  About NIET
                 </span>
 
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-5">
