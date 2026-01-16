@@ -12,6 +12,7 @@ export default function Page() {
     enrollmentNo: "",
     name: "",
     fatherName: "",
+    tradename: "",
     motherName: "",
     dob: "",
     institute: "",
@@ -38,6 +39,7 @@ export default function Page() {
           enrollmentNo: data.enrollmentNumber,
           name: data.name,
           fatherName: data.fatherName,
+          tradename: data.tradename,
           motherName: data.motherName,
           dob: data.dob ? data.dob.split("T")[0] : "",
           profileimage: data.profileImage,
@@ -63,6 +65,7 @@ export default function Page() {
     const requiredFields = [
       "name",
       "fatherName",
+      "tradename",
       "dob",
       "institute",
       "district",
@@ -144,7 +147,7 @@ export default function Page() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
 
-          {["name", "fatherName", "motherName", "institute", "district", "state", "place"].map((key) => (
+          {["name", "fatherName", "tradename", "motherName", "institute", "district", "state", "place"].map((key) => (
             <div key={key}>
               <label className="block text-xs font-bold uppercase text-gray-500">
                 {key.replace(/([A-Z])/g, " $1")}
@@ -203,9 +206,8 @@ export default function Page() {
         <button
           onClick={handleSave}
           disabled={loading}
-          className={`w-full mt-6 py-3 rounded-lg font-bold text-white ${
-            loading ? "bg-gray-400" : "bg-orange-600 hover:bg-orange-700"
-          }`}
+          className={`w-full mt-6 py-3 rounded-lg font-bold text-white ${loading ? "bg-gray-400" : "bg-orange-600 hover:bg-orange-700"
+            }`}
         >
           {loading ? "Saving..." : "Save Certificate"}
         </button>

@@ -89,6 +89,9 @@ export default function MarksheetPreview({ marksheet }) {
 
               <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
                 <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
+                  <div className="absolute top-0 font-bold right-1 text-[10px] text-gray-800">
+                    Sr {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}
+                  </div>
 
                   <div
                     className="absolute bgbg h-[297mm] w-full top-0 left-0  z-0"
@@ -435,7 +438,7 @@ export default function MarksheetPreview({ marksheet }) {
                               </ul>
                             </div>
 
-                           
+
 
                           </div>
                         </div>
@@ -444,11 +447,9 @@ export default function MarksheetPreview({ marksheet }) {
                         <div className="flex justify-end mt-24 pr-6">
                           <div className="text-center text-[11px] min-w-[240px]">
                             <p className="border-t-[1.5px] border-[#5c3a21] pt-1 font-bold text-[#5c3a21] uppercase tracking-widest">
-                              Controller of Examination
+                              Signature of candidate
                             </p>
-                            <p className="font-bold text-[#5c3a21] uppercase tracking-wider mt-1">
-                              {data.examiner}
-                            </p>
+
                           </div>
                         </div>
 

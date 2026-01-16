@@ -18,6 +18,8 @@ export default function CsheetPreview({ data }) {
     // Safe defaults if props are missing
     const safeData = {
         name: data?.name || "",
+        enrollmentNo: data?.enrollmentNo || "",
+        tradename: data?.tradename || "",
         profileimage: data?.profileimage || "",
         fatherName: data?.fatherName || "",
         motherName: data?.motherName || "",
@@ -104,7 +106,14 @@ export default function CsheetPreview({ data }) {
 
                                     <div className="w-[15%] flex flex-col items-center pt-2">
                                         <img src={emblemUrl} alt="Emblem" className="h-36 object-contain" />
-
+                                        {safeData.enrollmentNo && (
+                                            <p className="text-[11px] font-semibold text-gray-700 mt-2">
+                                                Enrollment No:{" "}
+                                                <p className="text-[#d95f02] font-bold tracking-wide">
+                                                    {safeData.enrollmentNo}
+                                                </p>
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -160,14 +169,29 @@ export default function CsheetPreview({ data }) {
                                                 जन्म तिथि<br />Date of Birth
                                             </div>
                                             <div className="font-bold text-base text-gray-900 uppercase flex-grow">
-                                                {safeData.dob}
+                                                {safeData?.dob
+                                                    ? new Intl.DateTimeFormat("en-GB", {
+                                                        day: "2-digit",
+                                                        month: "long",
+                                                        year: "numeric",
+                                                    }).format(new Date(safeData.dob))
+                                                    : ""}
                                             </div>
-                                        </div>
-                                    </div>
 
+
+                                        </div>
+                                         
+                                    </div>
+                                
+                                    
                                     {/* Institute Details */}
                                     <div className="space-y-3 mt-4">
                                         <div className="flex items-end border-b border-gray-300 pb-1">
+                                            <div className="text-xs text-gray-600 whitespace-nowrap mr-2"> व्यवसाय का नाम / Trade Name</div>
+                                            <div className="font-bold text-sm text-gray-900 uppercase flex-grow"> {safeData.tradename}</div>
+                                        </div>
+
+                                         <div className="flex items-end border-b border-gray-300 pb-1">
                                             <div className="text-xs text-gray-600 whitespace-nowrap mr-2">संस्था का नाम / Name of the Institute:</div>
                                             <div className="font-bold text-sm text-gray-900 uppercase flex-grow">{safeData.institute}</div>
                                         </div>
@@ -205,7 +229,10 @@ export default function CsheetPreview({ data }) {
                                             <p className="font-bold text-sm mb-4">{safeData.place}</p>
                                             <div className="border-t border-gray-400 pt-1">
                                                 <p className="text-[10px] text-gray-500">दिनांक / Date</p>
-                                                <p className="font-bold text-sm">{safeData.issueDate}</p>
+                                                <p className="font-bold text-sm">
+                                                    {new Date(safeData.issueDate).toLocaleDateString("en-GB")}
+                                                </p>
+
                                             </div>
                                         </div>
 

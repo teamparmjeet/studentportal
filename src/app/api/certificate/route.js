@@ -43,6 +43,7 @@ export async function POST(req) {
     const requiredFields = [
       "enrollmentNo",
       "name",
+      "tradename",
       "fatherName",
       "dob",
       "institute",
@@ -72,6 +73,7 @@ export async function POST(req) {
     ========================= */
     const payload = {
       enrollmentNo: data.enrollmentNo,
+      tradename:data.tradename,
       name: data.name,
       fatherName: data.fatherName,
       motherName: data.motherName || "",

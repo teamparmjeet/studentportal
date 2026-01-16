@@ -19,7 +19,11 @@ const CertificateSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
+    tradename: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     fatherName: {
       type: String,
       required: true,
@@ -83,5 +87,5 @@ const CertificateSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Certificate98 ||
-  mongoose.model("Certificate98", CertificateSchema);
+export default mongoose.models.Certificate989 ||
+  mongoose.model("Certificate989", CertificateSchema);

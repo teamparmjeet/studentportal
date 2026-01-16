@@ -119,7 +119,7 @@ export default function Page() {
                   <p>
                     <span className="font-bold uppercase">{marksheet.name}</span>,
                     Son/Daughter of <span className="font-semibold uppercase">{marksheet.fatherName}</span>,
-                    has successfully completed the examination.
+                    has successfully completed the examination. in {marksheet.tradename} 
                   </p>
 
                   <p>
