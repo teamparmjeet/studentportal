@@ -91,7 +91,7 @@ export default function MarksheetPreview({ marksheet }) {
               <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
                 <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
                   <div className="absolute top-0 font-bold right-1 text-[10px] text-gray-800">
-                    Sr {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}
+                    Sr: {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}
                   </div>
 
                   <div
@@ -173,24 +173,28 @@ export default function MarksheetPreview({ marksheet }) {
                     <div className="flex justify-between text-[11px] font-bold mb-4 uppercase px-1 tracking-wide">
                       <div>
 
-                      <div className="flex items-end">
-                        <span className="text-[#5c3a21] mr-2 whitespace-nowrap">NAME :</span>
-                        <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
-                      </div>
-                      <div className="flex items-end">
-                        <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER:</span>
-                        <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
-                      </div>
+                        <div className="flex items-end">
+                          <span className="text-[#5c3a21] mr-2 whitespace-nowrap">NAME :</span>
+                          <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
+                        </div>
+                        <div className="flex items-end">
+                          <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER:</span>
+                          <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
+                        </div>
                       </div>
                       <div className="flex items-end">
                         <span className="text-[#5c3a21] mr-2 whitespace-nowrap">DOB :</span>
                         <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">
                           {data?.dob
-                            ? new Date(data.dob.split("T")[0]).toLocaleDateString("en-GB")
+                            ? new Date(data.dob).toLocaleDateString("en-GB", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            })
                             : ""}
                         </span>
-
                       </div>
+
 
                     </div>
 
@@ -274,8 +278,8 @@ export default function MarksheetPreview({ marksheet }) {
                         <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
                         <p className="font-semibold pl-2">
                           {new Date(data.issueDate).toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "long",
+                            day: "2-digit",
+                            month: "short",
                             year: "numeric",
                           })}
                         </p>

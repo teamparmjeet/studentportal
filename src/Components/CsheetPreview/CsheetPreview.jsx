@@ -172,18 +172,19 @@ export default function CsheetPreview({ data }) {
                                                 {safeData?.dob
                                                     ? new Intl.DateTimeFormat("en-GB", {
                                                         day: "2-digit",
-                                                        month: "long",
+                                                        month: "short", // 👈 Dec
                                                         year: "numeric",
                                                     }).format(new Date(safeData.dob))
                                                     : ""}
                                             </div>
 
 
+
                                         </div>
-                                         
+
                                     </div>
-                                
-                                    
+
+
                                     {/* Institute Details */}
                                     <div className="space-y-3 mt-4">
                                         <div className="flex items-end border-b border-gray-300 pb-1">
@@ -191,7 +192,7 @@ export default function CsheetPreview({ data }) {
                                             <div className="font-bold text-sm text-gray-900 uppercase flex-grow"> {safeData.tradename}</div>
                                         </div>
 
-                                         <div className="flex items-end border-b border-gray-300 pb-1">
+                                        <div className="flex items-end border-b border-gray-300 pb-1">
                                             <div className="text-xs text-gray-600 whitespace-nowrap mr-2">संस्था का नाम / Name of the Institute:</div>
                                             <div className="font-bold text-sm text-gray-900 uppercase flex-grow">{safeData.institute}</div>
                                         </div>
