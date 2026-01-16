@@ -10,12 +10,12 @@ export default function Herobanner() {
         {
             title: 'ADMISSION OPEN',
             desc: 'Enroll now for Engineering (BE / ME), Polytechnic (Diploma), ITI Trades, and Skill-Based Professional Courses. Limited seats with practical training & industry exposure.',
-            img: '/images/3.jpg',
+            img: '/images/1111.jpeg',
         },
         {
             title: 'ADMISSION OPEN 2026',
             desc: 'Enroll now for Engineering (BE / ME), Polytechnic (Diploma), ITI Trades, and Skill-Based Professional Courses. Limited seats with practical training & industry exposure.',
-            img: '/images/504-1920x500.jpg',
+            img: '/images/3.jpg',
         },
         {
             title: 'Polytechnic & ITI – Learn Skills, Build Career',

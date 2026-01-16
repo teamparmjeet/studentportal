@@ -14,38 +14,39 @@ export default function Welcome() {
                             {/* Image 1 */}
                             <div className="relative rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/11.png"
+                                    src="/img/2.jpeg"
                                     height={200}
                                     width={200}
                                     alt="Graduate Student"
                                     className="
         w-40 h-52
         sm:w-40 sm:h-52
-        md:w-52 md:h-72
-        lg:w-64 lg:h-80
-        object-cover
+        md:w-52 md:h-56
+        lg:w-64 lg:h-64
+        object-cover rounded-lg overflow-hidden
       "
                                 />
-                                <div className="absolute inset-0 bg-orange-500/10"></div>
+                                {/* <div className="absolute inset-0 bg-orange-500/10"></div> */}
 
                             </div>
 
                             {/* Image 2 */}
                             <div className="relative rounded-lg overflow-hidden md:mt-4 sm:mt-6 lg:mt-10">
                                 <Image
-                                    src="/images/22.png"
+                                    src="/img/4.jpeg"
                                     height={200}
                                     width={200}
                                     alt="Graduate Student"
                                     className="
         w-40 h-52
         sm:w-40 sm:h-52
-        md:w-52 md:h-72
-        lg:w-64 lg:h-80
+        md:w-52 md:h-56
+        lg:w-64 lg:h-64
         object-cover
+        rounded-lg overflow-hidden
       "
                                 />
-                                <div className="absolute inset-0 bg-orange-500/10"></div>
+                                {/* <div className="absolute inset-0 bg-orange-500/10"></div> */}
                             </div>
 
                         </div>

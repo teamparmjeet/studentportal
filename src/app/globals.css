@@ -12,6 +12,15 @@ pre,
 .mono {
   font-family: var(--font-geist-mono), monospace;
 }
+.footerbg123{
+    position: relative;
+  background-image: url("../../public/img/6.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  color: #c0c0c0;
+}
 
 .footerbg {
   position: relative;

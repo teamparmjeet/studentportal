@@ -98,11 +98,11 @@ export default function page() {
         </section>
 
         {/* CTA */}
-        <section className="footerbg text-white py-20 text-center">
-          <h2 className="text-3xl font-bold mb-4">
+        <section className="footerbg123 flex flex-col justify-center items-center text-black py-20 text-center">
+          <h2 className="text-3xl text-white font-bold mb-4 px-3 py-1 rounded-lg   inline bg-black/80">
             Build Your Future with NIET
           </h2>
-          <p className="text-slate-300 mb-8">
+          <p className="text-white px-3 py-1 rounded-lg   inline  bg-black/80 mb-8">
             Join The National Institute of Engineering & Technology and take the
             next step toward a successful technical career.
           </p>
