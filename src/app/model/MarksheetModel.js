@@ -17,6 +17,7 @@ const MarksheetSchema = new mongoose.Schema(
     name: { type: String, required: true },
     fatherName: { type: String, required: true },
     rollNumber: { type: String, required: true },
+    dob: { type: String, required: true },
     enrollment: { type: String, required: true, index: true },
     profileImage: { type: String },
     title1: { type: String },
@@ -46,5 +47,5 @@ const MarksheetSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Marksheet2 ||
-  mongoose.model("Marksheet2", MarksheetSchema);
+export default mongoose.models.Marksheet299 ||
+  mongoose.model("Marksheet299", MarksheetSchema);

@@ -42,6 +42,7 @@ export default function MarksheetPreview({ marksheet }) {
 
   const data = {
     rollNumber: marksheet.rollNumber || "-----",
+    dob: marksheet.dob || "-----",
     enrollment: marksheet.enrollment || "",
     examiner: marksheet.examiner || "",
     semester: marksheet.semester || "--",
@@ -170,6 +171,8 @@ export default function MarksheetPreview({ marksheet }) {
 
                     {/* NAME SECTION */}
                     <div className="flex justify-between text-[11px] font-bold mb-4 uppercase px-1 tracking-wide">
+                      <div>
+
                       <div className="flex items-end">
                         <span className="text-[#5c3a21] mr-2 whitespace-nowrap">NAME :</span>
                         <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.name}</span>
@@ -178,6 +181,17 @@ export default function MarksheetPreview({ marksheet }) {
                         <span className="text-[#5c3a21] mr-2 whitespace-nowrap">FATHER:</span>
                         <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">{data.fatherName}</span>
                       </div>
+                      </div>
+                      <div className="flex items-end">
+                        <span className="text-[#5c3a21] mr-2 whitespace-nowrap">DOB :</span>
+                        <span className="border-b-[1.5px] border-dotted border-[#5c3a21] min-w-55 inline-block text-center pb-0.5 text-[12px]">
+                          {data?.dob
+                            ? new Date(data.dob.split("T")[0]).toLocaleDateString("en-GB")
+                            : ""}
+                        </span>
+
+                      </div>
+
                     </div>
 
                     <table className="w-full border-collapse border-[1.5px] border-[#5c3a21] text-[10px] font-medium mb-0 bg-[#fffdfa]/40 table-fixed">

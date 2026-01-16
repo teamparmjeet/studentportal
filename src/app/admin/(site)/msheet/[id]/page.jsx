@@ -13,6 +13,7 @@ export default function MarksheetPage() {
   const [marksheet, setMarksheet] = useState({
     name: "",
     fatherName: "",
+    dob: "",
     rollNumber: "",
     profileImage: "",
     enrollment: "",
@@ -88,6 +89,7 @@ export default function MarksheetPage() {
           ...prev,
           name: data.name,
           fatherName: data.fatherName,
+          dob: data.dob,
           rollNumber: data.rollNumber,
           profileImage: data.profileImage,
           enrollment: data.enrollmentNumber,

@@ -79,7 +79,10 @@ export default function Footer() {
                             <Phone size={18} className="text-orange-500" />
                             {livenumber?.mobileNumber || ''}
                         </p>
-
+                        <p className="flex items-center gap-2 text-sm mb-2">
+                            <Phone size={18} className="text-orange-500" />
+                          011 8151 3645
+                        </p>
                     </div>
 
                     {/* ABOUT */}

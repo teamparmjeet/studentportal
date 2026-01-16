@@ -45,14 +45,17 @@ export default function Header() {
                             <div className="flex items-center gap-6 tracking-wide">
                                 <div className="flex items-center gap-2">
                                     <span className="text-orange-600">🕘</span>
-                                    <span>9 AM to 6 PM</span> 
+                                    <span>9 AM to 6 PM</span>
                                 </div>
 
                                 <div className="flex items-center gap-2">
                                     <span className="text-orange-600">📞</span>
                                     <span>{livenumber?.mobileNumber || ''}</span>
                                 </div>
-
+                                <div className="flex items-center gap-2">
+                                    <span className="text-orange-600">toll free</span>
+                                    <span>011 8151 3645</span>
+                                </div>
 
                             </div>
 

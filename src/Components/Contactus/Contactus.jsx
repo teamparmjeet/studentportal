@@ -99,6 +99,10 @@ export default function Contactus() {
                 <p className="font-semibold">Phone</p>
                 <p className="text-sm mt-1">{livenumber?.mobileNumber || ''}</p>
               </div>
+              <div>
+                <p className="font-semibold">toll free:</p>
+                <p className="text-sm mt-1">011 8151 3645</p>
+              </div>
             </div>
           </div>
 

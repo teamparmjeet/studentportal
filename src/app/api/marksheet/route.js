@@ -17,6 +17,7 @@ export async function POST(req) {
     const requiredFields = [
       "name",
       "fatherName",
+      "dob",
       "rollNumber",
       "enrollment",
       "session",
