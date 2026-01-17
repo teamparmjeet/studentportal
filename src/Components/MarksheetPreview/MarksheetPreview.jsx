@@ -48,6 +48,7 @@ export default function MarksheetPreview({ marksheet }) {
     semester: marksheet.semester || "--",
     title1: marksheet.title1 || "----",
     title2: marksheet.title2 || "---",
+    city: marksheet.city || "---",
     session: marksheet.session || "---",
     name: marksheet.name || "---",
     fatherName: marksheet.fatherName || "--",
@@ -275,7 +276,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                     <div className="flex justify-between items-end text-[11px] mt-20 py-20 px-2 relative">
                       <div>
-                        <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider"> Date of Issue :</p>
+                        <p className="font-bold mb-1 text-[#5c3a21] uppercase tracking-wider">{data.city} Date of Issue :</p>
                         <p className="font-semibold pl-2">
                           {new Date(data.issueDate).toLocaleDateString("en-GB", {
                             day: "2-digit",
@@ -288,7 +289,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                       <div className="flex flex-col items-center justify-end relative min-w-37.5">
                         <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">Controller of Examination</p>
-                        <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner}</p>
+                        <p className="font-bold border-t-[1.5px] border-[#5c3a21] pt-1 text-[#5c3a21] uppercase tracking-wider w-full text-center">{data.examiner},{data.city}</p>
                       </div>
                     </div>
 

@@ -36,6 +36,7 @@ const MarksheetSchema = new mongoose.Schema(
     percentage: { type: Number, required: true },
     grade: { type: String, required: true },
     marksInWords: { type: String, required: true },
+    city: { type: String, required: true },
 
     // 🔹 Meta
     status: {
@@ -47,5 +48,5 @@ const MarksheetSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Marksheet299 ||
-  mongoose.model("Marksheet299", MarksheetSchema);
+export default mongoose.models.Markshet ||
+  mongoose.model("Markshet", MarksheetSchema);

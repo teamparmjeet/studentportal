@@ -23,6 +23,7 @@ export default function MarksheetPage() {
     issueDate: new Date().toISOString().split("T")[0],
     title1: "",   // ✅ NEW
     title2: "",   // ✅ NEW
+    city: "",   // ✅ NEW
     subjects: [],
     total: 0,
     maxTotal: 0,
@@ -263,6 +264,21 @@ export default function MarksheetPage() {
                 className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
                    focus:outline-none focus:ring-2 focus:ring-orange-400
                    focus:border-orange-400"
+              />
+            </div>
+
+             <div className="space-y-1">
+              <label className="text-sm font-medium text-gray-600">
+                City
+              </label>
+              <input
+                type="text"
+                placeholder="City"
+                value={marksheet.city}
+                onChange={(e) =>
+                  setMarksheet({ ...marksheet, city: e.target.value })
+                }
+                className="w-full rounded-lg border px-3 py-2 text-sm"
               />
             </div>
 
