@@ -14,7 +14,7 @@ export default function Welcome() {
                             {/* Image 1 */}
                             <div className="relative rounded-lg overflow-hidden">
                                 <Image
-                                    src="/img/2.jpeg"
+                                    src="/images/11.png"
                                     height={200}
                                     width={200}
                                     alt="Graduate Student"
@@ -33,7 +33,7 @@ export default function Welcome() {
                             {/* Image 2 */}
                             <div className="relative rounded-lg overflow-hidden md:mt-4 sm:mt-6 lg:mt-10">
                                 <Image
-                                    src="/img/4.jpeg"
+                                    src="/images/22.png"
                                     height={200}
                                     width={200}
                                     alt="Graduate Student"
