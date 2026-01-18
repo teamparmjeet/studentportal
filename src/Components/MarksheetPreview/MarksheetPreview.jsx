@@ -85,7 +85,8 @@ export default function MarksheetPreview({ marksheet }) {
 
   const pgrandTotal = semesterTotal + finalSemMarks;
 
-
+  const semesterCount = data.semestersmark.length;
+  const finalMaxTotal = data.maxTotal * semesterCount + data.maxTotal;
 
   return (
     <>
@@ -106,7 +107,7 @@ export default function MarksheetPreview({ marksheet }) {
               <div className="bg-[#fbf9ea] p-0.5 border border-[#5c3a21]">
                 <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
                   <div className="absolute top-0 font-bold right-1 text-[8px] text-gray-800">
-                    Sr: <span className='text-[12px] font-serif'> {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}</span>
+                    Sr.NO: <span className='text-[12px] '> {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}</span>
                   </div>
                   <div className="absolute bottom-0 font-semibold right-0 left-0 text-center text-xs text-gray-800">
                     To verify your mark sheet please send details on: verification@rgitm.com
@@ -139,7 +140,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                   <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
-                      src="/images/mainlogo.png"
+                      src="/images/mainnewlogo.png"
                       alt="Watermark Seal"
                       className="object-contain opacity-20 "
                       height={600}
@@ -154,7 +155,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                         <div className="absolute left-0 flex items-center mt-8">
                           <Image
-                            src="/images/mainlogo.png"
+                            src="/images/mainnewlogo.png"
                             alt="Watermark Seal"
                             height={150}
                             width={150}
@@ -359,7 +360,7 @@ export default function MarksheetPreview({ marksheet }) {
 
                           {/* GRAND TOTAL */}
                           <div className="min-w-[100px] px-2 py-1 text-center font-bold text-black">
-                            {pgrandTotal}
+                            {pgrandTotal} / {finalMaxTotal}
                           </div>
                         </div>
 
