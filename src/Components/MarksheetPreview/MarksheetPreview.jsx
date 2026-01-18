@@ -32,11 +32,12 @@ export default function MarksheetPreview({ marksheet }) {
 
   // Default values to ensure the preview looks good even without full data
   const subjects = marksheet.subjects || [
-    { code: "ES501", subject: "Industrial Devices & Control", max: 100, min: 40, marks: 66 },
+    { code: "ES501", subject: "Industrial Devices & Control", max: 100, min: 40, practicle: 0, marks: 66 },
   ];
 
   // 🔹 Dynamic Calculations
   const maxTotal = subjects.reduce((sum, s) => sum + Number(s.max || 0), 0);
+  const practicleTotal = subjects.reduce((sum, s) => sum + Number(s.practicle || 0), 0);
   const minTotal = subjects.reduce((sum, s) => sum + Number(s.min || 0), 0);
   const grandTotal = subjects.reduce((sum, s) => sum + Number(s.marks || 0), 0);
 
@@ -55,8 +56,10 @@ export default function MarksheetPreview({ marksheet }) {
     issueDate: marksheet.issueDate || "-",
 
     subjects,
+    semestersmark: marksheet.semestersmark || "",
 
     maxTotal,
+    practicleTotal,
     minTotal,
     grandTotal,
 
@@ -73,6 +76,17 @@ export default function MarksheetPreview({ marksheet }) {
   const handlePrint = () => {
     window.print();
   };
+  const finalSemMarks = data.grandTotal;
+
+  const semesterTotal = data.semestersmark.reduce(
+    (sum, s) => sum + Number(s.totalMarks || 0),
+    0
+  );
+
+  const pgrandTotal = semesterTotal + finalSemMarks;
+
+
+
   return (
     <>
       <div
@@ -85,20 +99,43 @@ export default function MarksheetPreview({ marksheet }) {
             printColorAdjust: "exact",
           }}
         >
-          <div className="bg-[#5c3a21] p-0.5 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
+          <div className="bg-[#5c3a21b7] p-0.5 rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
 
             <div className="bg-[#cba35800] p-0.75 border border-[#8c6239]">
 
-              <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
+              <div className="bg-[#fbf9ea] p-0.5 border border-[#5c3a21]">
                 <div className="border-[3px] border-double border-[#8c6239]/60 relative overflow-hidden">
-                  <div className="absolute top-0 font-bold right-1 text-[10px] text-gray-800">
-                    Sr: {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}
+                  <div className="absolute top-0 font-bold right-1 text-[8px] text-gray-800">
+                    Sr: <span className='text-[12px] font-serif'> {marksheet?._id?.replace(/\D/g, "").slice(0, 6)}</span>
+                  </div>
+                  <div className="absolute bottom-0 font-semibold right-0 left-0 text-center text-xs text-gray-800">
+                    To verify your mark sheet please send details on: verification@rgitm.com
                   </div>
 
-                  <div
-                    className="absolute bgbg h-[297mm] w-full top-0 left-0  z-0"
+                  <div className="absolute inset-0 z-0 pointer-events-none opacity-10">
+                    <div
+                      className="
+      
+      flex flex-wrap
+    "
 
-                  ></div>
+                    >
+                      {Array.from({ length: 1400 }).map((_, i) => (
+                        <span key={i} className="m-1 text-xs select-none text-gray-400">
+                          NIET
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className='absolute bottom-15 flex items-center justify-center font-semibold right-0 left-0'>
+                    <Image
+                      src="/img/rcvt.png"
+                      alt="Watermark Seal"
+                      className="object-contain "
+                      height={80}
+                      width={80}
+                    />
+                  </div>
 
                   <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
                     <Image
@@ -207,6 +244,7 @@ export default function MarksheetPreview({ marksheet }) {
                           <th className="border-[1.5px] border-[#5c3a21] py-2 text-left pl-4 w-[40%]">Subject (s) / Paper (s)</th>
                           <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Max<br />Marks</th>
                           <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Min<br />Passing</th>
+                          <th className="border-[1.5px] border-[#5c3a21] py-2 w-[12%] leading-tight text-[9px]">Practicle</th>
                           <th className="border-[1.5px] border-[#5c3a21] py-2 w-[16%] leading-tight text-[9px]">Marks<br />Obtained</th>
                         </tr>
                       </thead>
@@ -225,8 +263,12 @@ export default function MarksheetPreview({ marksheet }) {
                             <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 bg-[#f3e5d0]/20 font-semibold">
                               {s.max}
                             </td>
+
                             <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1">
                               {s.min}
+                            </td>
+                            <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 bg-[#f3e5d0]/20 font-semibold">
+                              {s.practicle}
                             </td>
                             <td className="border-r-[1.5px] border-b border-[#5c3a21]/30 py-1 font-bold text-[12px] ">
                               {s.marks}
@@ -256,6 +298,9 @@ export default function MarksheetPreview({ marksheet }) {
                           <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
                             {data.minTotal}
                           </td>
+                          <td className="border-r-[1.5px] border-[#5c3a21] text-center text-[12px]">
+                            {data.practicleTotal}
+                          </td>
                           <td className="text-center text-[14px]  text-[#5c3a21]">
                             {data.grandTotal}
                           </td>
@@ -263,7 +308,7 @@ export default function MarksheetPreview({ marksheet }) {
                       </tbody>
                     </table>
 
-                    <div className="border-[1.5px] border-t-0 border-[#5c3a21] text-[10px] font-bold p-1.5 flex justify-between items-center bg-[#f3e5d0] mb-10 shadow-sm">
+                    <div className="border-[1.5px] border-t-0 border-[#5c3a21] text-[10px] font-bold p-1.5 flex justify-between items-center bg-[#f3e5d0] mb-2 shadow-sm">
                       <div className="flex gap-6 uppercase tracking-wider">
                         <span>RESULT : <span className="text-black">{data.result}</span></span>
                         <span className="ml-6">GRADE : <span className="text-black">"{data.grade}"</span></span>
@@ -273,6 +318,54 @@ export default function MarksheetPreview({ marksheet }) {
                       </span>
 
                     </div>
+                    <div className="flex justify-end">
+                      <div className="inline-block border border-[#5c3a21]/30 rounded-md overflow-hidden">
+
+                        {/* HEADER */}
+                        <div className="flex text-[11px] font-semibold text-gray-800">
+                          {data.semestersmark.map((s, i) => (
+                            <div
+                              key={i}
+                              className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30"
+                            >
+                              {s.name}
+                            </div>
+                          ))}
+
+                          <div className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30">
+                            Final Sem
+                          </div>
+
+                          <div className="min-w-[100px] px-2 py-1 text-center font-bold">
+                            Total
+                          </div>
+                        </div>
+
+                        {/* VALUES */}
+                        <div className="flex text-[11px] font-semibold text-gray-700 border-t border-[#5c3a21]/30">
+                          {data.semestersmark.map((s, i) => (
+                            <div
+                              key={i}
+                              className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30"
+                            >
+                              {s.totalMarks}
+                            </div>
+                          ))}
+
+                          {/* FINAL SEM MARKS */}
+                          <div className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30">
+                            {finalSemMarks}
+                          </div>
+
+                          {/* GRAND TOTAL */}
+                          <div className="min-w-[100px] px-2 py-1 text-center font-bold text-black">
+                            {pgrandTotal}
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
 
                     <div className="flex justify-between items-end text-[11px] mt-20 py-20 px-2 relative">
                       <div>
@@ -299,6 +392,7 @@ export default function MarksheetPreview({ marksheet }) {
             </div>
           </div>
         </div>
+
         <div className="print-page page-break"
           style={{
             WebkitPrintColorAdjust: "exact",
@@ -315,10 +409,25 @@ export default function MarksheetPreview({ marksheet }) {
           >
             <div className="bg-[#5c3a21] p-0.5  rounded-sm shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
               <div className="bg-[#cba35800] p-0.75  border border-[#8c6239]">
-                <div className="bg-[#fcf8e3] p-0.5 border border-[#5c3a21]">
+                <div className="bg-[#fbf9ea]  p-0.5 border border-[#5c3a21]">
                   <div className="border-[3px] h-[297mm] border-double border-[#8c6239]/60 relative overflow-hidden">
 
-                    <div className="absolute bgbg h-full w-full top-0 left-0 z-0"></div>
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-10">
+                      <div
+                        className="
+      
+      flex flex-wrap
+    "
+
+                      >
+                        {Array.from({ length: 1400 }).map((_, i) => (
+                          <span key={i} className="m-1 text-xs select-none text-gray-400">
+                            NIET
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
 
                     <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none overflow-hidden">
                       <Image

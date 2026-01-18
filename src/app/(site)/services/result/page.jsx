@@ -40,6 +40,8 @@ export default function Page() {
     setLoading(false);
   };
 
+  
+
   return (
     <section className="min-h-screen bg-gray-100 px-4 py-32">
       <div className="max-w-4xl mx-auto">
@@ -86,7 +88,7 @@ export default function Page() {
               <h2 className="text-2xl font-bold text-gray-800">
                 My Brand
               </h2>
-             
+
               <p className="mt-2 font-semibold">Examination Result</p>
             </div>
 
@@ -123,6 +125,7 @@ export default function Page() {
                     <th className="border px-2 py-2">Subject</th>
                     <th className="border px-2 py-2">Min</th>
                     <th className="border px-2 py-2">Max</th>
+                    <th className="border px-2 py-2">Practicle</th>
                     <th className="border px-2 py-2">Marks</th>
                   </tr>
                 </thead>
@@ -132,6 +135,7 @@ export default function Page() {
                       <td className="border px-2 py-2 text-left">{sub.subject}</td>
                       <td className="border px-2 py-2">{sub.min}</td>
                       <td className="border px-2 py-2">{sub.max}</td>
+                      <td className="border px-2 py-2">{sub.practicle}</td>
                       <td className="border px-2 py-2 font-semibold">
                         {sub.marks}
                       </td>
@@ -141,13 +145,48 @@ export default function Page() {
               </table>
             </div>
 
+
+
+            <div className="flex justify-end mt-2">
+              <div className="inline-block border border-[#5c3a21]/30 rounded-md overflow-hidden">
+
+                {/* HEADER */}
+                <div className="flex text-[11px] font-semibold text-gray-800">
+                  {marksheet.semestersmark.map((s, i) => (
+                    <div
+                      key={i}
+                      className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30"
+                    >
+                      {s.name}
+                    </div>
+                  ))}
+
+                </div>
+
+                {/* VALUES */}
+                <div className="flex text-[11px] font-semibold text-gray-700 border-t border-[#5c3a21]/30">
+                  {marksheet.semestersmark.map((s, i) => (
+                    <div
+                      key={i}
+                      className="min-w-[90px] px-2 py-1 text-center border-r border-[#5c3a21]/30"
+                    >
+                      {s.totalMarks}
+                    </div>
+                  ))}
+
+                
+                </div>
+
+              </div>
+            </div>
+
             {/* TOTAL */}
             <div className="mt-4 text-sm font-semibold">
               <p>Total: {marksheet.total} / {marksheet.maxTotal}</p>
               <p>Marks in Words: {marksheet.marksInWords}</p>
             </div>
 
-           
+
 
             {/* BACK */}
             <div className="mt-8 text-center">

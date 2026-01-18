@@ -6,6 +6,16 @@ import MarksheetPreview from "@/Components/MarksheetPreview/MarksheetPreview";
 export default function MarksheetPage() {
   const { id } = useParams();
   const [saving, setSaving] = useState(false);
+  const SEMESTER_OPTIONS = [
+    "1st Sem",
+    "2nd Sem",
+    "3rd Sem",
+    "4th Sem",
+    "5th Sem",
+    "6th Sem",
+    "7th Sem",
+    "8th Sem",
+  ];
 
   /* ======================
      MAIN SINGLE OBJECT
@@ -25,6 +35,7 @@ export default function MarksheetPage() {
     title2: "",   // ✅ NEW
     city: "",   // ✅ NEW
     subjects: [],
+    semestersmark: [],
     total: 0,
     maxTotal: 0,
     percentage: 0,
@@ -166,6 +177,7 @@ export default function MarksheetPage() {
             code: sub.code,
             min: 40,
             max: 100,
+            practicle: 0,
             marks: 0,
           });
 
@@ -175,6 +187,35 @@ export default function MarksheetPage() {
 
     setMarksheet(prev => ({ ...prev, subjects }));
   }, [selectedCourseIds, selectedSubjects]);
+
+
+  const addSemester = () => {
+    setMarksheet(prev => ({
+      ...prev,
+      semestersmark: [
+        ...prev.semestersmark,
+        { name: "", totalMarks: "" },
+      ],
+    }));
+  };
+
+  const updateSemester = (index, field, value) => {
+    setMarksheet(prev => {
+      const updated = [...prev.semestersmark];
+      updated[index][field] =
+        field === "totalMarks" ? Number(value) : value;
+
+      return { ...prev, semestersmark: updated };
+    });
+  };
+
+  const removeSemester = (index) => {
+    setMarksheet(prev => ({
+      ...prev,
+      semestersmark: prev.semestersmark.filter((_, i) => i !== index),
+    }));
+  };
+
 
   /* ======================
      UI
@@ -248,6 +289,8 @@ export default function MarksheetPage() {
                    focus:border-orange-400"
               />
             </div>
+            {/* SEMESTER MARKS */}
+
 
             {/* Examiner */}
             <div className="space-y-1">
@@ -267,7 +310,7 @@ export default function MarksheetPage() {
               />
             </div>
 
-             <div className="space-y-1">
+            <div className="space-y-1">
               <label className="text-sm font-medium text-gray-600">
                 City
               </label>
@@ -331,6 +374,81 @@ export default function MarksheetPage() {
             </div>
 
           </div>
+          <div className="bg-white p-6 rounded-2xl border mt-5">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-gray-800">
+                Semester-wise Total Marks
+              </h2>
+
+              <button
+                onClick={addSemester}
+                className="px-4 py-1.5 text-sm rounded-lg
+      bg-green-600 text-white hover:bg-green-700"
+              >
+                + Add Semester
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {marksheet.semestersmark.map((sem, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-12 gap-3 items-end border p-3 rounded-lg"
+                >
+                  {/* Semester Name */}
+                  <div className="col-span-5">
+                    <label className="text-sm text-gray-600">Semester</label>
+                    <select
+                      value={sem.name}
+                      onChange={(e) =>
+                        updateSemester(index, "name", e.target.value)
+                      }
+                      className="w-full border rounded-lg px-3 py-2 text-sm
+            focus:ring-2 focus:ring-orange-400"
+                    >
+                      <option value="">Select Semester</option>
+                      {SEMESTER_OPTIONS.map(opt => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Total Marks */}
+                  <div className="col-span-5">
+                    <label className="text-sm text-gray-600">Total Marks</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={sem.totalMarks}
+                      onChange={(e) =>
+                        updateSemester(index, "totalMarks", e.target.value)
+                      }
+                      className="w-full border rounded-lg px-3 py-2 text-sm
+            focus:ring-2 focus:ring-orange-400"
+                    />
+                  </div>
+
+                  {/* Remove */}
+                  <div className="col-span-2 flex justify-end">
+                    <button
+                      onClick={() => removeSemester(index)}
+                      className="text-red-600 text-sm hover:underline"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+
+              {marksheet.semestersmark.length === 0 && (
+                <p className="text-sm text-gray-500 italic">
+                  No semester added yet
+                </p>
+              )}
+            </div>
+          </div>
         </div>
 
 
@@ -387,41 +505,75 @@ export default function MarksheetPage() {
         </div>
 
         {/* MARKS INPUT */}
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="font-semibold mb-2">Enter Marks</h2>
+        <div className="bg-white p-4 rounded-xl shadow-sm">
+          <h2 className="font-semibold text-sm mb-3 text-gray-800">
+            Enter Subject Marks
+          </h2>
+
+          {/* TABLE HEADER */}
+          <div className="grid grid-cols-5 gap-2 text-[11px] font-semibold text-gray-600 mb-2">
+            <div>Subject</div>
+            <div className="text-center">Min</div>
+            <div className="text-center">Max</div>
+            <div className="text-center">Prac</div>
+            <div className="text-center">Marks</div>
+            <div></div>
+          </div>
 
           {marksheet.subjects.map((s, i) => (
-            <div key={i} className="grid grid-cols-4 gap-2 mb-2">
+            <div
+              key={i}
+              className="grid grid-cols-5 gap-2 items-center mb-2"
+            >
+              {/* Subject */}
               <input
                 value={`${s.code} - ${s.subject}`}
                 disabled
-                className="border p-2 bg-gray-100"
+                className="border rounded-md px-2 py-1 text-[11px]
+        bg-gray-100 text-gray-700"
               />
 
+              {/* Min */}
               <input
                 type="number"
                 value={s.min}
                 onChange={e => updateSubject(s.code, "min", e.target.value)}
-                className="border p-2 text-center"
+                className="border rounded-md px-2 py-1 text-[11px]
+        text-center focus:ring-1 focus:ring-orange-400"
               />
 
+              {/* Max */}
               <input
                 type="number"
                 value={s.max}
                 onChange={e => updateSubject(s.code, "max", e.target.value)}
-                className="border p-2 text-center"
+                className="border rounded-md px-2 py-1 text-[11px]
+        text-center focus:ring-1 focus:ring-orange-400"
               />
 
+              {/* Practical */}
+              <input
+                type="number"
+                value={s.practicle || ""}
+                onChange={e => updateSubject(s.code, "practicle", e.target.value)}
+                className="border rounded-md px-2 py-1 text-[11px]
+        text-center focus:ring-1 focus:ring-orange-400"
+              />
+
+              {/* Marks */}
               <input
                 type="number"
                 value={s.marks}
                 onChange={e => updateSubject(s.code, "marks", e.target.value)}
-                className="border p-2 text-center"
+                className="border rounded-md px-2 py-1 text-[11px]
+        text-center font-medium focus:ring-1 focus:ring-orange-400"
               />
+
+
             </div>
           ))}
-
         </div>
+
       </div>
 
       <MarksheetPreview marksheet={marksheet} />
